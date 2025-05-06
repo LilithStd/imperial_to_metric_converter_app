@@ -8,4 +8,11 @@ export const mainScreenStyles = StyleSheet.create({
 	mainTitle: {
 		textAlign: 'center',
 	},
+	mainImageBackground: {
+		flex: 1,
+	},
+	buttonContainer: {},
+	buttonText: {},
+	buttonDarkView: {},
+	buttonLightView: {},
 });
