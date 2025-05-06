@@ -7,7 +7,7 @@ interface GlobalStoreInterface {
 	currentTheme: THEME_APP;
 	currentLanguage: LANGUAGE_APP;
 	setCurrentTheme: () => void;
-	setCurrentLanguage: () => void;
+	setCurrentLanguage: (language: LANGUAGE_APP) => void;
 }
 
 export const useGlobalStore = create<GlobalStoreInterface>()(
@@ -16,7 +16,12 @@ export const useGlobalStore = create<GlobalStoreInterface>()(
 			currentTheme: THEME_APP.LIGHT,
 			currentLanguage: LANGUAGE_APP.EN,
 			setCurrentTheme: () => {},
-			setCurrentLanguage: () => {},
+			setCurrentLanguage: (language) => {
+				if (language === get().currentLanguage) {
+					return;
+				}
+				set({currentLanguage: language});
+			},
 		}),
 		{
 			name: 'global-storage',

@@ -1,3 +1,4 @@
+import LanguageSwitcher from '@/components/languageSwitcher'
 import { mainScreenStyles } from '@/styles/mainScreenStyles'
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -21,6 +22,7 @@ export default function MainScreen() {
                         <Text>Calculator</Text>
                     </TouchableOpacity>
                 </View>
+                <LanguageSwitcher />
             </ImageBackground>
         </SafeAreaView>
 

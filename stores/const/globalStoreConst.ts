@@ -4,7 +4,7 @@ export enum THEME_APP {
 }
 
 export enum LANGUAGE_APP {
-	EN = 'en',
-	RU = 'ru',
-	LV = 'lv',
+	EN = 'EN',
+	RU = 'RU',
+	LV = 'LV',
 }
