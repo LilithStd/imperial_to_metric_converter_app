@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router'
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 const defaultBackgroundImage = require('../assets/images/backgrounds/bg_00.jpg')
+const greenButton = require('../assets/images/buttons/greenButton(Small).png')
 
 export default function MainScreen() {
     const router = useRouter()
@@ -30,19 +31,33 @@ export default function MainScreen() {
                 <View style={mainScreenStyles.mainTitleContainer}>
                     <Text style={mainScreenStyles.mainTitle}>Main Screen</Text>
                 </View>
-                <View>
+                <View style={mainScreenStyles.buttonContainer}>
                     <TouchableOpacity
                         onPress={redirectToListValuesScreen}
+
                     >
-                        <Text>List</Text>
+                        <ImageBackground
+                            source={greenButton}
+                            style={mainScreenStyles.buttonBackground}
+                        >
+                            <Text style={mainScreenStyles.buttonText}>List Values</Text>
+                        </ImageBackground>
+
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={redirectToConverterScreen}
                     >
-                        <Text>Converter</Text>
+                        <ImageBackground
+                            source={greenButton}
+                            style={mainScreenStyles.buttonBackground}
+                        >
+                            <Text style={mainScreenStyles.buttonText}>Converter</Text>
+                        </ImageBackground>
                     </TouchableOpacity>
                 </View>
-                <LanguageSwitcher />
+                <View style={mainScreenStyles.languageSwitcherContainer}>
+                    <LanguageSwitcher />
+                </View>
             </ImageBackground>
         </SafeAreaView>
 

@@ -1,8 +1,13 @@
+import { converterScreenStyles } from "@/styles/converterScreenStyles";
 import { Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 export default function Convertor() {
     return (
-        <Text>convertor</Text>
+        <SafeAreaView style={converterScreenStyles.mainContainer}>
+            <Text>convertor</Text>
+        </SafeAreaView>
+
     )
 }
