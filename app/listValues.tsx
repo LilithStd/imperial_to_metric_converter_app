@@ -1,13 +1,20 @@
 
 import { listValuesScreenStyles } from "@/styles/listValuesScreenStyles";
-import { Text } from "react-native";
+import { ImageBackground, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+const defaultBackground = require('../assets/images/backgrounds/bg_00.jpg')
 
 export default function ListValues() {
+
     return (
         <SafeAreaView style={listValuesScreenStyles.mainContainer}>
-            <Text>listValues</Text>
+            <ImageBackground
+                style={listValuesScreenStyles.mainBackground}
+                source={defaultBackground}
+                resizeMode="cover"
+            >
+                <Text>listValues</Text>
+            </ImageBackground>
         </SafeAreaView>
 
     )

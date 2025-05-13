@@ -1,5 +1,5 @@
 import { LANGUAGE_APP, THEME_APP } from "@/stores/const/globalStoreConst";
-import { useGlobalStore } from "@/stores/global";
+import { useGlobalStore } from "@/stores/globalStore";
 import { languageSwitcherStyles } from "@/styles/languageSwitcherStyles";
 import { Text, TouchableOpacity, View } from "react-native";
 const LANGUAGE_VARIANT = [

@@ -6,4 +6,8 @@ export const listValuesScreenStyles = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 	},
+	mainBackground: {
+		width: '100%',
+		height: '100%',
+	},
 });
