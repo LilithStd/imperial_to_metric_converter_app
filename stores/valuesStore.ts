@@ -2,17 +2,27 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
 import {LANGUAGE_APP} from './const/globalStoreConst';
-import {VALUES_TYPES} from './const/listValues';
+import {
+	RESULT_VALUES_TYPE,
+	VALUES_TYPES,
+	WIDTH_VALUES,
+} from './const/listValues';
 
 interface ValuesStoreInterface {
-	getListValues: (type: string, language: LANGUAGE_APP) => void;
+	widthValues: RESULT_VALUES_TYPE;
+	getListValues: (type: string, language: LANGUAGE_APP) => RESULT_VALUES_TYPE[];
 }
 
 export const useValuesStore = create<ValuesStoreInterface>()(
 	persist(
 		(set, get) => ({
+			widthValues: WIDTH_VALUES,
 			getListValues: (type, language) => {
+				const resultValues: RESULT_VALUES_TYPE[] = [];
 				switch (type) {
+					case VALUES_TYPES.ALL:
+						resultValues.push(get().widthValues);
+						break;
 					case VALUES_TYPES.LENGTH:
 						break;
 					case VALUES_TYPES.WEIGHT:
@@ -28,6 +38,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 					case VALUES_TYPES.PRESSURE:
 						break;
 				}
+				return resultValues;
 			},
 		}),
 		{

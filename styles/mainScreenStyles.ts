@@ -17,6 +17,10 @@ export const mainScreenStyles = StyleSheet.create({
 		alignItems: 'center',
 		bottom: -600,
 	},
+	themeSwitcherContainer: {
+		left: 360,
+	},
+
 	buttonContainer: {
 		justifyContent: 'center',
 		alignItems: 'center',
