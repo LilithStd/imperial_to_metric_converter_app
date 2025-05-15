@@ -10,6 +10,14 @@ export const listValuesScreenStyles = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 	},
-	sectionsButton: {},
+	sectionsButton: {
+		backgroundColor: 'yellow',
+		alignItems: 'center',
+		gap: 10,
+	},
+	sectionsContainer: {
+		flexDirection: 'row',
+		gap: 10,
+	},
 	sectionButtonTitle: {},
 });

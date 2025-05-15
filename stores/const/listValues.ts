@@ -21,6 +21,7 @@ export const VALUES_TYPES = {
 	PRESSURE: 'Pressure',
 };
 export type VALUES_ITEM = {
+	id: string;
 	imperialTypeValue: string;
 	metricTypeValue: string;
 	value: number;
@@ -69,21 +70,25 @@ export const WIDTH_VALUES: RESULT_VALUES_TYPE = {
 	type: VALUES_TYPES.LENGTH,
 	values: [
 		{
+			id: '1',
 			imperialTypeValue: IMPERIAL_LENGTH_VALUES.INCH,
 			metricTypeValue: METRIC_LENGTH_VALUES.CM,
 			value: 2.54,
 		},
 		{
+			id: '2',
 			imperialTypeValue: IMPERIAL_LENGTH_VALUES.FOOT,
 			metricTypeValue: METRIC_LENGTH_VALUES.CM,
 			value: 30.48,
 		},
 		{
+			id: '3',
 			imperialTypeValue: IMPERIAL_LENGTH_VALUES.YARD,
 			metricTypeValue: METRIC_LENGTH_VALUES.CM,
 			value: 91.44,
 		},
 		{
+			id: '4',
 			imperialTypeValue: IMPERIAL_LENGTH_VALUES.MILE,
 			metricTypeValue: METRIC_LENGTH_VALUES.KM,
 			value: 1.609,

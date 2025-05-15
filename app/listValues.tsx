@@ -20,9 +20,19 @@ export default function ListValues() {
             <Text>{item.type}</Text>
             <FlatList
                 data={item.values}
-                keyExtractor={(element, index) => `${element.imperialTypeValue}-${index}`}
                 renderItem={({ item }) => (
-                    <Text style={listValuesScreenStyles.sectionButtonTitle}>{item.imperialTypeValue}</Text>
+                    <View style={listValuesScreenStyles.sectionsContainer}>
+                        <Text style={listValuesScreenStyles.sectionButtonTitle}>
+                            {item.imperialTypeValue}
+                        </Text>
+                        <Text>
+                            {item.metricTypeValue}
+                        </Text>
+                        <Text>
+                            {item.value}
+                        </Text>
+                    </View>
+
                 )}
             />
         </View>
@@ -39,7 +49,6 @@ export default function ListValues() {
                 <FlatList
                     data={currentListValues.filter((item) => item.values)}
                     renderItem={renderItem}
-
                 />
             </ImageBackground>
         </SafeAreaView>
