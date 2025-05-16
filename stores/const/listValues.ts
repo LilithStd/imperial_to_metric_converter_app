@@ -10,6 +10,21 @@ const IMPERIAL_LENGTH_VALUES = {
 	MILE: 'mile',
 };
 
+const METRIC_AREA_VALUES = {
+	SQUARE_CM: 'см²',
+	SQUARE_METER: 'м²',
+	HECTARE: 'ga',
+	SQUARE_KILOMETER: 'км²',
+};
+
+const IMPERIAL_AREA_VALUES = {
+	SQUARE_INCH: 'square Inch',
+	SQUARE_FOOT: 'square Foot',
+	SQUARE_YARD: 'square Yard',
+	ACRE: 're',
+	SQUARE_MILE: 'square Mile',
+};
+
 export const VALUES_TYPES = {
 	ALL: 'All',
 	LENGTH: 'Length',
@@ -39,34 +54,7 @@ export interface RESULT_VALUES_TYPE {
 	values: VALUES_ITEM[];
 }
 
-// export const WIDTH_VALUES: VALUES_TYPE[] = [
-// 	{
-// 		type: VALUES_TYPES.LENGTH,
-// 		imperialTypeValue: IMPERIAL_LENGTH_VALUES.INCH,
-// 		metricTypeValue: METRIC_LENGTH_VALUES.CM,
-// 		value: 2.54,
-// 	},
-// 	{
-// 		type: VALUES_TYPES.LENGTH,
-// 		imperialTypeValue: IMPERIAL_LENGTH_VALUES.FOOT,
-// 		metricTypeValue: METRIC_LENGTH_VALUES.CM,
-// 		value: 30.48,
-// 	},
-// 	{
-// 		type: VALUES_TYPES.LENGTH,
-// 		imperialTypeValue: IMPERIAL_LENGTH_VALUES.YARD,
-// 		metricTypeValue: METRIC_LENGTH_VALUES.CM,
-// 		value: 91.44,
-// 	},
-// 	{
-// 		type: VALUES_TYPES.LENGTH,
-// 		imperialTypeValue: IMPERIAL_LENGTH_VALUES.MILE,
-// 		metricTypeValue: METRIC_LENGTH_VALUES.KM,
-// 		value: 1.609,
-// 	},
-// ];
-
-export const WIDTH_VALUES: RESULT_VALUES_TYPE = {
+export const LENGTH_VALUES: RESULT_VALUES_TYPE = {
 	type: VALUES_TYPES.LENGTH,
 	values: [
 		{
@@ -92,6 +80,42 @@ export const WIDTH_VALUES: RESULT_VALUES_TYPE = {
 			imperialTypeValue: IMPERIAL_LENGTH_VALUES.MILE,
 			metricTypeValue: METRIC_LENGTH_VALUES.KM,
 			value: 1.609,
+		},
+	],
+};
+
+export const AREA_VALUES: RESULT_VALUES_TYPE = {
+	type: VALUES_TYPES.LENGTH,
+	values: [
+		{
+			id: '1',
+			imperialTypeValue: IMPERIAL_AREA_VALUES.SQUARE_INCH,
+			metricTypeValue: METRIC_AREA_VALUES.SQUARE_CM,
+			value: 6.4516,
+		},
+		{
+			id: '2',
+			imperialTypeValue: IMPERIAL_LENGTH_VALUES.FOOT,
+			metricTypeValue: METRIC_AREA_VALUES.SQUARE_METER,
+			value: 0.0929,
+		},
+		{
+			id: '3',
+			imperialTypeValue: IMPERIAL_LENGTH_VALUES.YARD,
+			metricTypeValue: METRIC_AREA_VALUES.SQUARE_METER,
+			value: 0.8361,
+		},
+		{
+			id: '4',
+			imperialTypeValue: IMPERIAL_AREA_VALUES.ACRE,
+			metricTypeValue: METRIC_AREA_VALUES.HECTARE,
+			value: 0.4047,
+		},
+		{
+			id: '5',
+			imperialTypeValue: IMPERIAL_AREA_VALUES.SQUARE_MILE,
+			metricTypeValue: METRIC_AREA_VALUES.SQUARE_KILOMETER,
+			value: 2.59,
 		},
 	],
 };

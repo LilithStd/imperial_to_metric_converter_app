@@ -3,9 +3,9 @@ import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
 import {LANGUAGE_APP} from './const/globalStoreConst';
 import {
+	LENGTH_VALUES,
 	RESULT_VALUES_TYPE,
 	VALUES_TYPES,
-	WIDTH_VALUES,
 } from './const/listValues';
 
 interface ValuesStoreInterface {
@@ -16,7 +16,7 @@ interface ValuesStoreInterface {
 export const useValuesStore = create<ValuesStoreInterface>()(
 	persist(
 		(set, get) => ({
-			widthValues: WIDTH_VALUES,
+			widthValues: LENGTH_VALUES,
 			getListValues: (type, language) => {
 				const resultValues: RESULT_VALUES_TYPE[] = [];
 				switch (type) {
