@@ -24,6 +24,29 @@ const IMPERIAL_AREA_VALUES = {
 	ACRE: 're',
 	SQUARE_MILE: 'square Mile',
 };
+const METRIC_WEIGHT_VALUES = {
+	GRAMM: 'gr',
+	KILOGRAMM: 'kg',
+};
+const IMPERIAL_WEIGHT_VALUES = {
+	OUNCE: 'ounce',
+	POUND: 'pound',
+	STONE: 'stone',
+	TON: 'ton',
+};
+
+const METRIC_VOLUME_VALUES = {};
+
+const IMPERIAL_VOLUME_VALUES = {};
+const METRIC_TEMPERATURE_VALUES = {};
+
+const IMPERIAL_TEMPERATURE_VALUES = {};
+const METRIC_SPEED_VALUES = {};
+
+const IMPERIAL_SPEED_VALUES = {};
+const METRIC_PRESSURE_VALUES = {};
+
+const IMPERIAL_PRESSURE_VALUES = {};
 
 export const VALUES_TYPES = {
 	ALL: 'All',
