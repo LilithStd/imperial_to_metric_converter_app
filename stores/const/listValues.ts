@@ -35,9 +35,20 @@ const IMPERIAL_WEIGHT_VALUES = {
 	TON: 'ton',
 };
 
-const METRIC_VOLUME_VALUES = {};
+const METRIC_VOLUME_VALUES = {
+	CUBIC_CM: 'см³',
+	CUBIC_M: 'м³',
+	LITER: 'l',
+};
 
-const IMPERIAL_VOLUME_VALUES = {};
+const IMPERIAL_VOLUME_VALUES = {
+	CUBIC_INCH: 'cubic inch',
+	CUBIC_FOOT: 'cubic foot',
+	CUBIC_YARD: 'cubic yard',
+	GALLON: 'gallon',
+	PINT: 'pint',
+	QUART: 'quart',
+};
 const METRIC_TEMPERATURE_VALUES = {};
 
 const IMPERIAL_TEMPERATURE_VALUES = {};
