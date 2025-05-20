@@ -49,15 +49,27 @@ const IMPERIAL_VOLUME_VALUES = {
 	PINT: 'pint',
 	QUART: 'quart',
 };
-const METRIC_TEMPERATURE_VALUES = {};
+const METRIC_TEMPERATURE_VALUES = {
+	CELSIUS: '℃',
+};
 
-const IMPERIAL_TEMPERATURE_VALUES = {};
-const METRIC_SPEED_VALUES = {};
+const IMPERIAL_TEMPERATURE_VALUES = {
+	FAHRENHEIT: '℉',
+};
+const METRIC_SPEED_VALUES = {
+	KM_PER_HOUR: 'km/h',
+};
 
-const IMPERIAL_SPEED_VALUES = {};
-const METRIC_PRESSURE_VALUES = {};
+const IMPERIAL_SPEED_VALUES = {
+	MILE_PER_HOUR: 'mp/h',
+};
+const METRIC_PRESSURE_VALUES = {
+	PASCALS: 'Pa',
+};
 
-const IMPERIAL_PRESSURE_VALUES = {};
+const IMPERIAL_PRESSURE_VALUES = {
+	PSI: 'psi',
+};
 
 export const VALUES_TYPES = {
 	ALL: 'All',
