@@ -1,5 +1,5 @@
 
-import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
+import { DEFAULT_IMPERIAL_COUNT, IMPERIAL_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { listValuesScreenStyles } from "@/styles/listValuesScreenStyles";
@@ -8,6 +8,7 @@ import { FlatList, ImageBackground, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 //
 const defaultBackground = require('../assets/images/backgrounds/bg_00.jpg')
+const fahrenheitToCelsiusFormula = '°C = (°F - 32) * 5 / 9'
 
 export default function ListValues() {
     const getListValues = useValuesStore(state => state.getListValues)
@@ -23,13 +24,11 @@ export default function ListValues() {
                 renderItem={({ item }) => (
                     <View style={listValuesScreenStyles.sectionsContainer}>
                         <Text style={listValuesScreenStyles.sectionButtonTitle}>
-                            {item.imperialTypeValue}
+
+                            {DEFAULT_IMPERIAL_COUNT + ' ' + item.imperialTypeValue}
                         </Text>
                         <Text>
-                            {item.metricTypeValue}
-                        </Text>
-                        <Text>
-                            {item.value}
+                            {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value + item.metricTypeValue}
                         </Text>
                     </View>
 
@@ -45,11 +44,14 @@ export default function ListValues() {
                 resizeMode="cover"
             >
                 <Text>listValues</Text>
+                <View style={listValuesScreenStyles.listValuesContainer}>
+                    <FlatList
+                        data={currentListValues.filter((item) => item.values)}
 
-                <FlatList
-                    data={currentListValues.filter((item) => item.values)}
-                    renderItem={renderItem}
-                />
+                        renderItem={renderItem}
+                    />
+                </View>
+
             </ImageBackground>
         </SafeAreaView>
 

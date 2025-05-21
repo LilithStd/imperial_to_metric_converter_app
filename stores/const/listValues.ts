@@ -53,7 +53,7 @@ const METRIC_TEMPERATURE_VALUES = {
 	CELSIUS: '℃',
 };
 
-const IMPERIAL_TEMPERATURE_VALUES = {
+export const IMPERIAL_TEMPERATURE_VALUES = {
 	FAHRENHEIT: '℉',
 };
 const METRIC_SPEED_VALUES = {
@@ -70,6 +70,8 @@ const METRIC_PRESSURE_VALUES = {
 const IMPERIAL_PRESSURE_VALUES = {
 	PSI: 'psi',
 };
+
+export const DEFAULT_IMPERIAL_COUNT = 1;
 
 export const VALUES_TYPES = {
 	ALL: 'All',
@@ -161,7 +163,7 @@ export const WEIGHT_VALUES: RESULT_VALUES_TYPE = {
 };
 
 export const AREA_VALUES: RESULT_VALUES_TYPE = {
-	type: VALUES_TYPES.LENGTH,
+	type: VALUES_TYPES.AREA,
 	values: [
 		{
 			id: '0',

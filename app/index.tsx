@@ -34,7 +34,8 @@ export default function MainScreen() {
             <ImageBackground
                 style={mainScreenStyles.mainImageBackground}
                 source={defaultBackgroundImage}
-            >   <View style={mainScreenStyles.mainTitleContainer}>
+            >
+                <View style={mainScreenStyles.mainTitleContainer}>
                     <Text style={mainScreenStyles.mainTitle}>Main Screen</Text>
                 </View>
                 <View style={mainScreenStyles.themeSwitcherContainer}>

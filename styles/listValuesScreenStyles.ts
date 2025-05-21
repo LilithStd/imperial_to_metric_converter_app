@@ -10,6 +10,10 @@ export const listValuesScreenStyles = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 	},
+	listValuesContainer: {
+		width: '90%',
+		justifyContent: 'center',
+	},
 	sectionsButton: {
 		backgroundColor: 'yellow',
 		alignItems: 'center',
@@ -18,6 +22,7 @@ export const listValuesScreenStyles = StyleSheet.create({
 	sectionsContainer: {
 		flexDirection: 'row',
 		gap: 10,
+		justifyContent: 'space-between',
 	},
 	sectionButtonTitle: {},
 });
