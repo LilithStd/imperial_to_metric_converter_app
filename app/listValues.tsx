@@ -18,18 +18,22 @@ export default function ListValues() {
 
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={listValuesScreenStyles.sectionsButton}>
-            <Text>{item.type}</Text>
+            <Text style={listValuesScreenStyles.valuesTitle}>{item.type}</Text>
             <FlatList
                 data={item.values}
+                style={listValuesScreenStyles.valuesContainer}
                 renderItem={({ item }) => (
-                    <View style={listValuesScreenStyles.sectionsContainer}>
-                        <Text style={listValuesScreenStyles.sectionButtonTitle}>
-
-                            {DEFAULT_IMPERIAL_COUNT + ' ' + item.imperialTypeValue}
-                        </Text>
-                        <Text>
-                            {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value + item.metricTypeValue}
-                        </Text>
+                    <View style={listValuesScreenStyles.valuesSectionsContainer}>
+                        <View style={listValuesScreenStyles.valuesImperial}>
+                            <Text style={listValuesScreenStyles.sectionButtonTitle}>
+                                {DEFAULT_IMPERIAL_COUNT + ' ' + item.imperialTypeValue}
+                            </Text>
+                        </View>
+                        <View style={listValuesScreenStyles.valuesMetric}>
+                            <Text style={listValuesScreenStyles.sectionButtonTitle}>
+                                {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value + item.metricTypeValue}
+                            </Text>
+                        </View>
                     </View>
 
                 )}

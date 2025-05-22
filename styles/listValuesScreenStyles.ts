@@ -11,18 +11,36 @@ export const listValuesScreenStyles = StyleSheet.create({
 		height: '100%',
 	},
 	listValuesContainer: {
-		width: '90%',
-		justifyContent: 'center',
+		width: '100%',
+		height: '100%',
+		alignItems: 'center',
 	},
 	sectionsButton: {
-		backgroundColor: 'yellow',
-		alignItems: 'center',
-		gap: 10,
+		gap: 5,
 	},
-	sectionsContainer: {
+	valuesContainer: {
+		backgroundColor: 'turquoise',
+		borderRadius: 10,
+		padding: 10,
+	},
+	valuesTitle: {
+		textAlign: 'center',
+	},
+	valuesImperial: {
+		width: '40%',
+		alignItems: 'flex-start',
+	},
+	valuesMetric: {
+		width: '40%',
+		alignItems: 'flex-start',
+	},
+	valuesSectionsContainer: {
 		flexDirection: 'row',
 		gap: 10,
 		justifyContent: 'space-between',
 	},
-	sectionButtonTitle: {},
+	sectionButtonTitle: {
+		fontSize: 16,
+		fontWeight: 900,
+	},
 });
