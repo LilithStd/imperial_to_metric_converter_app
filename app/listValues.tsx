@@ -21,6 +21,7 @@ export default function ListValues() {
             <Text style={listValuesScreenStyles.valuesTitle}>{item.type}</Text>
             <FlatList
                 data={item.values}
+                nestedScrollEnabled={true}
                 style={listValuesScreenStyles.valuesContainer}
                 renderItem={({ item }) => (
                     <View style={listValuesScreenStyles.valuesSectionsContainer}>
@@ -29,9 +30,26 @@ export default function ListValues() {
                                 {DEFAULT_IMPERIAL_COUNT + ' ' + item.imperialTypeValue}
                             </Text>
                         </View>
-                        <View style={listValuesScreenStyles.valuesMetric}>
+                        <View style={listValuesScreenStyles.valuesMetricContainer}>
+                            {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.FAHRENHEIT
+                                ?
+                                <Text>{fahrenheitToCelsiusFormula}</Text>
+                                :
+                                <View style={listValuesScreenStyles.valuesMetric}>
+                                    <View style={listValuesScreenStyles.valuesTextContainer}>
+                                        <Text style={listValuesScreenStyles.sectionButtonTitle}>
+                                            {item.value}
+                                        </Text>
+                                    </View>
+                                    <View style={{}}>
+                                        <Text
+                                            style={listValuesScreenStyles.sectionButtonTitle}>
+                                            {item.metricTypeValue}
+                                        </Text>
+                                    </View>
+                                </View>
+                            }
                             <Text style={listValuesScreenStyles.sectionButtonTitle}>
-                                {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value + item.metricTypeValue}
                             </Text>
                         </View>
                     </View>
@@ -51,7 +69,8 @@ export default function ListValues() {
                 <View style={listValuesScreenStyles.listValuesContainer}>
                     <FlatList
                         data={currentListValues.filter((item) => item.values)}
-
+                        showsVerticalScrollIndicator={false}
+                        style={listValuesScreenStyles.listValues}
                         renderItem={renderItem}
                     />
                 </View>
