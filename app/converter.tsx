@@ -1,7 +1,10 @@
+import { GLOBAL_VALUES_TYPES } from "@/constants/global";
+import { convertImperialToMetric } from "@/helpers/helpersFunctions";
 import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
+import { useState } from "react";
 import { FlatList, ImageBackground, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
@@ -12,6 +15,13 @@ export default function Convertor() {
     const valuesListStore = useValuesStore(state => state.getListValues)
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
     const valuesListToView = valuesListStore(VALUES_TYPES.ALL, currentLanguage)
+    const [valueMetric, setValueMetric] = useState('')
+    const [valueImperial, setValueImperial] = useState('')
+    const resultView = (type: GLOBAL_VALUES_TYPES, values: number) => {
+        const resultToView = convertImperialToMetric(type, Number(valueImperial), values)
+        return resultToView.toFixed(2).toString()
+
+    }
 
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={converterScreenStyles.valuesBlockContainer}>
@@ -26,6 +36,10 @@ export default function Convertor() {
                                 <TextInput
                                     style={converterScreenStyles.valuesItem}
                                     placeholder={'1'}
+                                    keyboardType='numeric'
+                                    value={valueImperial}
+                                    onChangeText={setValueImperial}
+
                                 />
                                 <View
                                     style={converterScreenStyles.valuesimperialTitleItemContainer}>
@@ -37,6 +51,9 @@ export default function Convertor() {
                                 <TextInput
                                     style={converterScreenStyles.valuesItem}
                                     placeholder={item.value.toString()}
+                                    keyboardType='numeric'
+                                    value={resultView(GLOBAL_VALUES_TYPES.IMPERIAL, item.value)}
+                                    onChangeText={setValueMetric}
                                 />
                                 <View
                                     style={converterScreenStyles.valuesMetricTitleItemContainer}>

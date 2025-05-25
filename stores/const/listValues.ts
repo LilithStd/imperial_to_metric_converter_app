@@ -1,41 +1,41 @@
-const METRIC_LENGTH_VALUES = {
+export const METRIC_LENGTH_VALUES = {
 	CM: 'cm',
 	KM: 'km',
 };
 
-const IMPERIAL_LENGTH_VALUES = {
+export const IMPERIAL_LENGTH_VALUES = {
 	INCH: 'inch',
 	FOOT: 'foot',
 	YARD: 'yard',
 	MILE: 'mile',
 };
 
-const METRIC_AREA_VALUES = {
+export const METRIC_AREA_VALUES = {
 	SQUARE_CM: 'см²',
 	SQUARE_METER: 'м²',
 	HECTARE: 'ga',
 	SQUARE_KILOMETER: 'км²',
 };
 
-const IMPERIAL_AREA_VALUES = {
+export const IMPERIAL_AREA_VALUES = {
 	SQUARE_INCH: 'square Inch',
 	SQUARE_FOOT: 'square Foot',
 	SQUARE_YARD: 'square Yard',
 	ACRE: 're',
 	SQUARE_MILE: 'square Mile',
 };
-const METRIC_WEIGHT_VALUES = {
+export const METRIC_WEIGHT_VALUES = {
 	GRAM: 'gr',
 	KILOGRAM: 'kg',
 };
-const IMPERIAL_WEIGHT_VALUES = {
+export const IMPERIAL_WEIGHT_VALUES = {
 	OUNCE: 'ounce',
 	POUND: 'pound',
 	STONE: 'stone',
 	TON: 'ton',
 };
 
-const METRIC_VOLUME_VALUES = {
+export const METRIC_VOLUME_VALUES = {
 	CUBIC_CM: 'см³',
 	CUBIC_M: 'м³',
 	LITER: 'l',
