@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { FlatList, ImageBackground, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
-
 const defaultBackground = require('../assets/images/backgrounds/bg_00.jpg')
+const buttonBackground = require('../assets/images/buttons/greenButton(Small).png')
 type ResultAfterConvertationType = {
     name: string,
     values: string
@@ -44,70 +44,82 @@ export default function Convertor() {
                     data={item.values}
                     nestedScrollEnabled={true}
                     renderItem={({ item }) => (
+
                         <View style={converterScreenStyles.valuesSectionsContainer}>
-                            <View style={converterScreenStyles.valuesItemContainer}>
-                                <TextInput
-                                    style={converterScreenStyles.valuesItem}
-                                    placeholder={'1'}
-                                    keyboardType='numeric'
-                                    value={valueImperial.find((element) => element.name === item.imperialTypeValue)?.values || ''}
-                                    onChangeText={(text) => {
-                                        const existingIndex = valueImperial.findIndex(
-                                            element => element.name === item.imperialTypeValue
-                                        );
+                            <ImageBackground
+                                style={converterScreenStyles.buttonBackground}
+                                source={buttonBackground}
+                            >
+                                <View style={converterScreenStyles.valuesItemContainer}>
+                                    <TextInput
+                                        style={converterScreenStyles.valuesItem}
+                                        placeholder={'1'}
+                                        keyboardType='numeric'
+                                        value={valueImperial.find((element) => element.name === item.imperialTypeValue)?.values || ''}
+                                        onChangeText={(text) => {
+                                            const existingIndex = valueImperial.findIndex(
+                                                element => element.name === item.imperialTypeValue
+                                            );
 
-                                        if (existingIndex !== -1) {
-                                            const updated = [...valueImperial];
-                                            updated[existingIndex].values = text;
-                                            setValueImperial(updated);
-                                        } else {
-                                            setValueImperial([
-                                                ...valueImperial,
-                                                { name: item.imperialTypeValue, values: text }
-                                            ]);
-                                        }
-                                    }}
+                                            if (existingIndex !== -1) {
+                                                const updated = [...valueImperial];
+                                                updated[existingIndex].values = text;
+                                                setValueImperial(updated);
+                                            } else {
+                                                setValueImperial([
+                                                    ...valueImperial,
+                                                    { name: item.imperialTypeValue, values: text }
+                                                ]);
+                                            }
+                                        }}
 
-                                />
-                                <View
-                                    style={converterScreenStyles.valuesimperialTitleItemContainer}>
-                                    <Text>{item.imperialTypeValue}</Text>
+                                    />
+                                    <View
+                                        style={converterScreenStyles.valuesImperialTitleItemContainer}>
+                                        <Text style={converterScreenStyles.valuesItem}>{item.imperialTypeValue}</Text>
+                                    </View>
+
                                 </View>
-                            </View>
+                            </ImageBackground>
                             <SwitchValueArrow />
-                            <View style={converterScreenStyles.valuesItemContainer}>
-                                <TextInput
-                                    style={converterScreenStyles.valuesItem}
-                                    placeholder={item.value.toString()}
-                                    keyboardType='numeric'
-                                    value={valueMetric.find((element) => element.name === item.metricTypeValue)?.values || ''}
-                                    onChangeText={(text) => {
-                                        const existingIndex = valueMetric.findIndex(
-                                            element => element.name === item.metricTypeValue
-                                        );
+                            <ImageBackground
+                                style={converterScreenStyles.buttonBackground}
+                                source={buttonBackground}
+                            >
+                                <View style={converterScreenStyles.valuesItemContainer}>
+                                    <TextInput
+                                        style={converterScreenStyles.valuesItem}
+                                        placeholder={item.value.toString()}
+                                        keyboardType='numeric'
+                                        value={valueMetric.find((element) => element.name === item.metricTypeValue)?.values || ''}
+                                        onChangeText={(text) => {
+                                            const existingIndex = valueMetric.findIndex(
+                                                element => element.name === item.metricTypeValue
+                                            );
 
-                                        if (existingIndex !== -1) {
-                                            const updated = [...valueMetric];
-                                            updated[existingIndex].values = text;
-                                            setValueMetric(updated);
-                                        } else {
-                                            setValueMetric([
-                                                ...valueMetric,
-                                                { name: item.metricTypeValue, values: text }
-                                            ]);
-                                        }
-                                    }}
-                                />
-                                <View
-                                    style={converterScreenStyles.valuesMetricTitleItemContainer}>
-                                    <Text>{item.metricTypeValue}</Text>
+                                            if (existingIndex !== -1) {
+                                                const updated = [...valueMetric];
+                                                updated[existingIndex].values = text;
+                                                setValueMetric(updated);
+                                            } else {
+                                                setValueMetric([
+                                                    ...valueMetric,
+                                                    { name: item.metricTypeValue, values: text }
+                                                ]);
+                                            }
+                                        }}
+                                    />
+                                    <View
+                                        style={converterScreenStyles.valuesMetricTitleItemContainer}>
+                                        <Text style={converterScreenStyles.valuesItem}>{item.metricTypeValue}</Text>
+                                    </View>
                                 </View>
-                            </View>
+                            </ImageBackground>
                         </View>
                     )}
                 />
             </View>
-        </View>
+        </View >
     )
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>

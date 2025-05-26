@@ -33,20 +33,31 @@ export const converterScreenStyles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		width: '40%',
-		backgroundColor: '#66cdaa',
-		borderWidth: 1,
+		// backgroundColor: '#66cdaa',
+		// borderWidth: 1,
 		alignItems: 'center',
 	},
 	valuesItem: {
-		backgroundColor: '#66cdaa',
+		// backgroundColor: '#66cdaa',
 		// borderWidth: 1,
+		fontSize: 30,
+		fontWeight: 900,
 	},
 	valuesMetricTitleItemContainer: {
 		justifyContent: 'flex-start',
-		width: '30%',
+		width: '80%',
 	},
-	valuesimperialTitleItemContainer: {
+	valuesImperialTitleItemContainer: {
 		justifyContent: 'flex-start',
-		width: '40%',
+		width: '90%',
+	},
+	buttonBackground: {
+		transform: [{scale: 0.6}],
+		width: 263,
+		height: 85,
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginRight: -50,
+		marginLeft: -50,
 	},
 });
