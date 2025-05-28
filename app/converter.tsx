@@ -11,8 +11,9 @@ import SwitchValueArrow from '../assets/images/icons/repeat.svg';
 const defaultBackground = require('../assets/images/backgrounds/bg_00.jpg')
 const buttonBackground = require('../assets/images/buttons/greenButton(Small).png')
 type ResultAfterConvertationType = {
-    name: string,
-    values: string
+    id: string,
+    imperialValues: string,
+    metricValues: string
 }
 
 export default function Convertor() {
@@ -22,7 +23,7 @@ export default function Convertor() {
     const [valueMetric, setValueMetric] = useState('')
     const [valueImperial, setValueImperial] = useState('')
     const [activeInput, setActiveInput] = useState('');
-    const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType>({ name: '', values: '' })
+    const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType[]>([{ id: '', imperialValues: '', metricValues: '' }])
     const resultView = (type: GLOBAL_VALUES_TYPES, values: number) => {
         const resultToView = convertImperialToMetric(type, Number(valueImperial), values)
         return resultToView.toFixed(2).toString()
@@ -49,6 +50,19 @@ export default function Convertor() {
         }
     };
 
+    const handleFocus = (id: string) => {
+        if (id !== activeInput) {
+            setResultAfterConvertion(prev => {
+                const exists = prev.find(el => el.id === id);
+                if (exists) return prev;
+                return [...prev, { id, imperialValues: '0', metricValues: '0' }];
+            });
+            setValueImperial('0');
+            setValueMetric('0');
+            setActiveInput(id);
+        }
+    };
+
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={converterScreenStyles.valuesBlockContainer}>
             <View style={converterScreenStyles.valuesBlockBackground}>
@@ -70,7 +84,7 @@ export default function Convertor() {
                                         placeholder={'1'}
                                         keyboardType='numeric'
                                         value={activeInput === item.id ? valueImperial : ''}
-                                        onFocus={() => setActiveInput(item.id)}
+                                        onFocus={() => handleFocus(item.id)}
                                         onChangeText={(text) => handleImperialChange(text, item.value)}
                                     />
                                     <View
@@ -91,7 +105,7 @@ export default function Convertor() {
                                         placeholder={item.value.toString()}
                                         keyboardType='numeric'
                                         value={activeInput === item.id ? valueMetric : ''}
-                                        onFocus={() => setActiveInput(item.id)}
+                                        onFocus={() => handleFocus(item.id)}
                                         onChangeText={(text) => handleMetricChange(text, item.value)}
                                     />
                                     <View
