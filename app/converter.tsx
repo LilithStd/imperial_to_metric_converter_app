@@ -21,7 +21,7 @@ export default function Convertor() {
     const valuesListToView = valuesListStore(VALUES_TYPES.ALL, currentLanguage)
     const [valueMetric, setValueMetric] = useState('')
     const [valueImperial, setValueImperial] = useState('')
-    const [activeInput, setActiveInput] = useState<'imperial' | 'metric'>('imperial');
+    const [activeInput, setActiveInput] = useState('');
     const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType>({ name: '', values: '' })
     const resultView = (type: GLOBAL_VALUES_TYPES, values: number) => {
         const resultToView = convertImperialToMetric(type, Number(valueImperial), values)
@@ -31,8 +31,6 @@ export default function Convertor() {
 
     const handleImperialChange = (text: string, value: number) => {
         setValueImperial(text);
-        setActiveInput('imperial');
-
         const num = parseFloat(text);
         if (!isNaN(num)) {
             setValueMetric((convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, value)).toFixed(2));
@@ -43,8 +41,6 @@ export default function Convertor() {
 
     const handleMetricChange = (text: string, value: number) => {
         setValueMetric(text);
-        setActiveInput('metric');
-
         const num = parseFloat(text);
         if (!isNaN(num)) {
             setValueImperial((convertImperialToMetric(GLOBAL_VALUES_TYPES.METRIC, num, value)).toFixed(2));
@@ -73,8 +69,8 @@ export default function Convertor() {
                                         style={converterScreenStyles.valuesItem}
                                         placeholder={'1'}
                                         keyboardType='numeric'
-                                        value={''}
-                                        onFocus={() => setActiveInput('imperial')}
+                                        value={activeInput === item.id ? valueImperial : ''}
+                                        onFocus={() => setActiveInput(item.id)}
                                         onChangeText={(text) => handleImperialChange(text, item.value)}
                                     />
                                     <View
@@ -94,8 +90,8 @@ export default function Convertor() {
                                         style={converterScreenStyles.valuesItem}
                                         placeholder={item.value.toString()}
                                         keyboardType='numeric'
-                                        value={''}
-                                        onFocus={() => setActiveInput('metric')}
+                                        value={activeInput === item.id ? valueMetric : ''}
+                                        onFocus={() => setActiveInput(item.id)}
                                         onChangeText={(text) => handleMetricChange(text, item.value)}
                                     />
                                     <View
