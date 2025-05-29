@@ -55,10 +55,10 @@ export default function Convertor() {
             setResultAfterConvertion(prev => {
                 const exists = prev.find(el => el.id === id);
                 if (exists) return prev;
-                return [...prev, { id, imperialValues: '0', metricValues: '0' }];
+                return [...prev, { id, imperialValues: '', metricValues: '' }];
             });
-            setValueImperial('0');
-            setValueMetric('0');
+            setValueImperial('');
+            setValueMetric('');
             setActiveInput(id);
         }
     };
