@@ -23,7 +23,9 @@ export default function Convertor() {
     const [valueMetric, setValueMetric] = useState('')
     const [valueImperial, setValueImperial] = useState('')
     const [activeInput, setActiveInput] = useState('');
-    const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType[]>([{ id: '', imperialValues: '', metricValues: '' }])
+
+    const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType[]>([])
+
     const resultView = (type: GLOBAL_VALUES_TYPES, values: number) => {
         const resultToView = convertImperialToMetric(type, Number(valueImperial), values)
         return resultToView.toFixed(2).toString()
@@ -50,18 +52,55 @@ export default function Convertor() {
         }
     };
 
+
+    // const handleFocus = (id: string) => {
+    //     if (id !== activeInput) {
+    //         setActiveInput(id)
+    //         const exist = resultAfterConvertion.some((item) => item.id === id)
+    //         if (exist) { return }
+    //         else {
+    //             setResultAfterConvertion((prev) =>
+    //                 valueImperial !== '' ?
+    //                     [...prev, { id: id, imperialValues: valueImperial, metricValues: valueMetric }] : prev
+    //             )
+    //             setValueImperial('')
+    //             setValueMetric('')
+    //         }
+
+    //     }
+    // };
+
     const handleFocus = (id: string) => {
-        if (id !== activeInput) {
-            setResultAfterConvertion(prev => {
-                const exists = prev.find(el => el.id === id);
-                if (exists) return prev;
-                return [...prev, { id, imperialValues: '', metricValues: '' }];
-            });
-            setValueImperial('');
-            setValueMetric('');
-            setActiveInput(id);
-        }
+        setActiveInput(id);
+        setResultAfterConvertion((prev) => {
+            const index = prev.findIndex(item => item.id === id);
+
+            if (index !== -1) {
+                // Элемент уже есть — обновляем значения
+                const updated = [...prev];
+                updated[index] = {
+                    ...updated[index],
+                    imperialValues: valueImperial,
+                    metricValues: valueMetric,
+                };
+                return updated;
+            } else {
+                // Элемента нет — добавляем новый
+                return [
+                    ...prev,
+                    { id, imperialValues: valueImperial, metricValues: valueMetric },
+                ];
+            }
+        });
+
+        setValueImperial('');
+        setValueMetric('');
     };
+
+    const formatValueToView = () => {
+        const exists = resultAfterConvertion.find((item) => item.id === activeInput)
+        return exists ? exists.imperialValues : valueImperial
+    }
 
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={converterScreenStyles.valuesBlockContainer}>
@@ -83,7 +122,7 @@ export default function Convertor() {
                                         style={converterScreenStyles.valuesItem}
                                         placeholder={'1'}
                                         keyboardType='numeric'
-                                        value={activeInput === item.id ? valueImperial : ''}
+                                        value={activeInput === item.id && resultAfterConvertion.some((element) => element.id === activeInput) ? resultAfterConvertion.find((result) => result.id === activeInput)?.imperialValues : valueImperial}
                                         onFocus={() => handleFocus(item.id)}
                                         onChangeText={(text) => handleImperialChange(text, item.value)}
                                     />
