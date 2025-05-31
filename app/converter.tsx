@@ -5,7 +5,7 @@ import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
 import { useState } from "react";
-import { FlatList, ImageBackground, Text, TextInput, View } from "react-native";
+import { FlatList, ImageBackground, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
 const defaultBackground = require('../assets/images/backgrounds/bg_00.jpg')
@@ -23,14 +23,15 @@ export default function Convertor() {
     const [valueMetric, setValueMetric] = useState('')
     const [valueImperial, setValueImperial] = useState('')
     const [activeInput, setActiveInput] = useState('');
+    const [activeGroup, setActiveGroup] = useState(VALUES_TYPES.ALL)
 
     const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType[]>([])
+    // const resultView = (type: GLOBAL_VALUES_TYPES, values: number) => {
+    //     const resultToView = convertImperialToMetric(type, Number(valueImperial), values)
+    //     return resultToView.toFixed(2).toString()
 
-    const resultView = (type: GLOBAL_VALUES_TYPES, values: number) => {
-        const resultToView = convertImperialToMetric(type, Number(valueImperial), values)
-        return resultToView.toFixed(2).toString()
-
-    }
+    // }
+    const valuesGroups = [{ type: VALUES_TYPES.ALL, values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] }, ...valuesListToView];
 
     const handleImperialChange = (text: string, value: number) => {
         setValueImperial(text);
@@ -52,23 +53,6 @@ export default function Convertor() {
         }
     };
 
-
-    // const handleFocus = (id: string) => {
-    //     if (id !== activeInput) {
-    //         setActiveInput(id)
-    //         const exist = resultAfterConvertion.some((item) => item.id === id)
-    //         if (exist) { return }
-    //         else {
-    //             setResultAfterConvertion((prev) =>
-    //                 valueImperial !== '' ?
-    //                     [...prev, { id: id, imperialValues: valueImperial, metricValues: valueMetric }] : prev
-    //             )
-    //             setValueImperial('')
-    //             setValueMetric('')
-    //         }
-
-    //     }
-    // };
 
     const handleFocus = (id: string) => {
         setActiveInput(id);
@@ -107,6 +91,15 @@ export default function Convertor() {
         return existingItem ? existingItem.imperialValues : valueImperial;
     };
 
+    const resultView = resultAfterConvertion.find(item => item.id === activeInput)?.imperialValues || valueImperial;
+    // const imperialValue = resultAfterConvertion.find(el => el.id === item.id)?.imperialValues ?? '';
+    // const metricValue = resultAfterConvertion.find(el => el.id === item.id)?.metricValues ?? '';
+    const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
+        <TouchableOpacity style={converterScreenStyles.valuesGroupItem}>
+            <Text style={converterScreenStyles.valuesGroupItemTitle}>{item.type}</Text>
+        </TouchableOpacity>
+
+    )
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={converterScreenStyles.valuesBlockContainer}>
             <View style={converterScreenStyles.valuesBlockBackground}>
@@ -128,6 +121,7 @@ export default function Convertor() {
                                         placeholder={'1'}
                                         keyboardType='numeric'
                                         value={activeInput === item.id ? valueImperial : ''}
+                                        // value={resultView}
                                         onFocus={() => handleFocus(item.id)}
                                         onChangeText={(text) => handleImperialChange(text, item.value)}
                                     />
@@ -172,6 +166,16 @@ export default function Convertor() {
                 style={converterScreenStyles.mainBackground}
             >
                 <Text>Converter Values</Text>
+                <View>
+                    <FlatList
+                        data={valuesGroups}
+                        renderItem={renderGroupItem}
+                        style={converterScreenStyles.valuesGroupContainer}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                    />
+                </View>
+
                 <FlatList
                     data={valuesListToView}
                     renderItem={renderItem}

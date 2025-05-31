@@ -60,4 +60,15 @@ export const converterScreenStyles = StyleSheet.create({
 		marginRight: -50,
 		marginLeft: -50,
 	},
+	valuesGroupContainer: {
+		margin: 20,
+	},
+	valuesGroupSectionContainer: {},
+	valuesGroupItem: {
+		marginRight: 10,
+	},
+	valuesGroupItemTitle: {
+		fontSize: 16,
+	},
+	valuesAllButtonContainer: {},
 });
