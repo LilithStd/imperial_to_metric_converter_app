@@ -50,18 +50,25 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						);
 						break;
 					case VALUES_TYPES.LENGTH:
+						resultValues.push(get().lengthValues);
 						break;
 					case VALUES_TYPES.WEIGHT:
+						resultValues.push(get().weightValues);
 						break;
 					case VALUES_TYPES.AREA:
+						resultValues.push(get().areaValues);
 						break;
 					case VALUES_TYPES.TEMPERATURE:
+						resultValues.push(get().temperatureValues);
 						break;
 					case VALUES_TYPES.SPEED:
+						resultValues.push(get().speedValues);
 						break;
 					case VALUES_TYPES.VOLUME:
+						resultValues.push(get().volumeValues);
 						break;
 					case VALUES_TYPES.PRESSURE:
+						resultValues.push(get().pressureValues);
 						break;
 				}
 				return resultValues;

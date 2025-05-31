@@ -4,7 +4,7 @@ import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, ImageBackground, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
@@ -24,6 +24,7 @@ export default function Convertor() {
     const [valueImperial, setValueImperial] = useState('')
     const [activeInput, setActiveInput] = useState('');
     const [activeGroup, setActiveGroup] = useState(VALUES_TYPES.ALL)
+    const [currentGroupValues, setCurrentGroupValues] = useState(valuesListStore(VALUES_TYPES.ALL, currentLanguage))
 
     const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType[]>([])
     // const resultView = (type: GLOBAL_VALUES_TYPES, values: number) => {
@@ -95,11 +96,16 @@ export default function Convertor() {
     // const imperialValue = resultAfterConvertion.find(el => el.id === item.id)?.imperialValues ?? '';
     // const metricValue = resultAfterConvertion.find(el => el.id === item.id)?.metricValues ?? '';
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
-        <TouchableOpacity style={converterScreenStyles.valuesGroupItem}>
+        <TouchableOpacity style={converterScreenStyles.valuesGroupItem}
+            onPress={() => setActiveGroup(item.type)}
+        >
             <Text style={converterScreenStyles.valuesGroupItemTitle}>{item.type}</Text>
         </TouchableOpacity>
 
     )
+    useEffect(() => {
+        setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
+    }, [activeGroup])
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={converterScreenStyles.valuesBlockContainer}>
             <View style={converterScreenStyles.valuesBlockBackground}>
@@ -177,7 +183,7 @@ export default function Convertor() {
                 </View>
 
                 <FlatList
-                    data={valuesListToView}
+                    data={currentGroupValues}
                     renderItem={renderItem}
                     style={converterScreenStyles.valuesListContainer}
                     showsVerticalScrollIndicator={false}
