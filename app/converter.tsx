@@ -39,7 +39,6 @@ export default function Convertor() {
     //     return resultToView.toFixed(2).toString()
 
     // }
-    console.log(favoritesList);
 
     const valuesGroups = [{ type: VALUES_TYPES.ALL, values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] }, ...valuesListToView];
 
