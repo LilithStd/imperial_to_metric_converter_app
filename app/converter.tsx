@@ -1,12 +1,14 @@
 import { GLOBAL_VALUES_TYPES } from "@/constants/global";
 import { convertImperialToMetric } from "@/helpers/helpersFunctions";
 import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
+import { useFavoritesStore } from "@/stores/favoritesStore";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
 import { useEffect, useState } from "react";
 import { FlatList, ImageBackground, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import FavoritesIcon from '../assets/images/icons/heart(empty).svg';
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
 const defaultBackground = require('../assets/images/backgrounds/bg_00.jpg')
 const buttonBackground = require('../assets/images/buttons/greenButton(Small).png')
@@ -19,6 +21,11 @@ type ResultAfterConvertationType = {
 export default function Convertor() {
     const valuesListStore = useValuesStore(state => state.getListValues)
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
+    //favorites_store
+    const favoritesList = useFavoritesStore(state => state.favoritesValues)
+    const checkIsFavorites = useFavoritesStore(state => state.checkIsFavorites)
+    const addFavorites = useFavoritesStore(state => state.setFavoritesValues)
+    //
     const valuesListToView = valuesListStore(VALUES_TYPES.ALL, currentLanguage)
     const [valueMetric, setValueMetric] = useState('')
     const [valueImperial, setValueImperial] = useState('')
@@ -32,6 +39,8 @@ export default function Convertor() {
     //     return resultToView.toFixed(2).toString()
 
     // }
+    console.log(favoritesList);
+
     const valuesGroups = [{ type: VALUES_TYPES.ALL, values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] }, ...valuesListToView];
 
     const handleImperialChange = (text: string, value: number) => {
@@ -139,6 +148,17 @@ export default function Convertor() {
                                 </View>
                             </ImageBackground>
                             <SwitchValueArrow />
+
+                            {checkIsFavorites(item.id)
+                                ?
+                                <TouchableOpacity onPress={() => addFavorites(item)}>
+                                    <FavoritesIcon fill={'red'} />
+                                </TouchableOpacity>
+
+                                : <TouchableOpacity onPress={() => addFavorites(item)}>
+                                    <FavoritesIcon />
+                                </TouchableOpacity>}
+
                             <ImageBackground
                                 style={converterScreenStyles.buttonBackground}
                                 source={buttonBackground}
