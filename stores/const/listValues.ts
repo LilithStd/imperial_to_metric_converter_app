@@ -75,6 +75,7 @@ export const DEFAULT_IMPERIAL_COUNT = 1;
 
 export const VALUES_TYPES = {
 	ALL: 'All',
+	FAVORITES: 'Favorites',
 	LENGTH: 'Length',
 	AREA: 'Area',
 	VOLUME: 'Volume',

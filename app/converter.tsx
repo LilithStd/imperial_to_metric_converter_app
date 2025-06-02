@@ -1,7 +1,6 @@
 import { GLOBAL_VALUES_TYPES } from "@/constants/global";
 import { convertImperialToMetric } from "@/helpers/helpersFunctions";
 import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
-import { useFavoritesStore } from "@/stores/favoritesStore";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
@@ -22,9 +21,9 @@ export default function Convertor() {
     const valuesListStore = useValuesStore(state => state.getListValues)
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
     //favorites_store
-    const favoritesList = useFavoritesStore(state => state.favoritesValues)
-    const checkIsFavorites = useFavoritesStore(state => state.checkIsFavorites)
-    const addFavorites = useFavoritesStore(state => state.setFavoritesValues)
+    const favoritesList = useValuesStore(state => state.favoritesValues)
+    const checkIsFavorites = useValuesStore(state => state.checkIsFavorites)
+    const addFavorites = useValuesStore(state => state.setFavoritesValues)
     //
     const valuesListToView = valuesListStore(VALUES_TYPES.ALL, currentLanguage)
     const [valueMetric, setValueMetric] = useState('')
@@ -40,7 +39,7 @@ export default function Convertor() {
 
     // }
 
-    const valuesGroups = [{ type: VALUES_TYPES.ALL, values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] }, ...valuesListToView];
+    const valuesGroups = [{ type: VALUES_TYPES.ALL, values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] }, { type: VALUES_TYPES.FAVORITES, values: [{ id: 'favorites', imperialTypeValue: '', metricTypeValue: '', value: 0 }] }, ...valuesListToView];
 
     const handleImperialChange = (text: string, value: number) => {
         setValueImperial(text);

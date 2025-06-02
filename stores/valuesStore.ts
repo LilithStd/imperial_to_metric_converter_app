@@ -9,6 +9,7 @@ import {
 	RESULT_VALUES_TYPE,
 	SPEED_VALUES,
 	TEMPERATURE_VALUES,
+	VALUES_ITEM,
 	VALUES_TYPES,
 	VOLUME_VALUES,
 	WEIGHT_VALUES,
@@ -22,7 +23,10 @@ interface ValuesStoreInterface {
 	speedValues: RESULT_VALUES_TYPE;
 	temperatureValues: RESULT_VALUES_TYPE;
 	pressureValues: RESULT_VALUES_TYPE;
+	favoritesValues: VALUES_ITEM[];
 	getListValues: (type: string, language: LANGUAGE_APP) => RESULT_VALUES_TYPE[];
+	checkIsFavorites: (id: string) => boolean;
+	setFavoritesValues: (value: VALUES_ITEM) => void;
 }
 
 export const useValuesStore = create<ValuesStoreInterface>()(
@@ -35,6 +39,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 			speedValues: SPEED_VALUES,
 			temperatureValues: TEMPERATURE_VALUES,
 			pressureValues: PRESSURE_VALUES,
+			favoritesValues: [],
 			getListValues: (type, language) => {
 				const resultValues: RESULT_VALUES_TYPE[] = [];
 				switch (type) {
@@ -48,6 +53,12 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 							get().temperatureValues,
 							get().weightValues,
 						);
+						break;
+					case VALUES_TYPES.FAVORITES:
+						resultValues.push({
+							type: 'Favorites',
+							values: get().favoritesValues,
+						});
 						break;
 					case VALUES_TYPES.LENGTH:
 						resultValues.push(get().lengthValues);
@@ -72,6 +83,26 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						break;
 				}
 				return resultValues;
+			},
+
+			checkIsFavorites: (id) => {
+				return get().favoritesValues.some((item) => item.id === id);
+			},
+			setFavoritesValues: (value) => {
+				const exists = get().favoritesValues.some(
+					(item) => item.id === value.id,
+				);
+				if (exists) {
+					set((state) => ({
+						favoritesValues: state.favoritesValues.filter(
+							(item) => item.id !== value.id,
+						),
+					}));
+				} else {
+					set((state) => ({
+						favoritesValues: [...state.favoritesValues, value],
+					}));
+				}
 			},
 		}),
 		{
