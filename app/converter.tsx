@@ -62,31 +62,56 @@ export default function Convertor() {
     };
 
 
+    // const handleFocus = (id: string) => {
+    //     setActiveInput(id);
+    //     setResultAfterConvertion((prev) => {
+    //         const index = prev.findIndex(item => item.id === id);
+
+    //         if (index !== -1) {
+    //             const updated = [...prev];
+    //             updated[index] = {
+    //                 ...updated[index],
+    //                 imperialValues: valueImperial,
+    //                 metricValues: valueMetric,
+    //             };
+    //             return updated;
+    //         } else {
+    //             return [
+    //                 ...prev,
+    //                 { id, imperialValues: valueImperial, metricValues: valueMetric },
+    //             ];
+    //         }
+    //     });
+
+    //     setValueImperial('');
+    //     setValueMetric('');
+    // };
+
     const handleFocus = (id: string) => {
         setActiveInput(id);
-        setResultAfterConvertion((prev) => {
-            const index = prev.findIndex(item => item.id === id);
+        const exists = resultAfterConvertion.some((element) => element.id === id)
 
-            if (index !== -1) {
-                // Элемент уже есть — обновляем значения
-                const updated = [...prev];
-                updated[index] = {
-                    ...updated[index],
-                    imperialValues: valueImperial,
-                    metricValues: valueMetric,
-                };
-                return updated;
+        console.log(resultAfterConvertion);
+        if (exists) {
+            setResultAfterConvertion((prev) => {
+                return prev.map((item) => item.id === id
+                    ? { ...item, imperialValues: valueImperial, metricValues: valueMetric }
+                    : item
+                );
+            });
+        } else {
+            if (valueImperial !== '') {
+                setResultAfterConvertion([{ id: id, imperialValues: valueImperial, metricValues: valueMetric }]);
+                setValueImperial('');
+                setValueMetric('');
             } else {
-                // Элемента нет — добавляем новый
-                return [
-                    ...prev,
-                    { id, imperialValues: valueImperial, metricValues: valueMetric },
-                ];
+                console.log('impearial empty');
             }
-        });
 
-        setValueImperial('');
-        setValueMetric('');
+
+        }
+
+
     };
 
     const formatValueToView = () => {
@@ -100,8 +125,7 @@ export default function Convertor() {
     };
 
     const resultView = resultAfterConvertion.find(item => item.id === activeInput)?.imperialValues || valueImperial;
-    // const imperialValue = resultAfterConvertion.find(el => el.id === item.id)?.imperialValues ?? '';
-    // const metricValue = resultAfterConvertion.find(el => el.id === item.id)?.metricValues ?? '';
+
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <TouchableOpacity style={converterScreenStyles.valuesGroupItem}
             onPress={() => setActiveGroup(item.type)}
@@ -110,9 +134,11 @@ export default function Convertor() {
         </TouchableOpacity>
 
     )
+
     useEffect(() => {
         setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
     }, [activeGroup])
+
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={converterScreenStyles.valuesBlockContainer}>
             <View style={converterScreenStyles.valuesBlockBackground}>
@@ -120,64 +146,64 @@ export default function Convertor() {
                 <FlatList
                     data={item.values}
                     nestedScrollEnabled={true}
-                    renderItem={({ item }) => (
+                    renderItem={
+                        ({ item }) => (
+                            <View style={converterScreenStyles.valuesSectionsContainer}>
+                                <ImageBackground
+                                    style={converterScreenStyles.buttonBackground}
+                                    source={buttonBackground}
+                                >
+                                    <View style={converterScreenStyles.valuesItemContainer}>
 
-                        <View style={converterScreenStyles.valuesSectionsContainer}>
-                            <ImageBackground
-                                style={converterScreenStyles.buttonBackground}
-                                source={buttonBackground}
-                            >
-                                <View style={converterScreenStyles.valuesItemContainer}>
+                                        <TextInput
+                                            style={converterScreenStyles.valuesItem}
+                                            placeholder={'1'}
+                                            keyboardType='numeric'
+                                            value={activeInput === item.id ? valueImperial : ''}
+                                            // value={resultView}
+                                            onFocus={() => handleFocus(item.id)}
+                                            onChangeText={(text) => handleImperialChange(text, item.value)}
+                                        />
+                                        <View
+                                            style={converterScreenStyles.valuesImperialTitleItemContainer}>
+                                            <Text style={converterScreenStyles.valuesItem}>{item.imperialTypeValue}</Text>
+                                        </View>
 
-                                    <TextInput
-                                        style={converterScreenStyles.valuesItem}
-                                        placeholder={'1'}
-                                        keyboardType='numeric'
-                                        value={activeInput === item.id ? valueImperial : ''}
-                                        // value={resultView}
-                                        onFocus={() => handleFocus(item.id)}
-                                        onChangeText={(text) => handleImperialChange(text, item.value)}
-                                    />
-                                    <View
-                                        style={converterScreenStyles.valuesImperialTitleItemContainer}>
-                                        <Text style={converterScreenStyles.valuesItem}>{item.imperialTypeValue}</Text>
                                     </View>
+                                </ImageBackground>
+                                <SwitchValueArrow />
 
-                                </View>
-                            </ImageBackground>
-                            <SwitchValueArrow />
+                                {checkIsFavorites(item.id)
+                                    ?
+                                    <TouchableOpacity onPress={() => addFavorites(item)}>
+                                        <FavoritesIcon fill={'red'} />
+                                    </TouchableOpacity>
 
-                            {checkIsFavorites(item.id)
-                                ?
-                                <TouchableOpacity onPress={() => addFavorites(item)}>
-                                    <FavoritesIcon fill={'red'} />
-                                </TouchableOpacity>
+                                    : <TouchableOpacity onPress={() => addFavorites(item)}>
+                                        <FavoritesIcon />
+                                    </TouchableOpacity>}
 
-                                : <TouchableOpacity onPress={() => addFavorites(item)}>
-                                    <FavoritesIcon />
-                                </TouchableOpacity>}
-
-                            <ImageBackground
-                                style={converterScreenStyles.buttonBackground}
-                                source={buttonBackground}
-                            >
-                                <View style={converterScreenStyles.valuesItemContainer}>
-                                    <TextInput
-                                        style={converterScreenStyles.valuesItem}
-                                        placeholder={item.value.toString()}
-                                        keyboardType='numeric'
-                                        value={activeInput === item.id ? valueMetric : ''}
-                                        onFocus={() => handleFocus(item.id)}
-                                        onChangeText={(text) => handleMetricChange(text, item.value)}
-                                    />
-                                    <View
-                                        style={converterScreenStyles.valuesMetricTitleItemContainer}>
-                                        <Text style={converterScreenStyles.valuesItem}>{item.metricTypeValue}</Text>
+                                <ImageBackground
+                                    style={converterScreenStyles.buttonBackground}
+                                    source={buttonBackground}
+                                >
+                                    <View style={converterScreenStyles.valuesItemContainer}>
+                                        <TextInput
+                                            style={converterScreenStyles.valuesItem}
+                                            placeholder={item.value.toString()}
+                                            keyboardType='numeric'
+                                            value={activeInput === item.id ? valueMetric : ''}
+                                            onFocus={() => handleFocus(item.id)}
+                                            onChangeText={(text) => handleMetricChange(text, item.value)}
+                                        />
+                                        <View
+                                            style={converterScreenStyles.valuesMetricTitleItemContainer}>
+                                            <Text style={converterScreenStyles.valuesItem}>{item.metricTypeValue}</Text>
+                                        </View>
                                     </View>
-                                </View>
-                            </ImageBackground>
-                        </View>
-                    )}
+                                </ImageBackground>
+                            </View>
+                        )}
                 />
             </View>
         </View >
