@@ -1,3 +1,4 @@
+import {ResultAfterConvertationType} from '@/app/converter';
 import {GLOBAL_VALUES_TYPES} from '@/constants/global';
 
 export function convertFahrenheitToCelsius(fahrenheit: number): number {
@@ -17,4 +18,11 @@ export const convertImperialToMetric = (
 		default:
 			return 0;
 	}
+};
+
+export const isExistsValueIsArray = (
+	array: ResultAfterConvertationType[],
+	valueId: string,
+) => {
+	return array.some((item) => item.id === valueId);
 };

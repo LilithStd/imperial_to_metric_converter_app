@@ -1,5 +1,5 @@
 import { GLOBAL_VALUES_TYPES } from "@/constants/global";
-import { convertImperialToMetric } from "@/helpers/helpersFunctions";
+import { convertImperialToMetric, isExistsValueIsArray } from "@/helpers/helpersFunctions";
 import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
@@ -11,7 +11,7 @@ import FavoritesIcon from '../assets/images/icons/heart(empty).svg';
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
 const defaultBackground = require('../assets/images/backgrounds/bg_00.jpg')
 const buttonBackground = require('../assets/images/buttons/greenButton(Small).png')
-type ResultAfterConvertationType = {
+export type ResultAfterConvertationType = {
     id: string,
     imperialValues: string,
     metricValues: string
@@ -30,14 +30,10 @@ export default function Convertor() {
     const [valueImperial, setValueImperial] = useState('')
     const [activeInput, setActiveInput] = useState('');
     const [activeGroup, setActiveGroup] = useState(VALUES_TYPES.ALL)
+
     const [currentGroupValues, setCurrentGroupValues] = useState(valuesListStore(VALUES_TYPES.ALL, currentLanguage))
 
     const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType[]>([])
-    // const resultView = (type: GLOBAL_VALUES_TYPES, values: number) => {
-    //     const resultToView = convertImperialToMetric(type, Number(valueImperial), values)
-    //     return resultToView.toFixed(2).toString()
-
-    // }
 
     const valuesGroups = [{ type: VALUES_TYPES.ALL, values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] }, { type: VALUES_TYPES.FAVORITES, values: [{ id: 'favorites', imperialTypeValue: '', metricTypeValue: '', value: 0 }] }, ...valuesListToView];
 
@@ -46,9 +42,10 @@ export default function Convertor() {
         const num = parseFloat(text);
         if (!isNaN(num)) {
             setValueMetric((convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, value)).toFixed(2));
-        } else {
-            setValueMetric('');
         }
+        // else {
+        //     setValueMetric('');
+        // }
     };
 
     const handleMetricChange = (text: string, value: number) => {
@@ -56,12 +53,26 @@ export default function Convertor() {
         const num = parseFloat(text);
         if (!isNaN(num)) {
             setValueImperial((convertImperialToMetric(GLOBAL_VALUES_TYPES.METRIC, num, value)).toFixed(2));
-        } else {
-            setValueImperial('');
         }
+        //  else {
+        //     setValueImperial('');
+        // }
     };
 
+    const handleEndEditing = () => {
 
+    }
+    const getImperialValue = (id: string) => {
+        if (isExistsValueIsArray(resultAfterConvertion, id)) {
+            const found = resultAfterConvertion.find((el) => el.id === id);
+            return found?.imperialValues
+        } else { return activeInput === id ? valueImperial : '' }
+    };
+
+    const getMetricValue = (id: string) => {
+        const found = resultAfterConvertion.find((el) => el.id === id);
+        return found?.metricValues ?? valueMetric;
+    };
     // const handleFocus = (id: string) => {
     //     setActiveInput(id);
     //     setResultAfterConvertion((prev) => {
@@ -88,43 +99,45 @@ export default function Convertor() {
     // };
 
     const handleFocus = (id: string) => {
-        setActiveInput(id);
-        const exists = resultAfterConvertion.some((element) => element.id === id)
-
-        console.log(resultAfterConvertion);
-        if (exists) {
-            setResultAfterConvertion((prev) => {
-                return prev.map((item) => item.id === id
-                    ? { ...item, imperialValues: valueImperial, metricValues: valueMetric }
-                    : item
-                );
-            });
-        } else {
+        if (activeInput !== '' && activeInput !== id) {
+            console.log('bip');
             if (valueImperial !== '') {
-                setResultAfterConvertion([{ id: id, imperialValues: valueImperial, metricValues: valueMetric }]);
-                setValueImperial('');
-                setValueMetric('');
-            } else {
-                console.log('impearial empty');
+                console.log('imperial  not empty');
+
             }
 
 
+        } else {
+            setActiveInput(id);
         }
 
 
+        // if (isExistsValueIsArray(resultAfterConvertion, id)) {
+        //     console.log('exists');
+
+        // }
+
+        // if (isExistsValueIsArray(resultAfterConvertion, id)) {
+        //     setResultAfterConvertion((prev) => {
+        //         return prev.map((item) => item.id === id
+        //             ? { ...item, imperialValues: valueImperial, metricValues: valueMetric }
+        //             : item
+        //         );
+        //     });
+        //     setValueImperial(resultAfterConvertion.find((item) => item.id === id)?.imperialValues ?? valueImperial)
+        //     setValueMetric('')
+        // } else {
+        //     if (valueImperial !== '') {
+        //         setResultAfterConvertion([{ id: id, imperialValues: valueImperial, metricValues: valueMetric }]);
+        //     } else {
+        //         console.log('impearial empty');
+        //     }
+
+
+        // }
+
+
     };
-
-    const formatValueToView = () => {
-        const exists = resultAfterConvertion.find((item) => item.id === activeInput)
-        return exists ? exists.imperialValues : valueImperial
-    }
-
-    const getImperialValue = (id: string): string => {
-        const existingItem = resultAfterConvertion.find(el => el.id === id);
-        return existingItem ? existingItem.imperialValues : valueImperial;
-    };
-
-    const resultView = resultAfterConvertion.find(item => item.id === activeInput)?.imperialValues || valueImperial;
 
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <TouchableOpacity style={converterScreenStyles.valuesGroupItem}
@@ -159,10 +172,10 @@ export default function Convertor() {
                                             style={converterScreenStyles.valuesItem}
                                             placeholder={'1'}
                                             keyboardType='numeric'
-                                            value={activeInput === item.id ? valueImperial : ''}
-                                            // value={resultView}
+                                            value={getImperialValue(item.id)}
                                             onFocus={() => handleFocus(item.id)}
                                             onChangeText={(text) => handleImperialChange(text, item.value)}
+                                            onEndEditing={handleEndEditing}
                                         />
                                         <View
                                             style={converterScreenStyles.valuesImperialTitleItemContainer}>
@@ -192,7 +205,7 @@ export default function Convertor() {
                                             style={converterScreenStyles.valuesItem}
                                             placeholder={item.value.toString()}
                                             keyboardType='numeric'
-                                            value={activeInput === item.id ? valueMetric : ''}
+                                            value={getMetricValue(item.id)}
                                             onFocus={() => handleFocus(item.id)}
                                             onChangeText={(text) => handleMetricChange(text, item.value)}
                                         />
