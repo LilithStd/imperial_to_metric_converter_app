@@ -60,7 +60,7 @@ export default function Convertor() {
     };
 
     const handleEndEditing = () => {
-
+        // setValueImperial('')
     }
     const getImperialValue = (id: string) => {
         if (isExistsValueIsArray(resultAfterConvertion, id)) {
@@ -73,69 +73,9 @@ export default function Convertor() {
         const found = resultAfterConvertion.find((el) => el.id === id);
         return found?.metricValues ?? valueMetric;
     };
-    // const handleFocus = (id: string) => {
-    //     setActiveInput(id);
-    //     setResultAfterConvertion((prev) => {
-    //         const index = prev.findIndex(item => item.id === id);
-
-    //         if (index !== -1) {
-    //             const updated = [...prev];
-    //             updated[index] = {
-    //                 ...updated[index],
-    //                 imperialValues: valueImperial,
-    //                 metricValues: valueMetric,
-    //             };
-    //             return updated;
-    //         } else {
-    //             return [
-    //                 ...prev,
-    //                 { id, imperialValues: valueImperial, metricValues: valueMetric },
-    //             ];
-    //         }
-    //     });
-
-    //     setValueImperial('');
-    //     setValueMetric('');
-    // };
 
     const handleFocus = (id: string) => {
-        if (activeInput !== '' && activeInput !== id) {
-            console.log('bip');
-            if (valueImperial !== '') {
-                console.log('imperial  not empty');
-
-            }
-
-
-        } else {
-            setActiveInput(id);
-        }
-
-
-        // if (isExistsValueIsArray(resultAfterConvertion, id)) {
-        //     console.log('exists');
-
-        // }
-
-        // if (isExistsValueIsArray(resultAfterConvertion, id)) {
-        //     setResultAfterConvertion((prev) => {
-        //         return prev.map((item) => item.id === id
-        //             ? { ...item, imperialValues: valueImperial, metricValues: valueMetric }
-        //             : item
-        //         );
-        //     });
-        //     setValueImperial(resultAfterConvertion.find((item) => item.id === id)?.imperialValues ?? valueImperial)
-        //     setValueMetric('')
-        // } else {
-        //     if (valueImperial !== '') {
-        //         setResultAfterConvertion([{ id: id, imperialValues: valueImperial, metricValues: valueMetric }]);
-        //     } else {
-        //         console.log('impearial empty');
-        //     }
-
-
-        // }
-
+        setActiveInput(id);
 
     };
 
@@ -147,6 +87,12 @@ export default function Convertor() {
         </TouchableOpacity>
 
     )
+
+    useEffect(() => {
+        if (isExistsValueIsArray(resultAfterConvertion, activeInput)) {
+            setValueImperial(resultAfterConvertion.find((item) => item.id === activeInput)?.imperialValues ?? valueImperial)
+        }
+    }, [activeInput])
 
     useEffect(() => {
         setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
@@ -172,9 +118,9 @@ export default function Convertor() {
                                             style={converterScreenStyles.valuesItem}
                                             placeholder={'1'}
                                             keyboardType='numeric'
-                                            value={getImperialValue(item.id)}
+                                            value={activeInput === item.id ? valueImperial : ''}
                                             onFocus={() => handleFocus(item.id)}
-                                            onChangeText={(text) => handleImperialChange(text, item.value)}
+                                            onChangeText={activeInput === item.id ? (text) => handleImperialChange(text, item.value) : () => { }}
                                             onEndEditing={handleEndEditing}
                                         />
                                         <View
