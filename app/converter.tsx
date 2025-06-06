@@ -30,6 +30,7 @@ export default function Convertor() {
     const [valueImperial, setValueImperial] = useState('')
     const [activeInput, setActiveInput] = useState('');
     const [activeGroup, setActiveGroup] = useState(VALUES_TYPES.ALL)
+    const [imperialDraft, setImperialDraft] = useState<string>('');
 
     const [currentGroupValues, setCurrentGroupValues] = useState(valuesListStore(VALUES_TYPES.ALL, currentLanguage))
 
@@ -37,15 +38,19 @@ export default function Convertor() {
 
     const valuesGroups = [{ type: VALUES_TYPES.ALL, values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] }, { type: VALUES_TYPES.FAVORITES, values: [{ id: 'favorites', imperialTypeValue: '', metricTypeValue: '', value: 0 }] }, ...valuesListToView];
 
-    const handleImperialChange = (text: string, value: number) => {
-        setValueImperial(text);
-        const num = parseFloat(text);
-        if (!isNaN(num)) {
-            setValueMetric((convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, value)).toFixed(2));
-        }
-        // else {
-        //     setValueMetric('');
-        // }
+    // const handleImperialChange = (text: string, value: number) => {
+    //     setValueImperial(text);
+    //     const num = parseFloat(text);
+    //     if (!isNaN(num)) {
+    //         setValueMetric((convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, value)).toFixed(2));
+    //     }
+    //     // else {
+    //     //     setValueMetric('');
+    //     // }
+    // };
+
+    const handleImperialChange = (text: string) => {
+        setImperialDraft(text);
     };
 
     const handleMetricChange = (text: string, value: number) => {
@@ -59,9 +64,9 @@ export default function Convertor() {
         // }
     };
 
-    const handleEndEditing = () => {
-        // setValueImperial('')
-    }
+    // const handleEndEditing = () => {
+    //     // setValueImperial('')
+    // }
     const getImperialValue = (id: string) => {
         if (isExistsValueIsArray(resultAfterConvertion, id)) {
             const found = resultAfterConvertion.find((el) => el.id === id);
@@ -76,8 +81,18 @@ export default function Convertor() {
 
     const handleFocus = (id: string) => {
         setActiveInput(id);
-
+        const exists = resultAfterConvertion.find(item => item.id === id);
+        setImperialDraft(exists?.imperialValues ?? '');
     };
+
+    const resultImperialView = () => {
+        const isExistsValues = isExistsValueIsArray(resultAfterConvertion, activeInput)
+        return isExistsValues ? resultAfterConvertion.find((element) => element.id === activeInput)?.imperialValues : valueImperial
+    }
+
+    const resultMetricView = () => {
+
+    }
 
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <TouchableOpacity style={converterScreenStyles.valuesGroupItem}
@@ -87,6 +102,23 @@ export default function Convertor() {
         </TouchableOpacity>
 
     )
+
+    const handleEndEditing = () => {
+        if (!activeInput) return;
+
+        setResultAfterConvertion(prev => {
+            const exists = prev.find(item => item.id === activeInput);
+            if (exists) {
+                return prev.map(item =>
+                    item.id === activeInput
+                        ? { ...item, imperialValues: imperialDraft }
+                        : item
+                );
+            } else {
+                return [...prev, { id: activeInput, imperialValues: imperialDraft, metricValues: '' }];
+            }
+        });
+    };
 
     useEffect(() => {
         if (isExistsValueIsArray(resultAfterConvertion, activeInput)) {
@@ -118,9 +150,9 @@ export default function Convertor() {
                                             style={converterScreenStyles.valuesItem}
                                             placeholder={'1'}
                                             keyboardType='numeric'
-                                            value={activeInput === item.id ? valueImperial : ''}
+                                            value={imperialDraft}
                                             onFocus={() => handleFocus(item.id)}
-                                            onChangeText={activeInput === item.id ? (text) => handleImperialChange(text, item.value) : () => { }}
+                                            onChangeText={handleImperialChange}
                                             onEndEditing={handleEndEditing}
                                         />
                                         <View
