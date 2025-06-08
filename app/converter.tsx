@@ -40,7 +40,7 @@ export default function Convertor() {
         ...valuesListToView
     ];
 
-    // Обработчик изменения imperial значения
+
     const handleImperialChange = (text: string, id: string, conversionValue: number) => {
         setTempImperialValue(text)
 
@@ -83,40 +83,54 @@ export default function Convertor() {
 
 
     const handleBlur = (id: string) => {
-        if (tempImperialValue.trim() !== '' || tempMetricValue.trim() !== '') {
-            setResultAfterConvertion(prev => {
-                const existingIndex = prev.findIndex(item => item.id === id)
+        // if (tempImperialValue.trim() !== '' || tempMetricValue.trim() !== '') {
+        //     setResultAfterConvertion(prev => {
+        //         const existingIndex = prev.findIndex(item => item.id === id)
 
-                if (existingIndex !== -1) {
-                    return prev.map(item =>
-                        item.id === id
-                            ? { ...item, imperialValues: tempImperialValue, metricValues: tempMetricValue }
-                            : item
-                    )
-                } else {
-                    return [...prev, {
-                        id,
-                        imperialValues: tempImperialValue,
-                        metricValues: tempMetricValue
-                    }]
-                }
-            })
-        }
+        //         if (existingIndex !== -1) {
+        //             return prev.map(item =>
+        //                 item.id === id
+        //                     ? { ...item, imperialValues: tempImperialValue, metricValues: tempMetricValue }
+        //                     : item
+        //             )
+        //         } else {
+        //             return [...prev, {
+        //                 id,
+        //                 imperialValues: tempImperialValue,
+        //                 metricValues: tempMetricValue
+        //             }]
+        //         }
+        //     })
+        // }
+        setResultAfterConvertion(prev => {
+            const existingIndex = prev.findIndex(item => item.id === id)
 
+            if (existingIndex !== -1) {
+                return prev.map(item =>
+                    item.id === id
+                        ? { ...item, imperialValues: tempImperialValue, metricValues: tempMetricValue }
+                        : item
+                )
+            } else {
+                return [...prev, {
+                    id,
+                    imperialValues: tempImperialValue,
+                    metricValues: tempMetricValue
+                }]
+            }
+        })
         setActiveInputId(null)
     }
 
 
-    const getDisplayValue = (id: string, type: 'imperial' | 'metric') => {
-        // Если это активный input - показываем временные значения
+    const getDisplayValue = (id: string, type: GLOBAL_VALUES_TYPES) => {
         if (activeInputId === id) {
-            return type === 'imperial' ? tempImperialValue : tempMetricValue
+            return type === GLOBAL_VALUES_TYPES.IMPERIAL ? tempImperialValue : tempMetricValue
         }
 
-        // Иначе ищем сохраненные значения
         const savedItem = resultAfterConvertion.find(item => item.id === id)
         if (savedItem) {
-            return type === 'imperial' ? savedItem.imperialValues : savedItem.metricValues
+            return type === GLOBAL_VALUES_TYPES.IMPERIAL ? savedItem.imperialValues : savedItem.metricValues
         }
 
         return ''
@@ -153,7 +167,7 @@ export default function Convertor() {
                                         style={converterScreenStyles.valuesItem}
                                         placeholder={'1'}
                                         keyboardType='numeric'
-                                        value={getDisplayValue(item.id, 'imperial')}
+                                        value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.IMPERIAL)}
                                         onFocus={() => handleFocus(item.id)}
                                         onChangeText={(text) => handleImperialChange(text, item.id, item.value)}
                                         onBlur={() => handleBlur(item.id)}
@@ -185,7 +199,7 @@ export default function Convertor() {
                                         style={converterScreenStyles.valuesItem}
                                         placeholder={item.value.toString()}
                                         keyboardType='numeric'
-                                        value={getDisplayValue(item.id, 'metric')}
+                                        value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.METRIC)}
                                         onFocus={() => handleFocus(item.id)}
                                         onChangeText={(text) => handleMetricChange(text, item.id, item.value)}
                                         onBlur={() => handleBlur(item.id)}
