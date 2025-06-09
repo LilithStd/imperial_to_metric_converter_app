@@ -1,6 +1,7 @@
 import LanguageSwitcher from '@/components/languageSwitcher'
 import ThemeSwitcher from '@/components/themeSwitcher'
 import { APP_PATH_ROUTE } from '@/stores/const/globalConsts'
+import { useGlobalStore } from '@/stores/globalStore'
 import { mainScreenStyles } from '@/styles/mainScreenStyles'
 import { useRouter } from 'expo-router'
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
@@ -13,7 +14,18 @@ const greenButton = require('../assets/images/buttons/greenButton(Small).png')
 
 export default function MainScreen() {
     const router = useRouter()
+    const currentLanguage = useGlobalStore(state => state.currentLanguage)
+    const currentLanguageTranslateConverter = {
+        EN: 'Converter',
+        RU: 'Конвертер',
+        LV: 'Pārveidotājs'
+    }
 
+    const currentLanguageTranslateListValues = {
+        EN: 'List Values',
+        RU: 'Список Значений',
+        LV: 'Saraksta Vērtības'
+    }
 
     const redirectToListValuesScreen = () => {
         router.push({
@@ -51,7 +63,7 @@ export default function MainScreen() {
                             source={greenButton}
                             style={mainScreenStyles.buttonBackground}
                         >
-                            <Text style={mainScreenStyles.buttonText}>List Values</Text>
+                            <Text style={mainScreenStyles.buttonText}>{currentLanguageTranslateListValues[currentLanguage]}</Text>
                         </ImageBackground>
 
                     </TouchableOpacity>
@@ -62,7 +74,7 @@ export default function MainScreen() {
                             source={greenButton}
                             style={mainScreenStyles.buttonBackground}
                         >
-                            <Text style={mainScreenStyles.buttonText}>Converter</Text>
+                            <Text style={mainScreenStyles.buttonText}>{currentLanguageTranslateConverter[currentLanguage]}</Text>
                         </ImageBackground>
                     </TouchableOpacity>
                 </View>

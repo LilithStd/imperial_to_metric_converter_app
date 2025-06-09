@@ -30,7 +30,7 @@ export default function Convertor() {
     const [currentGroupValues, setCurrentGroupValues] = useState(valuesListStore(VALUES_TYPES.ALL, currentLanguage))
     const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType[]>([])
 
-    // Локальные значения для активного input
+
     const [tempImperialValue, setTempImperialValue] = useState('')
     const [tempMetricValue, setTempMetricValue] = useState('')
 
