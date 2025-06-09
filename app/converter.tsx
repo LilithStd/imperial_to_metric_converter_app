@@ -1,5 +1,5 @@
 import { GLOBAL_VALUES_TYPES } from "@/constants/global";
-import { convertImperialToMetric } from "@/helpers/helpersFunctions";
+import { convertFahrenheitToCelsius, convertImperialToMetric } from "@/helpers/helpersFunctions";
 import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
@@ -46,7 +46,9 @@ export default function Convertor() {
 
         const num = parseFloat(text)
         if (!isNaN(num)) {
-            const convertedValue = convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toFixed(2)
+            console.log(id);
+
+            const convertedValue = id === 'fahrenheit' ? convertFahrenheitToCelsius(text) : convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toFixed(2)
             setTempMetricValue(convertedValue)
         } else {
             setTempMetricValue('')
@@ -59,7 +61,9 @@ export default function Convertor() {
 
         const num = parseFloat(text)
         if (!isNaN(num)) {
-            const convertedValue = convertImperialToMetric(GLOBAL_VALUES_TYPES.METRIC, num, conversionValue).toFixed(2)
+            console.log(id);
+
+            const convertedValue = id === 'fahrenheit' ? convertFahrenheitToCelsius(text) : convertImperialToMetric(GLOBAL_VALUES_TYPES.METRIC, num, conversionValue).toFixed(2)
             setTempImperialValue(convertedValue)
         } else {
             setTempImperialValue('')

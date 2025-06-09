@@ -1,8 +1,10 @@
 import {ResultAfterConvertationType} from '@/app/converter';
 import {GLOBAL_VALUES_TYPES} from '@/constants/global';
 
-export function convertFahrenheitToCelsius(fahrenheit: number): number {
-	return ((fahrenheit - 32) * 5) / 9;
+export function convertFahrenheitToCelsius(fahrenheit: string) {
+	const fahrenheitValue = Number(fahrenheit);
+	const resultNumber = ((fahrenheitValue - 32) * 5) / 9;
+	return resultNumber.toFixed(2).toString();
 }
 
 export const convertImperialToMetric = (
