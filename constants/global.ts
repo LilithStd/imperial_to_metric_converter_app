@@ -8,3 +8,8 @@ export enum GLOBAL_VALUES_TYPES {
 export type VariantTextType = {
 	[key in LANGUAGE_APP]: string;
 };
+
+export enum TEMPERATURE_TYPE {
+	FAHRENHEIT = 'fahrenheit',
+	CELSIUS = 'celsius',
+}

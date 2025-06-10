@@ -1,11 +1,21 @@
 import {ResultAfterConvertationType} from '@/app/converter';
-import {GLOBAL_VALUES_TYPES} from '@/constants/global';
+import {GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE} from '@/constants/global';
 
-export function convertFahrenheitToCelsius(fahrenheit: string) {
-	const fahrenheitValue = Number(fahrenheit);
-	const resultNumber = ((fahrenheitValue - 32) * 5) / 9;
-	return resultNumber.toFixed(2).toString();
-}
+export const convertTemperature = (value: string, type: TEMPERATURE_TYPE) => {
+	const numericValue = Number(value);
+
+	if (isNaN(numericValue)) return '0.00';
+
+	if (type === TEMPERATURE_TYPE.FAHRENHEIT) {
+		// F → C
+		const result = ((numericValue - 32) * 5) / 9;
+		return result.toFixed(2);
+	} else {
+		// C → F
+		const result = (numericValue * 9) / 5 + 32;
+		return result.toFixed(2);
+	}
+};
 
 export const convertImperialToMetric = (
 	valueType: string,
