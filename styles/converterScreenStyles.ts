@@ -33,13 +33,9 @@ export const converterScreenStyles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		width: '40%',
-		// backgroundColor: '#66cdaa',
-		// borderWidth: 1,
 		alignItems: 'center',
 	},
 	valuesItem: {
-		// backgroundColor: '#66cdaa',
-		// borderWidth: 1,
 		fontSize: 30,
 		fontWeight: 900,
 	},
@@ -63,12 +59,16 @@ export const converterScreenStyles = StyleSheet.create({
 	valuesGroupContainer: {
 		margin: 20,
 	},
+	valuesGroupActiveTab: {
+		backgroundColor: 'teal',
+		borderRadius: 6,
+	},
 	valuesGroupSectionContainer: {},
 	valuesGroupItem: {
 		marginRight: 10,
 	},
 	valuesGroupItemTitle: {
-		fontSize: 16,
+		fontSize: 20,
 	},
 	valuesAllButtonContainer: {},
 });

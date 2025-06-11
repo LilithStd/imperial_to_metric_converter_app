@@ -87,25 +87,6 @@ export default function Convertor() {
 
 
     const handleBlur = (id: string) => {
-        // if (tempImperialValue.trim() !== '' || tempMetricValue.trim() !== '') {
-        //     setResultAfterConvertion(prev => {
-        //         const existingIndex = prev.findIndex(item => item.id === id)
-
-        //         if (existingIndex !== -1) {
-        //             return prev.map(item =>
-        //                 item.id === id
-        //                     ? { ...item, imperialValues: tempImperialValue, metricValues: tempMetricValue }
-        //                     : item
-        //             )
-        //         } else {
-        //             return [...prev, {
-        //                 id,
-        //                 imperialValues: tempImperialValue,
-        //                 metricValues: tempMetricValue
-        //             }]
-        //         }
-        //     })
-        // }
         setResultAfterConvertion(prev => {
             const existingIndex = prev.findIndex(item => item.id === id)
 
@@ -149,7 +130,7 @@ export default function Convertor() {
             style={converterScreenStyles.valuesGroupItem}
             onPress={() => setActiveGroup(item.type)}
         >
-            <Text style={converterScreenStyles.valuesGroupItemTitle}>{item.type}</Text>
+            <Text style={[converterScreenStyles.valuesGroupItemTitle, activeGroup === item.type ? converterScreenStyles.valuesGroupActiveTab : '']}>{item.type}</Text>
         </TouchableOpacity>
     )
 
@@ -227,8 +208,6 @@ export default function Convertor() {
                 resizeMode="cover"
                 style={converterScreenStyles.mainBackground}
             >
-                <Text>Converter Values</Text>
-
                 <View>
                     <FlatList
                         data={valuesGroups}

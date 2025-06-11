@@ -13,7 +13,6 @@ export const mainScreenStyles = StyleSheet.create({
 		flex: 1,
 	},
 	languageSwitcherContainer: {
-		// justifyContent: 'flex-end',
 		alignItems: 'center',
 		bottom: -600,
 	},
