@@ -13,6 +13,8 @@ export const converterScreenStyles = StyleSheet.create({
 	},
 	valuesListContainer: {},
 	valuesTitle: {
+		fontSize: 24,
+		fontWeight: 900,
 		textAlign: 'center',
 	},
 	valuesSectionsContainer: {
@@ -62,6 +64,10 @@ export const converterScreenStyles = StyleSheet.create({
 	valuesGroupActiveTab: {
 		backgroundColor: 'teal',
 		borderRadius: 6,
+	},
+	valuesGroupEmptyFavorites: {
+		textAlign: 'center',
+		opacity: 0.5,
 	},
 	valuesGroupSectionContainer: {},
 	valuesGroupItem: {

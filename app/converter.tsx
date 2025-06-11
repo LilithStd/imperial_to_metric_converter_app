@@ -46,8 +46,6 @@ export default function Convertor() {
 
         const num = parseFloat(text)
         if (!isNaN(num)) {
-            console.log(id);
-
             const convertedValue = id === TEMPERATURE_TYPE.FAHRENHEIT ? convertTemperature(text, TEMPERATURE_TYPE.FAHRENHEIT) : convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toFixed(2)
             setTempMetricValue(convertedValue)
         } else {
@@ -61,8 +59,6 @@ export default function Convertor() {
 
         const num = parseFloat(text)
         if (!isNaN(num)) {
-            console.log(id);
-
             const convertedValue = id === TEMPERATURE_TYPE.FAHRENHEIT ? convertTemperature(text, TEMPERATURE_TYPE.CELSIUS) : convertImperialToMetric(GLOBAL_VALUES_TYPES.METRIC, num, conversionValue).toFixed(2)
             setTempImperialValue(convertedValue)
         } else {
@@ -196,6 +192,9 @@ export default function Convertor() {
                             </ImageBackground>
                         </View>
                     )}
+                    ListEmptyComponent={
+                        <Text style={converterScreenStyles.valuesGroupEmptyFavorites}>Nothing added to favorites</Text>
+                    }
                 />
             </View>
         </View>
