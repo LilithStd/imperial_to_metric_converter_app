@@ -1,5 +1,5 @@
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
-import { convertImperialToMetric, convertTemperature } from "@/helpers/helpersFunctions";
+import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature } from "@/helpers/helpersFunctions";
 import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
@@ -42,16 +42,29 @@ export default function Convertor() {
 
 
     const handleImperialChange = (text: string, id: string, conversionValue: number) => {
-        setTempImperialValue(text)
-
-        const num = parseFloat(text)
-        if (!isNaN(num)) {
-            const convertedValue = id === TEMPERATURE_TYPE.FAHRENHEIT ? convertTemperature(text, TEMPERATURE_TYPE.FAHRENHEIT) : convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toFixed(2)
-            setTempMetricValue(convertedValue)
-        } else {
-            setTempMetricValue('')
+        if (text === '') {
+            setTempImperialValue('');
+            setTempMetricValue('');
+            return;
         }
-    }
+
+        const incomingValue = checkAvailibeValueToInput(text);
+        if (incomingValue) {
+            setTempImperialValue(text);
+
+            const num = parseFloat(text);
+            if (!isNaN(num)) {
+                const convertedValue =
+                    id === TEMPERATURE_TYPE.FAHRENHEIT
+                        ? convertTemperature(text, TEMPERATURE_TYPE.FAHRENHEIT)
+                        : convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toFixed(2);
+
+                setTempMetricValue(convertedValue);
+            } else {
+                setTempMetricValue('');
+            }
+        }
+    };
 
 
     const handleMetricChange = (text: string, id: string, conversionValue: number) => {
@@ -119,14 +132,16 @@ export default function Convertor() {
 
     useEffect(() => {
         setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
-    }, [activeGroup])
+
+    }, [activeGroup,])
+
 
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <TouchableOpacity
-            style={converterScreenStyles.valuesGroupItem}
+            style={[converterScreenStyles.valuesGroupItem, activeGroup === item.type ? converterScreenStyles.valuesGroupActiveTab : '']}
             onPress={() => setActiveGroup(item.type)}
         >
-            <Text style={[converterScreenStyles.valuesGroupItemTitle, activeGroup === item.type ? converterScreenStyles.valuesGroupActiveTab : '']}>{item.type}</Text>
+            <Text style={converterScreenStyles.valuesGroupItemTitle}>{item.type}</Text>
         </TouchableOpacity>
     )
 

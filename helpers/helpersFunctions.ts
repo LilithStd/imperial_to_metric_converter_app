@@ -38,3 +38,8 @@ export const isExistsValueIsArray = (
 ) => {
 	return array.some((item) => item.id === valueId);
 };
+
+export const checkAvailibeValueToInput = (incomingValue: string) => {
+	const regularNumeric = /^\d+(\.\d+)?$/;
+	return regularNumeric.test(incomingValue);
+};

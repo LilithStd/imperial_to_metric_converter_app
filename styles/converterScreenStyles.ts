@@ -62,7 +62,7 @@ export const converterScreenStyles = StyleSheet.create({
 		margin: 20,
 	},
 	valuesGroupActiveTab: {
-		backgroundColor: 'teal',
+		backgroundColor: '#7fff00',
 		borderRadius: 6,
 	},
 	valuesGroupEmptyFavorites: {
@@ -72,6 +72,7 @@ export const converterScreenStyles = StyleSheet.create({
 	valuesGroupSectionContainer: {},
 	valuesGroupItem: {
 		marginRight: 10,
+		padding: 10,
 	},
 	valuesGroupItemTitle: {
 		fontSize: 20,
