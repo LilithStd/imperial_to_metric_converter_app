@@ -35,6 +35,8 @@ export default function Convertor() {
     const [tempImperialValue, setTempImperialValue] = useState('')
     const [tempMetricValue, setTempMetricValue] = useState('')
 
+    const [invalidInputValue, setInvalidInputValue] = useState(false)
+
     const valuesGroups = [
         { type: VALUES_TYPES.ALL, values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
         { type: VALUES_TYPES.FAVORITES, values: [{ id: 'favorites', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
@@ -162,6 +164,10 @@ export default function Convertor() {
                                 source={buttonBackground}
                             >
                                 <View style={converterScreenStyles.valuesItemContainer}>
+                                    {invalidInputValue &&
+                                        <View>
+                                            <Text>incorrect input value need only 1-9 and . for input</Text>
+                                        </View>}
                                     <TextInput
                                         style={converterScreenStyles.valuesItem}
                                         placeholder={'1'}
