@@ -11,6 +11,7 @@ import FavoritesIcon from '../assets/images/icons/heart(empty).svg';
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
 const defaultBackground = require('../assets/images/backgrounds/bg_00.jpg')
 const buttonBackground = require('../assets/images/buttons/greenButton(Small).png')
+
 export type ResultAfterConvertationType = {
     id: string,
     imperialValues: string,
@@ -57,7 +58,9 @@ export default function Convertor() {
                 const convertedValue =
                     id === TEMPERATURE_TYPE.FAHRENHEIT
                         ? convertTemperature(text, TEMPERATURE_TYPE.FAHRENHEIT)
-                        : convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toFixed(2);
+                        : text.includes('.') ?
+                            convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toFixed(2)
+                            : convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toString();
 
                 setTempMetricValue(convertedValue);
             } else {
@@ -162,7 +165,7 @@ export default function Convertor() {
                                     <TextInput
                                         style={converterScreenStyles.valuesItem}
                                         placeholder={'1'}
-                                        keyboardType='numeric'
+                                        keyboardType='decimal-pad'
                                         value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.IMPERIAL)}
                                         onFocus={() => handleFocus(item.id)}
                                         onChangeText={(text) => handleImperialChange(text, item.id, item.value)}
@@ -194,7 +197,7 @@ export default function Convertor() {
                                     <TextInput
                                         style={converterScreenStyles.valuesItem}
                                         placeholder={item.value.toString()}
-                                        keyboardType='numeric'
+                                        keyboardType='decimal-pad'
                                         value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.METRIC)}
                                         onFocus={() => handleFocus(item.id)}
                                         onChangeText={(text) => handleMetricChange(text, item.id, item.value)}

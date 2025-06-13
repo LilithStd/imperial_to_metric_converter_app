@@ -40,6 +40,6 @@ export const isExistsValueIsArray = (
 };
 
 export const checkAvailibeValueToInput = (incomingValue: string) => {
-	const regularNumeric = /^\d+(\.\d+)?$/;
+	const regularNumeric = /^\d+(\.\d*)?$/;
 	return regularNumeric.test(incomingValue);
 };
