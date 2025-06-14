@@ -21,7 +21,7 @@ export type ResultAfterConvertationType = {
 export default function Convertor() {
     const valuesListStore = useValuesStore(state => state.getListValues)
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
-    const favoritesList = useValuesStore(state => state.favoritesValues)
+    // const favoritesList = useValuesStore(state => state.favoritesValues)
     const checkIsFavorites = useValuesStore(state => state.checkIsFavorites)
     const addFavorites = useValuesStore(state => state.setFavoritesValues)
 
