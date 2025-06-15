@@ -84,6 +84,43 @@ export const VALUES_TYPES = {
 	SPEED: 'Speed ',
 	PRESSURE: 'Pressure',
 };
+
+export const VALUES_TYPES_TRANSLATED = {
+	EN: {
+		ALL: 'All',
+		FAVORITES: 'Favorites',
+		LENGTH: 'Length',
+		AREA: 'Area',
+		VOLUME: 'Volume',
+		WEIGHT: 'Weight',
+		TEMPERATURE: 'Temperature',
+		SPEED: 'Speed ',
+		PRESSURE: 'Pressure',
+	},
+	RU: {
+		ALL: 'Все',
+		FAVORITES: 'Избранные',
+		LENGTH: 'Длина',
+		AREA: 'Площадь',
+		VOLUME: 'Объём',
+		WEIGHT: 'Масса',
+		TEMPERATURE: 'Температура',
+		SPEED: 'Скорость',
+		PRESSURE: 'Давление',
+	},
+	LV: {
+		ALL: 'Visi',
+		FAVORITES: 'Favorīti',
+		LENGTH: 'Garums',
+		AREA: 'Laukums',
+		VOLUME: 'Tilpums',
+		WEIGHT: 'Svars',
+		TEMPERATURE: 'Temperatūra',
+		SPEED: 'Ātrums',
+		PRESSURE: 'Spiediens',
+	},
+};
+
 export type VALUES_ITEM = {
 	id: string;
 	imperialTypeValue: string;

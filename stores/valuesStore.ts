@@ -11,6 +11,7 @@ import {
 	TEMPERATURE_VALUES,
 	VALUES_ITEM,
 	VALUES_TYPES,
+	VALUES_TYPES_TRANSLATED,
 	VOLUME_VALUES,
 	WEIGHT_VALUES,
 } from './const/listValues';
@@ -64,7 +65,25 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						resultValues.push(get().lengthValues);
 						break;
 					case VALUES_TYPES.WEIGHT:
-						resultValues.push(get().weightValues);
+						const baseValues = get().weightValues.values;
+						let localizedType = VALUES_TYPES.WEIGHT;
+
+						switch (language) {
+							case LANGUAGE_APP.LV:
+								localizedType = VALUES_TYPES_TRANSLATED.LV.WEIGHT;
+								break;
+							case LANGUAGE_APP.RU:
+								localizedType = VALUES_TYPES_TRANSLATED.RU.WEIGHT;
+								break;
+							case LANGUAGE_APP.EN:
+								localizedType = VALUES_TYPES_TRANSLATED.EN.WEIGHT;
+								break;
+						}
+
+						resultValues.push({
+							type: localizedType,
+							values: baseValues,
+						});
 						break;
 					case VALUES_TYPES.AREA:
 						resultValues.push(get().areaValues);
