@@ -21,7 +21,7 @@ export type ResultAfterConvertationType = {
 export default function Convertor() {
     const valuesListStore = useValuesStore(state => state.getListValues)
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
-    // const favoritesList = useValuesStore(state => state.favoritesValues)
+    const favoritesList = useValuesStore(state => state.favoritesValues)
     const checkIsFavorites = useValuesStore(state => state.checkIsFavorites)
     const addFavorites = useValuesStore(state => state.setFavoritesValues)
 
@@ -36,12 +36,17 @@ export default function Convertor() {
     const [tempMetricValue, setTempMetricValue] = useState('')
 
     const [invalidInputValue, setInvalidInputValue] = useState(false)
+    const [updateFavorites, setUpdateFavorites] = useState(false)
 
     const valuesGroups = [
         { type: VALUES_TYPES.ALL, values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
         { type: VALUES_TYPES.FAVORITES, values: [{ id: 'favorites', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
         ...valuesListToView
     ];
+
+    const handleCheckIsFavorites = (id: string) => {
+
+    }
 
 
     const handleImperialChange = (text: string, id: string, conversionValue: number) => {
@@ -137,8 +142,11 @@ export default function Convertor() {
 
     useEffect(() => {
         setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
-
-    }, [activeGroup,])
+        setUpdateFavorites(false)
+    }, [activeGroup, updateFavorites])
+    // useEffect(() => {
+    //     setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
+    // }, [updateFavorites])
 
 
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
@@ -184,16 +192,15 @@ export default function Convertor() {
                             </ImageBackground>
 
                             <SwitchValueArrow />
-
-                            {checkIsFavorites(item.id) ? (
-                                <TouchableOpacity onPress={() => addFavorites(item)}>
-                                    <FavoritesIcon fill={'red'} />
-                                </TouchableOpacity>
-                            ) : (
-                                <TouchableOpacity onPress={() => addFavorites(item)}>
-                                    <FavoritesIcon />
-                                </TouchableOpacity>
-                            )}
+                            <TouchableOpacity onPress={() => {
+                                addFavorites(item);
+                                setUpdateFavorites(true)
+                            }}
+                            >
+                                <FavoritesIcon
+                                    fill={checkIsFavorites(item.id) ? 'red' : 'transparent'}
+                                />
+                            </TouchableOpacity>
 
                             <ImageBackground
                                 style={converterScreenStyles.buttonBackground}
