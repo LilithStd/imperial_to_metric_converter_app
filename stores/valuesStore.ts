@@ -62,43 +62,154 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						});
 						break;
 					case VALUES_TYPES.LENGTH:
-						resultValues.push(get().lengthValues);
-						break;
-					case VALUES_TYPES.WEIGHT:
-						const baseValues = get().weightValues.values;
-						let localizedType = VALUES_TYPES.WEIGHT;
+						const baseLengthValues = get().weightValues.values;
+						let localizedLengthType = VALUES_TYPES.WEIGHT;
 
 						switch (language) {
 							case LANGUAGE_APP.LV:
-								localizedType = VALUES_TYPES_TRANSLATED.LV.WEIGHT;
+								localizedLengthType = VALUES_TYPES_TRANSLATED.LV.WEIGHT;
 								break;
 							case LANGUAGE_APP.RU:
-								localizedType = VALUES_TYPES_TRANSLATED.RU.WEIGHT;
+								localizedLengthType = VALUES_TYPES_TRANSLATED.RU.WEIGHT;
 								break;
 							case LANGUAGE_APP.EN:
-								localizedType = VALUES_TYPES_TRANSLATED.EN.WEIGHT;
+								localizedLengthType = VALUES_TYPES_TRANSLATED.EN.WEIGHT;
 								break;
 						}
 
 						resultValues.push({
-							type: localizedType,
-							values: baseValues,
+							type: localizedLengthType,
+							values: baseLengthValues,
+						});
+						break;
+					case VALUES_TYPES.WEIGHT:
+						const baseWeightValues = get().weightValues.values;
+						let localizedWeightType = VALUES_TYPES.WEIGHT;
+
+						switch (language) {
+							case LANGUAGE_APP.LV:
+								localizedWeightType = VALUES_TYPES_TRANSLATED.LV.WEIGHT;
+								break;
+							case LANGUAGE_APP.RU:
+								localizedWeightType = VALUES_TYPES_TRANSLATED.RU.WEIGHT;
+								break;
+							case LANGUAGE_APP.EN:
+								localizedWeightType = VALUES_TYPES_TRANSLATED.EN.WEIGHT;
+								break;
+						}
+
+						resultValues.push({
+							type: localizedWeightType,
+							values: baseWeightValues,
 						});
 						break;
 					case VALUES_TYPES.AREA:
-						resultValues.push(get().areaValues);
+						const baseAreaValues = get().areaValues.values;
+						let localizedAreaType = VALUES_TYPES.AREA;
+
+						switch (language) {
+							case LANGUAGE_APP.LV:
+								localizedAreaType = VALUES_TYPES_TRANSLATED.LV.AREA;
+								break;
+							case LANGUAGE_APP.RU:
+								localizedAreaType = VALUES_TYPES_TRANSLATED.RU.AREA;
+								break;
+							case LANGUAGE_APP.EN:
+								localizedAreaType = VALUES_TYPES_TRANSLATED.EN.AREA;
+								break;
+						}
+
+						resultValues.push({
+							type: localizedAreaType,
+							values: baseAreaValues,
+						});
 						break;
 					case VALUES_TYPES.TEMPERATURE:
-						resultValues.push(get().temperatureValues);
+						const baseTemperatureValues = get().temperatureValues.values;
+						let localizedTemperatureType = VALUES_TYPES.TEMPERATURE;
+
+						switch (language) {
+							case LANGUAGE_APP.LV:
+								localizedTemperatureType =
+									VALUES_TYPES_TRANSLATED.LV.TEMPERATURE;
+								break;
+							case LANGUAGE_APP.RU:
+								localizedTemperatureType =
+									VALUES_TYPES_TRANSLATED.RU.TEMPERATURE;
+								break;
+							case LANGUAGE_APP.EN:
+								localizedTemperatureType =
+									VALUES_TYPES_TRANSLATED.EN.TEMPERATURE;
+								break;
+						}
+
+						resultValues.push({
+							type: localizedTemperatureType,
+							values: baseTemperatureValues,
+						});
 						break;
 					case VALUES_TYPES.SPEED:
-						resultValues.push(get().speedValues);
+						const baseSpeedValues = get().speedValues.values;
+						let localizedSpeedType = VALUES_TYPES.SPEED;
+
+						switch (language) {
+							case LANGUAGE_APP.LV:
+								localizedSpeedType = VALUES_TYPES_TRANSLATED.LV.SPEED;
+								break;
+							case LANGUAGE_APP.RU:
+								localizedSpeedType = VALUES_TYPES_TRANSLATED.RU.SPEED;
+								break;
+							case LANGUAGE_APP.EN:
+								localizedSpeedType = VALUES_TYPES_TRANSLATED.EN.SPEED;
+								break;
+						}
+
+						resultValues.push({
+							type: localizedSpeedType,
+							values: baseSpeedValues,
+						});
 						break;
 					case VALUES_TYPES.VOLUME:
-						resultValues.push(get().volumeValues);
+						const baseVolumeValues = get().volumeValues.values;
+						let localizedVolumeType = VALUES_TYPES.VOLUME;
+
+						switch (language) {
+							case LANGUAGE_APP.LV:
+								localizedVolumeType = VALUES_TYPES_TRANSLATED.LV.VOLUME;
+								break;
+							case LANGUAGE_APP.RU:
+								localizedVolumeType = VALUES_TYPES_TRANSLATED.RU.VOLUME;
+								break;
+							case LANGUAGE_APP.EN:
+								localizedVolumeType = VALUES_TYPES_TRANSLATED.EN.VOLUME;
+								break;
+						}
+
+						resultValues.push({
+							type: localizedVolumeType,
+							values: baseVolumeValues,
+						});
 						break;
 					case VALUES_TYPES.PRESSURE:
-						resultValues.push(get().pressureValues);
+						const basePressureValues = get().pressureValues.values;
+						let localizedPressureType = VALUES_TYPES.PRESSURE;
+
+						switch (language) {
+							case LANGUAGE_APP.LV:
+								localizedPressureType = VALUES_TYPES_TRANSLATED.LV.PRESSURE;
+								break;
+							case LANGUAGE_APP.RU:
+								localizedPressureType = VALUES_TYPES_TRANSLATED.RU.PRESSURE;
+								break;
+							case LANGUAGE_APP.EN:
+								localizedPressureType = VALUES_TYPES_TRANSLATED.EN.PRESSURE;
+								break;
+						}
+
+						resultValues.push({
+							type: localizedPressureType,
+							values: basePressureValues,
+						});
 						break;
 				}
 				return resultValues;
