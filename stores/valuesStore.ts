@@ -43,16 +43,82 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 			favoritesValues: [],
 			getListValues: (type, language) => {
 				const resultValues: RESULT_VALUES_TYPE[] = [];
+				const lengthValues = get().lengthValues.values;
+				const areaValues = get().areaValues.values;
+				const pressureValues = get().pressureValues.values;
+				const speedValues = get().speedValues.values;
+				const volumeValues = get().volumeValues.values;
+				const temperatureValues = get().temperatureValues.values;
+				const weightValues = get().weightValues.values;
+				let lengthValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.LENGTH;
+				let areaValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.AREA;
+				let pressureValuesWithCurrentLanguage =
+					VALUES_TYPES_TRANSLATED.EN.PRESSURE;
+				let speedValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.SPEED;
+				let volumeValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.VOLUME;
+				let weightValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.WEIGHT;
+				let temperatureValuesWithCurrentLanguage =
+					VALUES_TYPES_TRANSLATED.EN.TEMPERATURE;
+				console.log(type);
+
 				switch (type) {
 					case VALUES_TYPES.ALL:
+						switch (language) {
+							case LANGUAGE_APP.LV:
+								lengthValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.LV.LENGTH;
+								areaValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.LV.AREA;
+								pressureValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.LV.PRESSURE;
+								volumeValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.LV.VOLUME;
+								weightValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.LV.WEIGHT;
+								temperatureValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.LV.TEMPERATURE;
+								speedValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.LV.SPEED;
+
+								break;
+						}
+						// resultValues.push(
+						// 	get().lengthValues,
+						// 	get().areaValues,
+						// 	get().pressureValues,
+						// 	get().speedValues,
+						// 	get().volumeValues,
+						// 	get().temperatureValues,
+						// 	get().weightValues,
+						// );
 						resultValues.push(
-							get().lengthValues,
-							get().areaValues,
-							get().pressureValues,
-							get().speedValues,
-							get().volumeValues,
-							get().temperatureValues,
-							get().weightValues,
+							{
+								type: lengthValuesWithCurrentLanguage,
+								values: lengthValues,
+							},
+							{
+								type: areaValuesWithCurrentLanguage,
+								values: areaValues,
+							},
+							{
+								type: pressureValuesWithCurrentLanguage,
+								values: pressureValues,
+							},
+							{
+								type: volumeValuesWithCurrentLanguage,
+								values: volumeValues,
+							},
+							{
+								type: weightValuesWithCurrentLanguage,
+								values: weightValues,
+							},
+							{
+								type: speedValuesWithCurrentLanguage,
+								values: speedValues,
+							},
+							{
+								type: temperatureValuesWithCurrentLanguage,
+								values: temperatureValues,
+							},
 						);
 						break;
 					case VALUES_TYPES.FAVORITES:
@@ -62,28 +128,30 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						});
 						break;
 					case VALUES_TYPES.LENGTH:
-						const baseLengthValues = get().weightValues.values;
-						let localizedLengthType = VALUES_TYPES.WEIGHT;
-
+						console.log('length');
+						let localLength = VALUES_TYPES.LENGTH;
 						switch (language) {
 							case LANGUAGE_APP.LV:
-								localizedLengthType = VALUES_TYPES_TRANSLATED.LV.WEIGHT;
+								// lengthValuesWithCurrentLanguage =
+								// 	VALUES_TYPES_TRANSLATED.LV.LENGTH;
+								localLength = VALUES_TYPES_TRANSLATED.LV.LENGTH;
 								break;
 							case LANGUAGE_APP.RU:
-								localizedLengthType = VALUES_TYPES_TRANSLATED.RU.WEIGHT;
+								lengthValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.RU.LENGTH;
 								break;
 							case LANGUAGE_APP.EN:
-								localizedLengthType = VALUES_TYPES_TRANSLATED.EN.WEIGHT;
+								lengthValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.EN.LENGTH;
 								break;
 						}
 
 						resultValues.push({
-							type: localizedLengthType,
-							values: baseLengthValues,
+							type: localLength,
+							values: lengthValues,
 						});
 						break;
 					case VALUES_TYPES.WEIGHT:
-						const baseWeightValues = get().weightValues.values;
 						let localizedWeightType = VALUES_TYPES.WEIGHT;
 
 						switch (language) {
@@ -100,11 +168,10 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 
 						resultValues.push({
 							type: localizedWeightType,
-							values: baseWeightValues,
+							values: weightValues,
 						});
 						break;
 					case VALUES_TYPES.AREA:
-						const baseAreaValues = get().areaValues.values;
 						let localizedAreaType = VALUES_TYPES.AREA;
 
 						switch (language) {
@@ -121,11 +188,10 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 
 						resultValues.push({
 							type: localizedAreaType,
-							values: baseAreaValues,
+							values: areaValues,
 						});
 						break;
 					case VALUES_TYPES.TEMPERATURE:
-						const baseTemperatureValues = get().temperatureValues.values;
 						let localizedTemperatureType = VALUES_TYPES.TEMPERATURE;
 
 						switch (language) {
@@ -145,11 +211,10 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 
 						resultValues.push({
 							type: localizedTemperatureType,
-							values: baseTemperatureValues,
+							values: temperatureValues,
 						});
 						break;
 					case VALUES_TYPES.SPEED:
-						const baseSpeedValues = get().speedValues.values;
 						let localizedSpeedType = VALUES_TYPES.SPEED;
 
 						switch (language) {
@@ -166,11 +231,10 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 
 						resultValues.push({
 							type: localizedSpeedType,
-							values: baseSpeedValues,
+							values: speedValues,
 						});
 						break;
 					case VALUES_TYPES.VOLUME:
-						const baseVolumeValues = get().volumeValues.values;
 						let localizedVolumeType = VALUES_TYPES.VOLUME;
 
 						switch (language) {
@@ -187,11 +251,10 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 
 						resultValues.push({
 							type: localizedVolumeType,
-							values: baseVolumeValues,
+							values: volumeValues,
 						});
 						break;
 					case VALUES_TYPES.PRESSURE:
-						const basePressureValues = get().pressureValues.values;
 						let localizedPressureType = VALUES_TYPES.PRESSURE;
 
 						switch (language) {
@@ -208,7 +271,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 
 						resultValues.push({
 							type: localizedPressureType,
-							values: basePressureValues,
+							values: pressureValues,
 						});
 						break;
 				}
