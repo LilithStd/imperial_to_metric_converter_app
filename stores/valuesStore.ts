@@ -59,7 +59,6 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				let weightValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.WEIGHT;
 				let temperatureValuesWithCurrentLanguage =
 					VALUES_TYPES_TRANSLATED.EN.TEMPERATURE;
-				console.log(type);
 
 				switch (type) {
 					case VALUES_TYPES.ALL:
@@ -80,43 +79,73 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 									VALUES_TYPES_TRANSLATED.LV.SPEED;
 
 								break;
+							case LANGUAGE_APP.RU:
+								lengthValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.RU.LENGTH;
+								areaValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.RU.AREA;
+								pressureValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.RU.PRESSURE;
+								volumeValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.RU.VOLUME;
+								weightValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.RU.WEIGHT;
+								temperatureValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.RU.TEMPERATURE;
+								speedValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.RU.SPEED;
+
+								break;
+							case LANGUAGE_APP.EN:
+								lengthValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.EN.LENGTH;
+								areaValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.AREA;
+								pressureValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.EN.PRESSURE;
+								volumeValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.EN.VOLUME;
+								weightValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.EN.WEIGHT;
+								temperatureValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.EN.TEMPERATURE;
+								speedValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.EN.SPEED;
+
+								break;
 						}
-						// resultValues.push(
-						// 	get().lengthValues,
-						// 	get().areaValues,
-						// 	get().pressureValues,
-						// 	get().speedValues,
-						// 	get().volumeValues,
-						// 	get().temperatureValues,
-						// 	get().weightValues,
-						// );
 						resultValues.push(
 							{
-								type: lengthValuesWithCurrentLanguage,
+								type: VALUES_TYPES.LENGTH,
+								label: lengthValuesWithCurrentLanguage,
 								values: lengthValues,
 							},
 							{
-								type: areaValuesWithCurrentLanguage,
+								type: VALUES_TYPES.AREA,
+								label: areaValuesWithCurrentLanguage,
 								values: areaValues,
 							},
 							{
-								type: pressureValuesWithCurrentLanguage,
+								type: VALUES_TYPES.PRESSURE,
+								label: pressureValuesWithCurrentLanguage,
 								values: pressureValues,
 							},
 							{
-								type: volumeValuesWithCurrentLanguage,
+								type: VALUES_TYPES.VOLUME,
+								label: volumeValuesWithCurrentLanguage,
 								values: volumeValues,
 							},
 							{
-								type: weightValuesWithCurrentLanguage,
+								type: VALUES_TYPES.WEIGHT,
+								label: weightValuesWithCurrentLanguage,
 								values: weightValues,
 							},
 							{
-								type: speedValuesWithCurrentLanguage,
+								type: VALUES_TYPES.SPEED,
+								label: speedValuesWithCurrentLanguage,
 								values: speedValues,
 							},
 							{
-								type: temperatureValuesWithCurrentLanguage,
+								type: VALUES_TYPES.TEMPERATURE,
+								label: temperatureValuesWithCurrentLanguage,
 								values: temperatureValues,
 							},
 						);
@@ -124,17 +153,15 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 					case VALUES_TYPES.FAVORITES:
 						resultValues.push({
 							type: 'Favorites',
+							label: 'Favorites',
 							values: get().favoritesValues,
 						});
 						break;
 					case VALUES_TYPES.LENGTH:
-						console.log('length');
-						let localLength = VALUES_TYPES.LENGTH;
 						switch (language) {
 							case LANGUAGE_APP.LV:
-								// lengthValuesWithCurrentLanguage =
-								// 	VALUES_TYPES_TRANSLATED.LV.LENGTH;
-								localLength = VALUES_TYPES_TRANSLATED.LV.LENGTH;
+								lengthValuesWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.LV.LENGTH;
 								break;
 							case LANGUAGE_APP.RU:
 								lengthValuesWithCurrentLanguage =
@@ -147,7 +174,8 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						}
 
 						resultValues.push({
-							type: localLength,
+							type: VALUES_TYPES.LENGTH,
+							label: lengthValuesWithCurrentLanguage,
 							values: lengthValues,
 						});
 						break;
@@ -167,7 +195,8 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						}
 
 						resultValues.push({
-							type: localizedWeightType,
+							type: VALUES_TYPES.WEIGHT,
+							label: localizedWeightType,
 							values: weightValues,
 						});
 						break;
@@ -187,7 +216,8 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						}
 
 						resultValues.push({
-							type: localizedAreaType,
+							type: VALUES_TYPES.AREA,
+							label: localizedAreaType,
 							values: areaValues,
 						});
 						break;
@@ -210,7 +240,8 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						}
 
 						resultValues.push({
-							type: localizedTemperatureType,
+							type: VALUES_TYPES.TEMPERATURE,
+							label: localizedTemperatureType,
 							values: temperatureValues,
 						});
 						break;
@@ -230,7 +261,8 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						}
 
 						resultValues.push({
-							type: localizedSpeedType,
+							type: VALUES_TYPES.SPEED,
+							label: localizedSpeedType,
 							values: speedValues,
 						});
 						break;
@@ -250,7 +282,8 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						}
 
 						resultValues.push({
-							type: localizedVolumeType,
+							type: VALUES_TYPES.VOLUME,
+							label: localizedVolumeType,
 							values: volumeValues,
 						});
 						break;
@@ -270,7 +303,8 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						}
 
 						resultValues.push({
-							type: localizedPressureType,
+							type: VALUES_TYPES.PRESSURE,
+							label: localizedPressureType,
 							values: pressureValues,
 						});
 						break;

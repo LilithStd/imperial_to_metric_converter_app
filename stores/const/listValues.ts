@@ -137,11 +137,13 @@ export type VALUES_TYPE = {
 
 export interface RESULT_VALUES_TYPE {
 	type: string;
+	label: string;
 	values: VALUES_ITEM[];
 }
 
 export const LENGTH_VALUES: RESULT_VALUES_TYPE = {
 	type: VALUES_TYPES.LENGTH,
+	label: VALUES_TYPES_TRANSLATED.EN.LENGTH,
 	values: [
 		{
 			id: 'inch',
@@ -172,6 +174,7 @@ export const LENGTH_VALUES: RESULT_VALUES_TYPE = {
 
 export const WEIGHT_VALUES: RESULT_VALUES_TYPE = {
 	type: VALUES_TYPES.WEIGHT,
+	label: VALUES_TYPES_TRANSLATED.EN.WEIGHT,
 	values: [
 		{
 			id: 'ounce',
@@ -202,6 +205,7 @@ export const WEIGHT_VALUES: RESULT_VALUES_TYPE = {
 
 export const AREA_VALUES: RESULT_VALUES_TYPE = {
 	type: VALUES_TYPES.AREA,
+	label: VALUES_TYPES_TRANSLATED.EN.AREA,
 	values: [
 		{
 			id: 'square_inch',
@@ -238,6 +242,7 @@ export const AREA_VALUES: RESULT_VALUES_TYPE = {
 
 export const VOLUME_VALUES: RESULT_VALUES_TYPE = {
 	type: VALUES_TYPES.VOLUME,
+	label: VALUES_TYPES_TRANSLATED.EN.VOLUME,
 	values: [
 		{
 			id: 'cubic_inch',
@@ -280,6 +285,7 @@ export const VOLUME_VALUES: RESULT_VALUES_TYPE = {
 
 export const SPEED_VALUES: RESULT_VALUES_TYPE = {
 	type: VALUES_TYPES.SPEED,
+	label: VALUES_TYPES_TRANSLATED.EN.SPEED,
 	values: [
 		{
 			id: 'mile_per_hour',
@@ -292,6 +298,7 @@ export const SPEED_VALUES: RESULT_VALUES_TYPE = {
 
 export const PRESSURE_VALUES: RESULT_VALUES_TYPE = {
 	type: VALUES_TYPES.PRESSURE,
+	label: VALUES_TYPES_TRANSLATED.EN.PRESSURE,
 	values: [
 		{
 			id: 'psi',
@@ -304,6 +311,7 @@ export const PRESSURE_VALUES: RESULT_VALUES_TYPE = {
 
 export const TEMPERATURE_VALUES: RESULT_VALUES_TYPE = {
 	type: VALUES_TYPES.TEMPERATURE,
+	label: VALUES_TYPES_TRANSLATED.EN.TEMPERATURE,
 	values: [
 		{
 			id: 'fahrenheit',

@@ -39,14 +39,10 @@ export default function Convertor() {
     const [updateFavorites, setUpdateFavorites] = useState(false)
 
     const valuesGroups = [
-        { type: VALUES_TYPES.ALL, values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
-        { type: VALUES_TYPES.FAVORITES, values: [{ id: 'favorites', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
+        { type: VALUES_TYPES.ALL, label: 'All', values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
+        { type: VALUES_TYPES.FAVORITES, label: 'Favorites', values: [{ id: 'favorites', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
         ...valuesListToView
     ];
-
-    const handleCheckIsFavorites = (id: string) => {
-
-    }
 
 
     const handleImperialChange = (text: string, id: string, conversionValue: number) => {
@@ -154,14 +150,14 @@ export default function Convertor() {
             style={[converterScreenStyles.valuesGroupItem, activeGroup === item.type ? converterScreenStyles.valuesGroupActiveTab : '']}
             onPress={() => setActiveGroup(item.type)}
         >
-            <Text style={converterScreenStyles.valuesGroupItemTitle}>{item.type}</Text>
+            <Text style={converterScreenStyles.valuesGroupItemTitle}>{item.label}</Text>
         </TouchableOpacity>
     )
 
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={converterScreenStyles.valuesBlockContainer}>
             <View style={converterScreenStyles.valuesBlockBackground}>
-                <Text style={converterScreenStyles.valuesTitle}>{item.type}</Text>
+                <Text style={converterScreenStyles.valuesTitle}>{item.label}</Text>
                 <FlatList
                     data={item.values}
                     nestedScrollEnabled={true}
