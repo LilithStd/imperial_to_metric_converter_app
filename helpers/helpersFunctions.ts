@@ -1,5 +1,7 @@
 import {ResultAfterConvertationType} from '@/app/converter';
 import {GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE} from '@/constants/global';
+import {LANGUAGE_APP} from '@/stores/const/globalStoreConst';
+import {LIST_LABEL, LIST_LABEL_TRANSLATE} from './helpersConst';
 
 export const convertTemperature = (value: string, type: TEMPERATURE_TYPE) => {
 	const numericValue = Number(value);
@@ -42,4 +44,40 @@ export const isExistsValueIsArray = (
 export const checkAvailibeValueToInput = (incomingValue: string) => {
 	const regularNumeric = /^\d+(\.\d*)?$/;
 	return regularNumeric.test(incomingValue);
+};
+
+export const translatedLabelForCurrentLanguage = (
+	lable: string,
+	currentLanguage: string,
+) => {
+	let translatedLabel = '';
+	switch (lable) {
+		case LIST_LABEL.ALL:
+			switch (currentLanguage) {
+				case LANGUAGE_APP.LV:
+					translatedLabel = LIST_LABEL_TRANSLATE.ALL.LV;
+					break;
+				case LANGUAGE_APP.RU:
+					translatedLabel = LIST_LABEL_TRANSLATE.ALL.RU;
+					break;
+				case LANGUAGE_APP.EN:
+					translatedLabel = LIST_LABEL_TRANSLATE.ALL.EN;
+					break;
+			}
+			break;
+		case LIST_LABEL.FAVORITES:
+			switch (currentLanguage) {
+				case LANGUAGE_APP.LV:
+					translatedLabel = LIST_LABEL_TRANSLATE.FAVORITES.LV;
+					break;
+				case LANGUAGE_APP.RU:
+					translatedLabel = LIST_LABEL_TRANSLATE.FAVORITES.RU;
+					break;
+				case LANGUAGE_APP.EN:
+					translatedLabel = LIST_LABEL_TRANSLATE.FAVORITES.EN;
+					break;
+			}
+			break;
+	}
+	return translatedLabel;
 };

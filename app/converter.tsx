@@ -1,5 +1,6 @@
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
-import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature } from "@/helpers/helpersFunctions";
+import { LIST_LABEL } from "@/helpers/helpersConst";
+import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
@@ -39,8 +40,8 @@ export default function Convertor() {
     const [updateFavorites, setUpdateFavorites] = useState(false)
 
     const valuesGroups = [
-        { type: VALUES_TYPES.ALL, label: 'All', values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
-        { type: VALUES_TYPES.FAVORITES, label: 'Favorites', values: [{ id: 'favorites', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
+        { type: VALUES_TYPES.ALL, label: translatedLabelForCurrentLanguage(LIST_LABEL.ALL, currentLanguage), values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
+        { type: VALUES_TYPES.FAVORITES, label: translatedLabelForCurrentLanguage(LIST_LABEL.FAVORITES, currentLanguage), values: [{ id: 'favorites', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
         ...valuesListToView
     ];
 
