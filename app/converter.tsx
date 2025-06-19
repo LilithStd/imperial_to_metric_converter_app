@@ -1,6 +1,6 @@
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
 import { LIST_LABEL } from "@/helpers/helpersConst";
-import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
+import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
@@ -221,7 +221,7 @@ export default function Convertor() {
                         </View>
                     )}
                     ListEmptyComponent={
-                        <Text style={converterScreenStyles.valuesGroupEmptyFavorites}>Nothing added to favorites</Text>
+                        <Text style={converterScreenStyles.valuesGroupEmptyFavorites}>{emptyFavoritesDescription(currentLanguage)}</Text>
                     }
                 />
             </View>

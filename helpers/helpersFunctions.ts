@@ -1,7 +1,11 @@
 import {ResultAfterConvertationType} from '@/app/converter';
 import {GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE} from '@/constants/global';
 import {LANGUAGE_APP} from '@/stores/const/globalStoreConst';
-import {LIST_LABEL, LIST_LABEL_TRANSLATE} from './helpersConst';
+import {
+	EMPTY_FAVORITES_DESCRIPTION,
+	LIST_LABEL,
+	LIST_LABEL_TRANSLATE,
+} from './helpersConst';
 
 export const convertTemperature = (value: string, type: TEMPERATURE_TYPE) => {
 	const numericValue = Number(value);
@@ -80,4 +84,15 @@ export const translatedLabelForCurrentLanguage = (
 			break;
 	}
 	return translatedLabel;
+};
+
+export const emptyFavoritesDescription = (language: LANGUAGE_APP) => {
+	switch (language) {
+		case LANGUAGE_APP.EN:
+			return EMPTY_FAVORITES_DESCRIPTION.EN;
+		case LANGUAGE_APP.LV:
+			return EMPTY_FAVORITES_DESCRIPTION.LV;
+		case LANGUAGE_APP.RU:
+			return EMPTY_FAVORITES_DESCRIPTION.RU;
+	}
 };

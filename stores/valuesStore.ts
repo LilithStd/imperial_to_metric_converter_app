@@ -1,3 +1,4 @@
+import {LIST_LABEL, LIST_LABEL_TRANSLATE} from '@/helpers/helpersConst';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
@@ -50,6 +51,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				const volumeValues = get().volumeValues.values;
 				const temperatureValues = get().temperatureValues.values;
 				const weightValues = get().weightValues.values;
+				let favoritesWithCurrentLanguage = LIST_LABEL_TRANSLATE.FAVORITES.EN;
 				let lengthValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.LENGTH;
 				let areaValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.AREA;
 				let pressureValuesWithCurrentLanguage =
@@ -151,9 +153,23 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						);
 						break;
 					case VALUES_TYPES.FAVORITES:
+						switch (language) {
+							case LANGUAGE_APP.EN:
+								favoritesWithCurrentLanguage =
+									LIST_LABEL_TRANSLATE.FAVORITES.EN;
+								break;
+							case LANGUAGE_APP.LV:
+								favoritesWithCurrentLanguage =
+									LIST_LABEL_TRANSLATE.FAVORITES.LV;
+								break;
+							case LANGUAGE_APP.RU:
+								favoritesWithCurrentLanguage =
+									LIST_LABEL_TRANSLATE.FAVORITES.RU;
+								break;
+						}
 						resultValues.push({
-							type: 'Favorites',
-							label: 'Favorites',
+							type: LIST_LABEL.FAVORITES,
+							label: favoritesWithCurrentLanguage,
 							values: get().favoritesValues,
 						});
 						break;
