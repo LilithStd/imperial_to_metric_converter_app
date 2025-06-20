@@ -141,10 +141,6 @@ export default function Convertor() {
         setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
         setUpdateFavorites(false)
     }, [activeGroup, updateFavorites])
-    // useEffect(() => {
-    //     setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
-    // }, [updateFavorites])
-
 
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <TouchableOpacity
