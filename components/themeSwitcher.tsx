@@ -17,7 +17,7 @@ export default function ThemeSwitcher() {
             onPress={switchCurrentAppTheme}
         >
 
-            {currentAppTheme === THEME_APP.LIGHT ? <SunIcons width={24} height={24} fill="green" /> : <MoonIcons width={24} height={24} fill="green" />}
+            {currentAppTheme === THEME_APP.LIGHT ? <SunIcons width={24} height={24} fill="black" /> : <MoonIcons width={24} height={24} fill="black" />}
 
         </TouchableOpacity>
     )
