@@ -1,3 +1,4 @@
+import { AnimatedGradientBackground } from '@/components/animatedGradientBackground'
 import LanguageSwitcher from '@/components/languageSwitcher'
 import ThemeSwitcher from '@/components/themeSwitcher'
 import { APP_PATH_ROUTE } from '@/stores/const/globalConsts'
@@ -43,9 +44,14 @@ export default function MainScreen() {
 
     return (
         <SafeAreaView style={mainScreenStyles.mainContainer}>
-            <ImageBackground
+            {/* <ImageBackground
                 style={mainScreenStyles.mainImageBackground}
                 source={defaultBackgroundImage}
+            > */}
+            <AnimatedGradientBackground
+                isDarkTheme={false}
+                lightColors={['#FCE38A', '#F38181']}
+                darkColors={['#355C7D', '#6C5B7B']}
             >
                 <View style={mainScreenStyles.mainTitleContainer}>
                     <Text style={mainScreenStyles.mainTitle}>Main Screen</Text>
@@ -81,7 +87,8 @@ export default function MainScreen() {
                 <View style={mainScreenStyles.languageSwitcherContainer}>
                     <LanguageSwitcher />
                 </View>
-            </ImageBackground>
+            </AnimatedGradientBackground>
+            {/* </ImageBackground> */}
         </SafeAreaView>
 
     )
