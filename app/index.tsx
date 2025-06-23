@@ -2,6 +2,7 @@ import { AnimatedGradientBackground } from '@/components/animatedGradientBackgro
 import LanguageSwitcher from '@/components/languageSwitcher'
 import ThemeSwitcher from '@/components/themeSwitcher'
 import { APP_PATH_ROUTE } from '@/stores/const/globalConsts'
+import { THEME_APP } from '@/stores/const/globalStoreConst'
 import { useGlobalStore } from '@/stores/globalStore'
 import { mainScreenStyles } from '@/styles/mainScreenStyles'
 import { useRouter } from 'expo-router'
@@ -16,6 +17,7 @@ const greenButton = require('../assets/images/buttons/greenButton(Small).png')
 export default function MainScreen() {
     const router = useRouter()
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
+    const currentTheme = useGlobalStore(state => state.currentTheme)
     const currentLanguageTranslateConverter = {
         EN: 'Converter',
         RU: 'Конвертер',
@@ -49,7 +51,7 @@ export default function MainScreen() {
                 source={defaultBackgroundImage}
             > */}
             <AnimatedGradientBackground
-                isDarkTheme={false}
+                isDarkTheme={currentTheme === THEME_APP.DARK ? true : false}
                 lightColors={['#FCE38A', '#F38181']}
                 darkColors={['#355C7D', '#6C5B7B']}
             >
