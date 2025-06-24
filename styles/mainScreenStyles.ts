@@ -31,6 +31,7 @@ export const mainScreenStyles = StyleSheet.create({
 		height: 85,
 		alignItems: 'center',
 		justifyContent: 'center',
+		backgroundColor: 'cyan',
 	},
 	buttonText: {
 		textAlign: 'center',

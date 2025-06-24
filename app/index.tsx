@@ -6,7 +6,7 @@ import { THEME_APP } from '@/stores/const/globalStoreConst'
 import { useGlobalStore } from '@/stores/globalStore'
 import { mainScreenStyles } from '@/styles/mainScreenStyles'
 import { useRouter } from 'expo-router'
-import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const defaultBackgroundImage = require('../assets/images/backgrounds/bg_00.jpg')
@@ -46,10 +46,6 @@ export default function MainScreen() {
 
     return (
         <SafeAreaView style={mainScreenStyles.mainContainer}>
-            {/* <ImageBackground
-                style={mainScreenStyles.mainImageBackground}
-                source={defaultBackgroundImage}
-            > */}
             <AnimatedGradientBackground
                 isDarkTheme={currentTheme === THEME_APP.DARK ? true : false}
                 lightColors={['#FCE38A', '#F38181']}
@@ -67,30 +63,28 @@ export default function MainScreen() {
                         onPress={redirectToListValuesScreen}
 
                     >
-                        <ImageBackground
-                            source={greenButton}
+                        <View
                             style={mainScreenStyles.buttonBackground}
                         >
                             <Text style={mainScreenStyles.buttonText}>{currentLanguageTranslateListValues[currentLanguage]}</Text>
-                        </ImageBackground>
+                        </View>
 
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={redirectToConverterScreen}
                     >
-                        <ImageBackground
-                            source={greenButton}
+                        <View
                             style={mainScreenStyles.buttonBackground}
                         >
-                            <Text style={mainScreenStyles.buttonText}>{currentLanguageTranslateConverter[currentLanguage]}</Text>
-                        </ImageBackground>
+                            <Text style={mainScreenStyles.buttonText}>{currentLanguageTranslateConverter[currentLanguage]}
+                            </Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
                 <View style={mainScreenStyles.languageSwitcherContainer}>
                     <LanguageSwitcher />
                 </View>
             </AnimatedGradientBackground>
-            {/* </ImageBackground> */}
         </SafeAreaView>
 
     )
