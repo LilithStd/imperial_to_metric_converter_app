@@ -1,7 +1,8 @@
 import { THEME_APP } from '@/stores/const/globalStoreConst'
 import { useGlobalStore } from '@/stores/globalStore'
+import { themeSwitcherStyles } from '@/styles/themeSwitcherStyles'
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import MoonIcons from '../assets/images/icons/moon.svg'
 import SunIcons from '../assets/images/icons/sun.svg'
 
@@ -16,8 +17,11 @@ export default function ThemeSwitcher() {
         <TouchableOpacity
             onPress={switchCurrentAppTheme}
         >
+            <View style={themeSwitcherStyles.mainContainer}>
+                {currentAppTheme === THEME_APP.LIGHT ? <SunIcons width={24} height={24} fill="black" /> : <MoonIcons width={24} height={24} fill="black" />}
+            </View>
 
-            {currentAppTheme === THEME_APP.LIGHT ? <SunIcons width={24} height={24} fill="black" /> : <MoonIcons width={24} height={24} fill="black" />}
+
 
         </TouchableOpacity>
     )
