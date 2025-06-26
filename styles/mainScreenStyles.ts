@@ -3,7 +3,6 @@ import {StyleSheet} from 'react-native';
 export const mainScreenStyles = StyleSheet.create({
 	mainContainer: {
 		flex: 1,
-		justifyContent: 'center',
 	},
 	mainTitleContainer: {},
 	mainTitle: {
@@ -14,7 +13,9 @@ export const mainScreenStyles = StyleSheet.create({
 	},
 	languageSwitcherContainer: {
 		alignItems: 'center',
-		bottom: -600,
+		// position: 'absolute',
+		bottom: '1%',
+		margin: 'auto',
 	},
 	themeSwitcherContainer: {
 		left: 360,

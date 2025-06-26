@@ -35,8 +35,8 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
         ]).start();
     }, [isDarkTheme]);
     const gradientColors: [string, string] = isDarkTheme
-        ? ['#000000', '#333333']
-        : ['#FFB347', '#FFCC33'];
+        ? ['grey', 'black']
+        : ['white', 'teal'];
 
     return (
         <View style={[styles.container, style]}>
