@@ -47,7 +47,7 @@ export default function MainScreen() {
     return (
         <SafeAreaView style={mainScreenStyles.mainContainer}>
             <AnimatedGradientBackground
-                typeAnimate={ANIMATED_TYPES.WITHOUT_GRADIENT}
+                typeAnimate={ANIMATED_TYPES.WITH_GRADIENT}
             >
                 <View style={mainScreenStyles.mainTitleContainer}>
                     <Text style={mainScreenStyles.mainTitle}>Main Screen</Text>
