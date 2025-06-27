@@ -1,58 +1,72 @@
 
-import { LinearGradient } from 'expo-linear-gradient';
-import React, { useEffect, useRef } from 'react';
-import { Animated, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { ANIMATED_TYPES } from '@/stores/const/animatedBackgroundConsts';
+import { useGlobalStore } from '@/stores/globalStore';
+import { animatedBackgroundStyles } from '@/styles/animatedBackgroundStyles';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, View } from 'react-native';
 
 interface AnimatedGradientBackgroundProps {
-    isDarkTheme: boolean;
-    lightColors: string[];
-    darkColors: string[];
-    style?: StyleProp<ViewStyle>;
+    typeAnimate: ANIMATED_TYPES;
     children?: React.ReactNode;
 }
 
+const COMPONENTS_COLORS = {
+    light: {
+        mainColor: '',
+        backgroundColor: '#8ccdff',
+        buttonColor: '#ccaac6'
+    },
+    dark: {
+        mainColor: '',
+        backgroundColor: '',
+        buttonColor: ''
+
+    }
+}
+
+
+
 export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProps> = ({
-    isDarkTheme,
-    lightColors,
-    darkColors,
-    style,
+    typeAnimate,
     children,
 }) => {
-    const fadeAnim = useRef(new Animated.Value(1)).current;
+    const currentTheme = useGlobalStore(state => state.currentTheme)
+    const animation = useRef(new Animated.Value(0)).current;
+    const [toggled, setToggled] = useState(false);
+
+    const startColorAnimation = () => {
+        Animated.timing(animation, {
+            toValue: toggled ? 0 : 1,
+            duration: 1000,
+            useNativeDriver: false,
+        }).start();
+
+        setToggled(!toggled);
+    };
+
+    // создаём "переход" между двумя цветами
+    const backgroundColor = animation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [COMPONENTS_COLORS.light.backgroundColor, 'black'], // от и до
+    });
 
     useEffect(() => {
-        Animated.sequence([
-            Animated.timing(fadeAnim, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(fadeAnim, {
-                toValue: 1,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-        ]).start();
-    }, [isDarkTheme]);
-    const gradientColors: [string, string] = isDarkTheme
-        ? ['grey', 'black']
-        : ['white', 'teal'];
+        startColorAnimation()
+    }, [currentTheme])
 
     return (
-        <View style={[styles.container, style]}>
-            <Animated.View style={[StyleSheet.absoluteFillObject, { opacity: fadeAnim }]}>
-                <LinearGradient
-                    colors={gradientColors}
-                    style={StyleSheet.absoluteFill}
-                />
-            </Animated.View>
-            {children}
+        <View style={animatedBackgroundStyles.mainContainer}>
+            {typeAnimate === ANIMATED_TYPES.WITHOUT_GRADIENT
+                ?
+                <Animated.View style={[{ flex: 1, backgroundColor }]}>
+                    {children}
+                </Animated.View>
+                :
+                <View></View>
+            }
+
+
         </View>
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-});

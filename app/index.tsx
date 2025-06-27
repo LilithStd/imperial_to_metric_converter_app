@@ -1,8 +1,8 @@
 import { AnimatedGradientBackground } from '@/components/animatedGradientBackground'
 import LanguageSwitcher from '@/components/languageSwitcher'
 import ThemeSwitcher from '@/components/themeSwitcher'
+import { ANIMATED_TYPES } from '@/stores/const/animatedBackgroundConsts'
 import { APP_PATH_ROUTE } from '@/stores/const/globalConsts'
-import { THEME_APP } from '@/stores/const/globalStoreConst'
 import { useGlobalStore } from '@/stores/globalStore'
 import { mainScreenStyles } from '@/styles/mainScreenStyles'
 import { useRouter } from 'expo-router'
@@ -47,9 +47,7 @@ export default function MainScreen() {
     return (
         <SafeAreaView style={mainScreenStyles.mainContainer}>
             <AnimatedGradientBackground
-                isDarkTheme={currentTheme === THEME_APP.DARK ? true : false}
-                lightColors={['#FCE38A', '#F38181']}
-                darkColors={['#355C7D', '#6C5B7B']}
+                typeAnimate={ANIMATED_TYPES.WITHOUT_GRADIENT}
             >
                 <View style={mainScreenStyles.mainTitleContainer}>
                     <Text style={mainScreenStyles.mainTitle}>Main Screen</Text>
