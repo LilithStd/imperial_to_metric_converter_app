@@ -88,11 +88,14 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
                 <View style={{ flex: 1 }}>
                     <LinearGradient
                         style={{ flex: 1 }}
-                        colors={['#ff6a00', '#ee0979']}
+                        // colors={['#ff6a00', '#ee0979']}
+                        // colors={['#ff6a00', '#ee0979']}
+                        colors={['#000c13', '#000c13']}
                     >
                         <Animated.View
                             style={[{ flex: 1 }, StyleSheet.absoluteFill, { opacity: fadeOutOpacity }]}>
                             <LinearGradient
+                                // colors={['#2193b0', '#6dd5ed']}
                                 colors={['#2193b0', '#6dd5ed']}
                                 style={StyleSheet.absoluteFill}
                             >
