@@ -1,5 +1,7 @@
 import { LANGUAGE_APP, THEME_APP } from "@/stores/const/globalStoreConst";
 import { useGlobalStore } from "@/stores/globalStore";
+import { useThemeStore } from "@/stores/themeStore";
+
 import { languageSwitcherStyles } from "@/styles/languageSwitcherStyles";
 import { Text, TouchableOpacity, View } from "react-native";
 const LANGUAGE_VARIANT = [
@@ -7,7 +9,7 @@ const LANGUAGE_VARIANT = [
 ]
 
 export default function LanguageSwitcher() {
-    const currentTheme = useGlobalStore(state => state.currentTheme)
+    const currentTheme = useThemeStore(state => state.currentTheme)
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
     const setCurrentLanguage = useGlobalStore(state => state.setCurrentLanguage)
     return (

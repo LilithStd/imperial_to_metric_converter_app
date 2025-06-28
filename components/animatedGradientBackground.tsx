@@ -1,10 +1,10 @@
 
 import { ANIMATED_TYPES } from '@/stores/const/animatedBackgroundConsts';
-import { useGlobalStore } from '@/stores/globalStore';
+import { useThemeStore } from '@/stores/themeStore';
 import { animatedBackgroundStyles } from '@/styles/animatedBackgroundStyles';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, Dimensions, Image, StyleSheet, View } from 'react-native';
 
 interface AnimatedGradientBackgroundProps {
     typeAnimate: ANIMATED_TYPES;
@@ -31,10 +31,11 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
     typeAnimate,
     children,
 }) => {
-    const currentTheme = useGlobalStore(state => state.currentTheme)
+    const currentTheme = useThemeStore(state => state.currentTheme)
+    const currentBackground = useThemeStore(state => state.currentBackground)
     const animation = useRef(new Animated.Value(0)).current;
     const [toggled, setToggled] = useState(false);
-
+    const { width, height } = Dimensions.get('window');
     const startColorAnimation = () => {
         Animated.timing(animation, {
             toValue: toggled ? 0 : 1,
@@ -77,7 +78,9 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
     }, [currentTheme, typeAnimate])
 
     return (
-        <View style={animatedBackgroundStyles.mainContainer}>
+        <View
+            style={animatedBackgroundStyles.mainContainer}
+        >
             {typeAnimate === ANIMATED_TYPES.WITHOUT_GRADIENT
                 ?
                 <Animated.View
@@ -93,7 +96,7 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
                         colors={['#000c13', '#000c13']}
                     >
                         <Animated.View
-                            style={[{ flex: 1 }, StyleSheet.absoluteFill, { opacity: fadeOutOpacity }]}>
+                            style={[animatedBackgroundStyles.animatedBackground, StyleSheet.absoluteFill, { opacity: fadeOutOpacity }]}>
                             <LinearGradient
                                 // colors={['#2193b0', '#6dd5ed']}
                                 colors={['#2193b0', '#6dd5ed']}
@@ -103,8 +106,19 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
                             </LinearGradient>
 
                         </Animated.View>
-                        {children}
+                        <View style={animatedBackgroundStyles.content}>
+                            {children}
+                        </View>
+
+
                     </LinearGradient>
+                    <Image
+                        style={animatedBackgroundStyles.backgroundBottom}
+                        width={width}
+                        height={height}
+                        source={currentBackground}
+                        resizeMode='cover'
+                    />
                 </View>
             }
 

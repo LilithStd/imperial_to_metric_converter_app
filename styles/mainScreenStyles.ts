@@ -14,7 +14,7 @@ export const mainScreenStyles = StyleSheet.create({
 	languageSwitcherContainer: {
 		alignItems: 'center',
 		// position: 'absolute',
-		bottom: '1%',
+
 		margin: 'auto',
 	},
 	themeSwitcherContainer: {

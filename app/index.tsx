@@ -4,6 +4,7 @@ import ThemeSwitcher from '@/components/themeSwitcher'
 import { ANIMATED_TYPES } from '@/stores/const/animatedBackgroundConsts'
 import { APP_PATH_ROUTE } from '@/stores/const/globalConsts'
 import { useGlobalStore } from '@/stores/globalStore'
+import { useThemeStore } from '@/stores/themeStore'
 import { mainScreenStyles } from '@/styles/mainScreenStyles'
 import { useRouter } from 'expo-router'
 import { Text, TouchableOpacity, View } from 'react-native'
@@ -17,7 +18,7 @@ const greenButton = require('../assets/images/buttons/greenButton(Small).png')
 export default function MainScreen() {
     const router = useRouter()
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
-    const currentTheme = useGlobalStore(state => state.currentTheme)
+    const currentTheme = useThemeStore(state => state.currentTheme)
     const currentLanguageTranslateConverter = {
         EN: 'Converter',
         RU: 'Конвертер',
