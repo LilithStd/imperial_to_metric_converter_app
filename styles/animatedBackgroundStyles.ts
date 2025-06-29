@@ -11,9 +11,7 @@ export const animatedBackgroundStyles = StyleSheet.create({
 		// width: '100%',
 		// height: '100%',
 	},
-	animatedBackground: {
-		zIndex: 2,
-	},
+	animatedBackground: {},
 	content: {
 		// justifyContent: 'space-between',
 		// alignItems: 'center',

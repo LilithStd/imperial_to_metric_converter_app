@@ -2,10 +2,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
 import {THEME_APP} from './const/globalStoreConst';
+import {COLOR_SCHEME, colorScheme} from './const/themeStoreConsts';
 
 interface ThemeStoreInterface {
 	currentTheme: THEME_APP;
-	currentBackground: number;
+	colorScheme: colorScheme;
 	setCurrentTheme: (theme: THEME_APP) => void;
 }
 
@@ -18,17 +19,15 @@ export const useThemeStore = create<ThemeStoreInterface>()(
 	persist(
 		(set, get) => ({
 			currentTheme: THEME_APP.LIGHT,
-			currentBackground: lightThemeBackground,
+			colorScheme: COLOR_SCHEME.light,
 			setCurrentTheme: (theme) => {
 				if (theme === get().currentTheme) {
 					return;
 				} else {
 					set({currentTheme: theme});
 					set({
-						currentBackground:
-							theme === THEME_APP.DARK
-								? darkThemeBackground
-								: lightThemeBackground,
+						colorScheme:
+							theme === THEME_APP.DARK ? COLOR_SCHEME.dark : COLOR_SCHEME.light,
 					});
 				}
 			},
