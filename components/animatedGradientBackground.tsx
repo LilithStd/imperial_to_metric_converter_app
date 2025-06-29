@@ -53,7 +53,7 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
         Animated.timing(animation, {
             toValue: toggled ? 0 : 1,
             duration: 1000,
-            useNativeDriver: true, // потому что мы используем opacity
+            useNativeDriver: true,
         }).start();
 
         setToggled(!toggled);
@@ -105,9 +105,7 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
                             style={[animatedBackgroundStyles.animatedBackground, StyleSheet.absoluteFill, { opacity: fadeOutOpacity }]}>
                             <LinearGradient
                                 colors={['#2193b0', '#6dd5ed']}
-                                // colors={colorSchemeBackground}
                                 style={StyleSheet.absoluteFill}
-                            // colors={[colorScheme.background as const]}
                             >
 
                             </LinearGradient>

@@ -13,8 +13,9 @@ export default function LanguageSwitcher() {
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
     const setCurrentLanguage = useGlobalStore(state => state.setCurrentLanguage)
     return (
-        <View style={languageSwitcherStyles.buttonContainer}>
+        <View style={[languageSwitcherStyles.buttonContainer, currentTheme === THEME_APP.LIGHT ? languageSwitcherStyles.backgroundColorLight : languageSwitcherStyles.backgroundColorDark]}>
             {LANGUAGE_VARIANT.map((item) =>
+
                 <TouchableOpacity
                     key={item}
                     onPress={() => setCurrentLanguage(item)}
@@ -22,8 +23,8 @@ export default function LanguageSwitcher() {
                     <Text style={[
                         languageSwitcherStyles.buttonText,
                         currentTheme === THEME_APP.LIGHT
-                            ? languageSwitcherStyles.buttonLightView
-                            : languageSwitcherStyles.buttonDarkView,
+                            ? languageSwitcherStyles.textColorLight
+                            : languageSwitcherStyles.textColorDark,
                         currentLanguage === item && currentTheme === THEME_APP.LIGHT
                             ? languageSwitcherStyles.buttonActiveLight
                             : languageSwitcherStyles.buttonActiveDark
