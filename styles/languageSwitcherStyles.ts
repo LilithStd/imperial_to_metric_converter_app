@@ -31,5 +31,10 @@ export const languageSwitcherStyles = StyleSheet.create({
 		padding: 2,
 		borderRadius: 8,
 	},
-	buttonActiveDark: {},
+	buttonActiveDark: {
+		backgroundColor: '#143673',
+		// backgroundColor: 'cyan',
+		padding: 2,
+		borderRadius: 8,
+	},
 });

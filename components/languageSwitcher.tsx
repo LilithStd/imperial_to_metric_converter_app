@@ -25,9 +25,10 @@ export default function LanguageSwitcher() {
                         currentTheme === THEME_APP.LIGHT
                             ? languageSwitcherStyles.textColorLight
                             : languageSwitcherStyles.textColorDark,
-                        currentLanguage === item && currentTheme === THEME_APP.LIGHT
+                        currentLanguage === item &&
+                        (currentTheme === THEME_APP.LIGHT
                             ? languageSwitcherStyles.buttonActiveLight
-                            : languageSwitcherStyles.buttonActiveDark
+                            : languageSwitcherStyles.buttonActiveDark),
 
                     ]}>{item}</Text>
                 </TouchableOpacity>)}
