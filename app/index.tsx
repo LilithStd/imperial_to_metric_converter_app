@@ -3,6 +3,7 @@ import LanguageSwitcher from '@/components/languageSwitcher'
 import ThemeSwitcher from '@/components/themeSwitcher'
 import { ANIMATED_TYPES } from '@/stores/const/animatedBackgroundConsts'
 import { APP_PATH_ROUTE } from '@/stores/const/globalConsts'
+import { THEME_APP } from '@/stores/const/globalStoreConst'
 import { useGlobalStore } from '@/stores/globalStore'
 import { useThemeStore } from '@/stores/themeStore'
 import { mainScreenStyles } from '@/styles/mainScreenStyles'
@@ -63,9 +64,15 @@ export default function MainScreen() {
 
                     >
                         <View
-                            style={mainScreenStyles.buttonBackground}
+                            style={[
+                                mainScreenStyles.buttonBackground,
+                                currentTheme === THEME_APP.LIGHT ? mainScreenStyles.buttonContainerLight : mainScreenStyles.buttonContainerDark
+                            ]}
                         >
-                            <Text style={mainScreenStyles.buttonText}>{currentLanguageTranslateListValues[currentLanguage]}</Text>
+                            <Text style={[
+                                mainScreenStyles.buttonText,
+                                currentTheme === THEME_APP.LIGHT ? mainScreenStyles.buttonLightView : mainScreenStyles.buttonDarkView
+                            ]}>{currentLanguageTranslateListValues[currentLanguage]}</Text>
                         </View>
 
                     </TouchableOpacity>
@@ -73,9 +80,15 @@ export default function MainScreen() {
                         onPress={redirectToConverterScreen}
                     >
                         <View
-                            style={mainScreenStyles.buttonBackground}
+                            style={[
+                                mainScreenStyles.buttonBackground,
+                                currentTheme === THEME_APP.LIGHT ? mainScreenStyles.buttonContainerLight : mainScreenStyles.buttonContainerDark
+                            ]}
                         >
-                            <Text style={mainScreenStyles.buttonText}>{currentLanguageTranslateConverter[currentLanguage]}
+                            <Text style={[
+                                mainScreenStyles.buttonText,
+                                currentTheme === THEME_APP.LIGHT ? mainScreenStyles.buttonLightView : mainScreenStyles.buttonDarkView
+                            ]}>{currentLanguageTranslateConverter[currentLanguage]}
                             </Text>
                         </View>
                     </TouchableOpacity>

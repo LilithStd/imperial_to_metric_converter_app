@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 
 export const mainScreenStyles = StyleSheet.create({
 	mainContainer: {
@@ -32,13 +32,51 @@ export const mainScreenStyles = StyleSheet.create({
 		height: 85,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: 'cyan',
+		borderRadius: 10,
 	},
 	buttonText: {
 		textAlign: 'center',
 		fontWeight: 900,
 		fontSize: 30,
 	},
-	buttonDarkView: {},
-	buttonLightView: {},
+	buttonContainerDark: {
+		backgroundColor: '#1a75ff',
+		...Platform.select({
+			ios: {
+				shadowColor: '#000',
+				shadowOffset: {width: 0, height: 2},
+				shadowOpacity: 0.25,
+				shadowRadius: 3.84,
+			},
+			android: {
+				elevation: 5,
+			},
+		}),
+	},
+	buttonContainerLight: {
+		backgroundColor: '#00ace6',
+		...Platform.select({
+			ios: {
+				shadowColor: '#000',
+				shadowOffset: {width: 0, height: 2},
+				shadowOpacity: 0.25,
+				shadowRadius: 3.84,
+			},
+			android: {
+				elevation: 5,
+			},
+		}),
+	},
+	buttonDarkView: {
+		color: 'white',
+		textShadowColor: 'black',
+		textShadowOffset: {width: 2, height: 2},
+		textShadowRadius: 1,
+	},
+	buttonLightView: {
+		color: 'black',
+		textShadowColor: 'grey',
+		textShadowOffset: {width: 2, height: 2},
+		textShadowRadius: 1,
+	},
 });

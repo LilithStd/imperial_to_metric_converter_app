@@ -22,6 +22,7 @@ export default function LanguageSwitcher() {
                 >
                     <Text style={[
                         languageSwitcherStyles.buttonText,
+                        languageSwitcherStyles.buttonActiveContainer,
                         currentTheme === THEME_APP.LIGHT
                             ? languageSwitcherStyles.textColorLight
                             : languageSwitcherStyles.textColorDark,
