@@ -18,7 +18,14 @@ export const mainScreenStyles = StyleSheet.create({
 		margin: 'auto',
 	},
 	themeSwitcherContainer: {
-		left: 360,
+		// left: 360,
+		// width: 50,
+		// height: 50,
+		// borderRadius: 40,
+		right: '2%',
+		top: '2%',
+		justifyContent: 'center',
+		alignItems: 'flex-end',
 	},
 
 	buttonContainer: {

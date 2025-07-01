@@ -2,8 +2,13 @@ import {StyleSheet} from 'react-native';
 
 export const themeSwitcherStyles = StyleSheet.create({
 	mainContainer: {
-		backgroundColor: 'olive',
-		padding: '1%',
-		borderRadius: 10,
+		width: 50,
+		height: 50,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'cyan',
+		// padding: '1%',
+		borderRadius: 50,
+		// position: 'absolute',
 	},
 });
