@@ -6,7 +6,7 @@ export const themeSwitcherStyles = StyleSheet.create({
 		height: 50,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'cyan',
+		// backgroundColor: 'cyan',
 		// padding: '1%',
 		borderRadius: 50,
 		// position: 'absolute',

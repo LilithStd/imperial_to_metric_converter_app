@@ -1,8 +1,9 @@
 import { THEME_APP } from '@/stores/const/globalStoreConst'
 import { useThemeStore } from '@/stores/themeStore'
 import { themeSwitcherStyles } from '@/styles/themeSwitcherStyles'
-import React, { useEffect, useRef, useState } from 'react'
-import { Animated, TouchableOpacity } from 'react-native'
+import React, { useEffect, useRef } from 'react'
+import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native'
+import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg'
 import MoonIcons from '../assets/images/icons/moon.svg'
 import SunIcons from '../assets/images/icons/sun.svg'
 
@@ -13,44 +14,22 @@ export default function ThemeSwitcher() {
         const switchTheme = currentAppTheme === THEME_APP.LIGHT ? THEME_APP.DARK : THEME_APP.LIGHT
         setCurrentTheme(switchTheme)
     }
-    const animation = useRef(new Animated.Value(0)).current;
-    const [toggled, setToggled] = useState(false);
-    const startColorAnimation = () => {
-        Animated.timing(animation, {
-            toValue: toggled ? 0 : 1,
-            duration: 1000,
-            useNativeDriver: false,
-        }).start();
-
-        setToggled(!toggled);
-    };
-
-    const backgroundColor = animation.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['white', 'black'], // от и до
-    });
-
-    const fadeOutOpacity = animation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [1, 0],
-    });
-
-    const startAnimation = () => {
-        Animated.timing(animation, {
-            toValue: toggled ? 0 : 1,
-            duration: 1000,
-            useNativeDriver: true,
-        }).start();
-
-        setToggled(!toggled);
-    };
+    const fadeAnim = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
-        startAnimation()
-        // startColorAnimation()
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true,
+        }).start(() => {
+            fadeAnim.setValue(0); // сброс для следующей анимации
+        });
+    }, [currentAppTheme]);
 
+    const dayColors = ['#FFEBB7', '#ffffff00']; // центр — тёплый светлый, края — прозрачные
+    const nightColors = ['#1D2B64', '#00000000']; // центр — тёмный синий, края — прозрачные
 
-    }, [currentAppTheme])
+    const [centerColor, edgeColor] = currentAppTheme === THEME_APP.DARK ? nightColors : dayColors;
     return (
         <TouchableOpacity
             onPress={switchCurrentAppTheme}
@@ -69,9 +48,36 @@ export default function ThemeSwitcher() {
                     ? <SunIcons width={32} height={32} fill="#ffcc00" />
                     : <MoonIcons width={32} height={32} fill="#0099ff" />}
             </View> */}
-            {currentAppTheme === THEME_APP.LIGHT
-                ? <MoonIcons width={32} height={32} fill="#0099ff" />
-                : <SunIcons width={32} height={32} fill="#ffcc00" />}
+            <Svg height="100%" width="100%" style={StyleSheet.absoluteFill}>
+                <Defs>
+                    <RadialGradient
+                        id="radialGrad"
+                        cx="50%"
+                        cy="50%"
+                        rx="70%"
+                        ry="70%"
+                        fx="50%"
+                        fy="50%"
+                    >
+                        <Stop offset="0%" stopColor={centerColor} stopOpacity="1" />
+                        <Stop offset="100%" stopColor={edgeColor} stopOpacity="0" />
+                    </RadialGradient>
+                </Defs>
+                <Rect x="0" y="0" width="100%" height="100%" fill="url(#radialGrad)" />
+            </Svg>
+
+            {/* Анимация затухания при смене темы */}
+            <Animated.View
+                pointerEvents="none"
+                style={[StyleSheet.absoluteFill, { backgroundColor: currentAppTheme === THEME_APP.DARK ? '#000' : '#fff', opacity: fadeAnim }]}
+            />
+
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                {currentAppTheme === THEME_APP.LIGHT
+                    ? <MoonIcons width={32} height={32} fill="#0099ff" />
+                    : <SunIcons width={32} height={32} fill="#ffcc00" />}
+            </View>
+
             {/* <View style={{ flex: 1 }}>
                 <LinearGradient
                     style={StyleSheet.absoluteFill}
