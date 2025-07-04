@@ -1,10 +1,11 @@
 
 import { ANIMATED_TYPES } from '@/stores/const/animatedBackgroundConsts';
-import { colorGradientType } from '@/stores/const/themeStoreConsts';
+import { THEME_APP } from '@/stores/const/globalStoreConst';
+import { COLOR_SCHEME, colorGradientType, STATUS_THEME } from '@/stores/const/themeStoreConsts';
 import { useThemeStore } from '@/stores/themeStore';
 import { animatedBackgroundStyles } from '@/styles/animatedBackgroundStyles';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
 interface AnimatedGradientBackgroundProps {
@@ -32,93 +33,75 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
     typeAnimate,
     children,
 }) => {
-    const currentTheme = useThemeStore(state => state.currentTheme)
-    // const currentBackground = useThemeStore(state => state.currentBackground)
-    const colorScheme = useThemeStore(state => state.colorScheme)
-    const colorSchemeBackground: colorGradientType = colorScheme.background
+    const currentTheme = useThemeStore(state => state.currentTheme);
+    const colorScheme = useThemeStore(state => state.colorScheme);
+    const statusAppTheme = useThemeStore(state => state.statusTheme);
+    const setStatusTheme = useThemeStore(state => state.setStatusTheme);
+
     const animation = useRef(new Animated.Value(0)).current;
-    const [toggled, setToggled] = useState(false);
-    // const { width, height } = Dimensions.get('window');
-    const startColorAnimation = () => {
-        Animated.timing(animation, {
-            toValue: toggled ? 0 : 1,
-            duration: 1000,
-            useNativeDriver: false,
-        }).start();
-
-        setToggled(!toggled);
-    };
-
-    const startAnimation = () => {
-        Animated.timing(animation, {
-            toValue: toggled ? 0 : 1,
-            duration: 1000,
-            useNativeDriver: true,
-        }).start();
-
-        setToggled(!toggled);
-    };
-
-    const backgroundColor = animation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [COMPONENTS_COLORS.light.backgroundColor, 'black'], // от и до
-    });
+    const prevTheme = useRef(currentTheme);
 
     const fadeOutOpacity = animation.interpolate({
         inputRange: [0, 1],
         outputRange: [1, 0],
     });
 
-
+    const animateThemeChange = () => {
+        Animated.timing(animation, {
+            toValue: 1,
+            duration: 800,
+            useNativeDriver: true,
+        }).start(() => {
+            // После анимации сбрасываем в начальное состояние
+            animation.setValue(0);
+            setStatusTheme(STATUS_THEME.static);
+            prevTheme.current = currentTheme;
+        });
+    };
 
     useEffect(() => {
-        if (typeAnimate === ANIMATED_TYPES.WITHOUT_GRADIENT) {
-            startColorAnimation()
-        } else {
-            startAnimation()
+        if (
+            statusAppTheme === STATUS_THEME.update &&
+            prevTheme.current !== currentTheme
+        ) {
+            animateThemeChange();
         }
+    }, [currentTheme, statusAppTheme]);
 
-    }, [currentTheme, typeAnimate])
+    const currentBackgroundColors: colorGradientType = colorScheme.background.length >= 2
+        ? colorScheme.background
+        : ['#000000', '#000000'];
 
     return (
-        <View
-            style={animatedBackgroundStyles.mainContainer}
-        >
-            {typeAnimate === ANIMATED_TYPES.WITHOUT_GRADIENT
-                ?
-                <Animated.View
-                    style={[{ flex: 1, backgroundColor }]}>
+        <View style={animatedBackgroundStyles.mainContainer}>
+            {typeAnimate === ANIMATED_TYPES.WITHOUT_GRADIENT ? (
+                <View style={{ flex: 1, backgroundColor: currentBackgroundColors[0] }}>
                     {children}
-                </Animated.View>
-                :
+                </View>
+            ) : (
                 <View style={{ flex: 1 }}>
                     <LinearGradient
                         style={StyleSheet.absoluteFill}
-                        colors={[
-                            '#0f0f0f',
-                            '#093F79',
-                            '#0f0f0f',
-                        ]}
-
+                        colors={currentBackgroundColors}
                     >
                         <Animated.View
-                            style={[animatedBackgroundStyles.animatedBackground, StyleSheet.absoluteFill, { opacity: fadeOutOpacity }]}>
+                            style={[
+                                StyleSheet.absoluteFill,
+                                { opacity: fadeOutOpacity },
+                            ]}
+                        >
                             <LinearGradient
-                                colors={['#2193b0', '#6dd5ed']}
+                                colors={prevTheme.current === THEME_APP.LIGHT
+                                    ? COLOR_SCHEME.light.background
+                                    : COLOR_SCHEME.dark.background
+                                }
                                 style={StyleSheet.absoluteFill}
-                            >
-
-                            </LinearGradient>
-
+                            />
                         </Animated.View>
                         {children}
-
                     </LinearGradient>
                 </View>
-            }
-
-
+            )}
         </View>
     );
 };
-

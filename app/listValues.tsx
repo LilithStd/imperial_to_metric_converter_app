@@ -1,10 +1,12 @@
 
+import { AnimatedGradientBackground } from "@/components/animatedGradientBackground";
+import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
 import { DEFAULT_IMPERIAL_COUNT, IMPERIAL_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { listValuesScreenStyles } from "@/styles/listValuesScreenStyles";
 import { useState } from "react";
-import { FlatList, ImageBackground, Text, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 //
 const defaultBackground = require('../assets/images/backgrounds/bg_00.jpg')
@@ -60,11 +62,12 @@ export default function ListValues() {
     );
     return (
         <SafeAreaView style={listValuesScreenStyles.mainContainer}>
-            <ImageBackground
+            {/* <ImageBackground
                 style={listValuesScreenStyles.mainBackground}
                 source={defaultBackground}
                 resizeMode="cover"
-            >
+            > */}
+            <AnimatedGradientBackground typeAnimate={ANIMATED_TYPES.WITH_GRADIENT}>
                 <Text>listValues</Text>
                 <View style={listValuesScreenStyles.listValuesContainer}>
                     <FlatList
@@ -74,8 +77,10 @@ export default function ListValues() {
                         renderItem={renderItem}
                     />
                 </View>
+            </AnimatedGradientBackground>
 
-            </ImageBackground>
+
+            {/* </ImageBackground> */}
         </SafeAreaView>
 
     )

@@ -10,6 +10,11 @@ interface colorLinearGradient {
 	dark: colorScheme;
 }
 
+export enum STATUS_THEME {
+	static = 'static',
+	update = 'update',
+}
+
 export const COLOR_SCHEME: colorLinearGradient = {
 	light: {
 		background: ['#2193b0', '#6dd5ed'],

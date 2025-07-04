@@ -10,6 +10,7 @@ import SunIcons from '../assets/images/icons/sun.svg'
 export default function ThemeSwitcher() {
     const currentAppTheme = useThemeStore(state => state.currentTheme)
     const setCurrentTheme = useThemeStore(state => state.setCurrentTheme)
+    // const updateStatusTheme = useThemeStore(state => state.setStatusTheme)
     const switchCurrentAppTheme = () => {
         const switchTheme = currentAppTheme === THEME_APP.LIGHT ? THEME_APP.DARK : THEME_APP.LIGHT
         setCurrentTheme(switchTheme)
