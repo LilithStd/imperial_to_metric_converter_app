@@ -78,4 +78,10 @@ export const converterScreenStyles = StyleSheet.create({
 		fontSize: 20,
 	},
 	valuesAllButtonContainer: {},
+	textLight: {
+		color: 'black',
+	},
+	textDark: {
+		color: 'white',
+	},
 });

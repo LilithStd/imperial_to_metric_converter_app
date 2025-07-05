@@ -1,8 +1,12 @@
+import { AnimatedGradientBackground } from "@/components/animatedGradientBackground";
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
+import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
+import { THEME_APP } from "@/stores/const/globalStoreConst";
 import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
+import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
 import { useEffect, useState } from "react";
@@ -25,6 +29,7 @@ export default function Convertor() {
     const favoritesList = useValuesStore(state => state.favoritesValues)
     const checkIsFavorites = useValuesStore(state => state.checkIsFavorites)
     const addFavorites = useValuesStore(state => state.setFavoritesValues)
+    const currentTheme = useThemeStore(state => state.currentTheme)
 
     const valuesListToView = valuesListStore(VALUES_TYPES.ALL, currentLanguage)
     const [activeInputId, setActiveInputId] = useState<string | null>(null)
@@ -147,7 +152,9 @@ export default function Convertor() {
             style={[converterScreenStyles.valuesGroupItem, activeGroup === item.type ? converterScreenStyles.valuesGroupActiveTab : '']}
             onPress={() => setActiveGroup(item.type)}
         >
-            <Text style={converterScreenStyles.valuesGroupItemTitle}>{item.label}</Text>
+            <Text style={[
+                converterScreenStyles.valuesGroupItemTitle,
+                currentTheme === THEME_APP.LIGHT ? converterScreenStyles.textLight : converterScreenStyles.textDark]}>{item.label}</Text>
         </TouchableOpacity>
     )
 
@@ -226,11 +233,16 @@ export default function Convertor() {
 
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>
-            <ImageBackground
+            {/* <ImageBackground
                 source={defaultBackground}
                 resizeMode="cover"
                 style={converterScreenStyles.mainBackground}
+            > */}
+            <AnimatedGradientBackground
+                typeAnimate={ANIMATED_TYPES.WITH_GRADIENT}
             >
+
+
                 <View>
                     <FlatList
                         data={valuesGroups}
@@ -248,7 +260,8 @@ export default function Convertor() {
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
                 />
-            </ImageBackground>
+            </AnimatedGradientBackground>
+            {/* </ImageBackground> */}
         </SafeAreaView>
     )
 }
