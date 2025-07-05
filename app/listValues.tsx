@@ -33,31 +33,45 @@ export default function ListValues() {
                 renderItem={({ item }) => (
                     <View style={listValuesScreenStyles.valuesSectionsContainer}>
                         <View style={listValuesScreenStyles.valuesImperial}>
-                            <Text style={listValuesScreenStyles.sectionButtonTitle}>
+                            <Text style={[
+                                listValuesScreenStyles.sectionButtonTitle,
+                                { color: colorScheme.text }
+                            ]}>
                                 {DEFAULT_IMPERIAL_COUNT + ' ' + item.imperialTypeValue}
                             </Text>
                         </View>
                         <View style={listValuesScreenStyles.valuesMetricContainer}>
                             {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.FAHRENHEIT
                                 ?
-                                <Text>{fahrenheitToCelsiusFormula}</Text>
+                                <View style={listValuesScreenStyles.valuesTextContainer}>
+                                    <Text style={[
+                                        listValuesScreenStyles.sectionButtonTitle,
+                                        { color: colorScheme.text }
+                                    ]}>{fahrenheitToCelsiusFormula}</Text>
+                                </View>
                                 :
                                 <View style={listValuesScreenStyles.valuesMetric}>
                                     <View style={listValuesScreenStyles.valuesTextContainer}>
-                                        <Text style={listValuesScreenStyles.sectionButtonTitle}>
+                                        <Text style={[
+                                            listValuesScreenStyles.sectionButtonTitle,
+                                            { color: colorScheme.text }
+                                        ]}>
                                             {item.value}
                                         </Text>
                                     </View>
                                     <View style={{}}>
                                         <Text
-                                            style={listValuesScreenStyles.sectionButtonTitle}>
+                                            style={[
+                                                listValuesScreenStyles.sectionButtonTitle,
+                                                { color: colorScheme.text }
+                                            ]}>
                                             {item.metricTypeValue}
                                         </Text>
                                     </View>
                                 </View>
                             }
-                            <Text style={listValuesScreenStyles.sectionButtonTitle}>
-                            </Text>
+                            {/* <Text style={listValuesScreenStyles.sectionButtonTitle}>
+                            </Text> */}
                         </View>
                     </View>
 
@@ -67,11 +81,7 @@ export default function ListValues() {
     );
     return (
         <SafeAreaView style={listValuesScreenStyles.mainContainer}>
-            {/* <ImageBackground
-                style={listValuesScreenStyles.mainBackground}
-                source={defaultBackground}
-                resizeMode="cover"
-            > */}
+
             <AnimatedGradientBackground typeAnimate={ANIMATED_TYPES.WITH_GRADIENT}>
                 <Text>listValues</Text>
                 <View style={listValuesScreenStyles.listValuesContainer}>
@@ -85,7 +95,7 @@ export default function ListValues() {
             </AnimatedGradientBackground>
 
 
-            {/* </ImageBackground> */}
+
         </SafeAreaView>
 
     )

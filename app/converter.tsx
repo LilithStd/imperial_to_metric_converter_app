@@ -3,7 +3,6 @@ import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
-import { THEME_APP } from "@/stores/const/globalStoreConst";
 import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
@@ -30,6 +29,7 @@ export default function Convertor() {
     const checkIsFavorites = useValuesStore(state => state.checkIsFavorites)
     const addFavorites = useValuesStore(state => state.setFavoritesValues)
     const currentTheme = useThemeStore(state => state.currentTheme)
+    const colorScheme = useThemeStore(state => state.colorScheme)
 
     const valuesListToView = valuesListStore(VALUES_TYPES.ALL, currentLanguage)
     const [activeInputId, setActiveInputId] = useState<string | null>(null)
@@ -154,14 +154,15 @@ export default function Convertor() {
         >
             <Text style={[
                 converterScreenStyles.valuesGroupItemTitle,
-                currentTheme === THEME_APP.LIGHT ? converterScreenStyles.textLight : converterScreenStyles.textDark]}>{item.label}</Text>
+                { color: colorScheme.text }
+            ]}>{item.label}</Text>
         </TouchableOpacity>
     )
 
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={converterScreenStyles.valuesBlockContainer}>
             <View style={converterScreenStyles.valuesBlockBackground}>
-                <Text style={converterScreenStyles.valuesTitle}>{item.label}</Text>
+                <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>{item.label}</Text>
                 <FlatList
                     data={item.values}
                     nestedScrollEnabled={true}
@@ -177,7 +178,10 @@ export default function Convertor() {
                                             <Text>incorrect input value need only 1-9 and . for input</Text>
                                         </View>}
                                     <TextInput
-                                        style={converterScreenStyles.valuesItem}
+                                        style={[
+                                            converterScreenStyles.valuesItem,
+                                            { color: colorScheme.text }
+                                        ]}
                                         placeholder={'1'}
                                         keyboardType='decimal-pad'
                                         value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.IMPERIAL)}
@@ -186,7 +190,10 @@ export default function Convertor() {
                                         onBlur={() => handleBlur(item.id)}
                                     />
                                     <View style={converterScreenStyles.valuesImperialTitleItemContainer}>
-                                        <Text style={converterScreenStyles.valuesItem}>{item.imperialTypeValue}</Text>
+                                        <Text style={[
+                                            converterScreenStyles.valuesItem,
+                                            { color: colorScheme.text }
+                                        ]}>{item.imperialTypeValue}</Text>
                                     </View>
                                 </View>
                             </ImageBackground>
@@ -208,7 +215,10 @@ export default function Convertor() {
                             >
                                 <View style={converterScreenStyles.valuesItemContainer}>
                                     <TextInput
-                                        style={converterScreenStyles.valuesItem}
+                                        style={[
+                                            converterScreenStyles.valuesItem,
+                                            { color: colorScheme.text }
+                                        ]}
                                         placeholder={item.value.toString()}
                                         keyboardType='decimal-pad'
                                         value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.METRIC)}
@@ -217,7 +227,10 @@ export default function Convertor() {
                                         onBlur={() => handleBlur(item.id)}
                                     />
                                     <View style={converterScreenStyles.valuesMetricTitleItemContainer}>
-                                        <Text style={converterScreenStyles.valuesItem}>{item.metricTypeValue}</Text>
+                                        <Text style={[
+                                            converterScreenStyles.valuesItem,
+                                            { color: colorScheme.text }
+                                        ]}>{item.metricTypeValue}</Text>
                                     </View>
                                 </View>
                             </ImageBackground>
@@ -233,11 +246,6 @@ export default function Convertor() {
 
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>
-            {/* <ImageBackground
-                source={defaultBackground}
-                resizeMode="cover"
-                style={converterScreenStyles.mainBackground}
-            > */}
             <AnimatedGradientBackground
                 typeAnimate={ANIMATED_TYPES.WITH_GRADIENT}
             >
@@ -261,7 +269,6 @@ export default function Convertor() {
                     showsHorizontalScrollIndicator={false}
                 />
             </AnimatedGradientBackground>
-            {/* </ImageBackground> */}
         </SafeAreaView>
     )
 }

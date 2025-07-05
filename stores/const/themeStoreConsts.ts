@@ -4,6 +4,7 @@ export type colorGradientType = [ColorValue, ColorValue, ...ColorValue[]];
 export type colorScheme = {
 	background: [ColorValue, ColorValue, ...ColorValue[]];
 	button: string;
+	text: string;
 };
 interface colorLinearGradient {
 	light: colorScheme;
@@ -19,9 +20,11 @@ export const COLOR_SCHEME: colorLinearGradient = {
 	light: {
 		background: ['#2193b0', '#6dd5ed'],
 		button: '#00ace6',
+		text: 'black',
 	},
 	dark: {
 		background: ['#0f0f0f', '#093F79', '#0f0f0f'],
 		button: '#1a75ff',
+		text: 'white',
 	},
 };

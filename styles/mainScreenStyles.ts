@@ -73,13 +73,11 @@ export const mainScreenStyles = StyleSheet.create({
 		}),
 	},
 	buttonDarkView: {
-		color: 'white',
 		textShadowColor: 'black',
 		textShadowOffset: {width: 2, height: 2},
 		textShadowRadius: 1,
 	},
 	buttonLightView: {
-		color: 'black',
 		textShadowColor: 'grey',
 		textShadowOffset: {width: 2, height: 2},
 		textShadowRadius: 1,

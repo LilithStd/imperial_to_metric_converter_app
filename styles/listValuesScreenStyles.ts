@@ -35,7 +35,7 @@ export const listValuesScreenStyles = StyleSheet.create({
 		alignItems: 'flex-start',
 	},
 	valuesMetricContainer: {
-		width: '40%',
+		width: '50%',
 	},
 	valuesMetric: {
 		flexDirection: 'row',

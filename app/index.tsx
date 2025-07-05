@@ -72,6 +72,7 @@ export default function MainScreen() {
                         >
                             <Text style={[
                                 mainScreenStyles.buttonText,
+                                { color: colorScheme.text },
                                 currentTheme === THEME_APP.LIGHT ? mainScreenStyles.buttonLightView : mainScreenStyles.buttonDarkView
                             ]}>{currentLanguageTranslateListValues[currentLanguage]}</Text>
                         </View>
@@ -88,6 +89,7 @@ export default function MainScreen() {
                         >
                             <Text style={[
                                 mainScreenStyles.buttonText,
+                                { color: colorScheme.text },
                                 currentTheme === THEME_APP.LIGHT ? mainScreenStyles.buttonLightView : mainScreenStyles.buttonDarkView
                             ]}>{currentLanguageTranslateConverter[currentLanguage]}
                             </Text>
