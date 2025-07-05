@@ -47,7 +47,6 @@ export const mainScreenStyles = StyleSheet.create({
 		fontSize: 30,
 	},
 	buttonContainerDark: {
-		backgroundColor: '#1a75ff',
 		...Platform.select({
 			ios: {
 				shadowColor: '#000',
@@ -61,7 +60,6 @@ export const mainScreenStyles = StyleSheet.create({
 		}),
 	},
 	buttonContainerLight: {
-		backgroundColor: '#00ace6',
 		...Platform.select({
 			ios: {
 				shadowColor: '#000',

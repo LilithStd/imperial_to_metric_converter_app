@@ -3,7 +3,7 @@ import {ColorValue} from 'react-native';
 export type colorGradientType = [ColorValue, ColorValue, ...ColorValue[]];
 export type colorScheme = {
 	background: [ColorValue, ColorValue, ...ColorValue[]];
-	button: [ColorValue, ColorValue, ...ColorValue[]];
+	button: string;
 };
 interface colorLinearGradient {
 	light: colorScheme;
@@ -18,10 +18,10 @@ export enum STATUS_THEME {
 export const COLOR_SCHEME: colorLinearGradient = {
 	light: {
 		background: ['#2193b0', '#6dd5ed'],
-		button: ['#EEAECA', '#94BBE9'],
+		button: '#00ace6',
 	},
 	dark: {
 		background: ['#0f0f0f', '#093F79', '#0f0f0f'],
-		button: ['#EEAECA', '#94BBE9'],
+		button: '#1a75ff',
 	},
 };

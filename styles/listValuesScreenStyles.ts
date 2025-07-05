@@ -23,7 +23,7 @@ export const listValuesScreenStyles = StyleSheet.create({
 		gap: 5,
 	},
 	valuesContainer: {
-		backgroundColor: 'turquoise',
+		// backgroundColor: 'turquoise',
 		borderRadius: 10,
 		padding: 10,
 	},

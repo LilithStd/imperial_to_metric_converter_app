@@ -20,6 +20,7 @@ export default function MainScreen() {
     const router = useRouter()
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
     const currentTheme = useThemeStore(state => state.currentTheme)
+    const colorScheme = useThemeStore(state => state.colorScheme)
     const currentLanguageTranslateConverter = {
         EN: 'Converter',
         RU: 'Конвертер',
@@ -66,7 +67,7 @@ export default function MainScreen() {
                         <View
                             style={[
                                 mainScreenStyles.buttonBackground,
-                                currentTheme === THEME_APP.LIGHT ? mainScreenStyles.buttonContainerLight : mainScreenStyles.buttonContainerDark
+                                currentTheme === THEME_APP.LIGHT ? (mainScreenStyles.buttonContainerLight, { backgroundColor: colorScheme.button }) : (mainScreenStyles.buttonContainerDark, { backgroundColor: colorScheme.button })
                             ]}
                         >
                             <Text style={[
@@ -82,7 +83,7 @@ export default function MainScreen() {
                         <View
                             style={[
                                 mainScreenStyles.buttonBackground,
-                                currentTheme === THEME_APP.LIGHT ? mainScreenStyles.buttonContainerLight : mainScreenStyles.buttonContainerDark
+                                currentTheme === THEME_APP.LIGHT ? (mainScreenStyles.buttonContainerLight, { backgroundColor: colorScheme.button }) : (mainScreenStyles.buttonContainerDark, { backgroundColor: colorScheme.button })
                             ]}
                         >
                             <Text style={[

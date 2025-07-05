@@ -3,6 +3,7 @@ import { AnimatedGradientBackground } from "@/components/animatedGradientBackgro
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
 import { DEFAULT_IMPERIAL_COUNT, IMPERIAL_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
+import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { listValuesScreenStyles } from "@/styles/listValuesScreenStyles";
 import { useState } from "react";
@@ -16,6 +17,7 @@ export default function ListValues() {
     const getListValues = useValuesStore(state => state.getListValues)
     const currentAppLanguage = useGlobalStore(state => state.currentLanguage)
     const defaultListValues = getListValues(VALUES_TYPES.ALL, currentAppLanguage)
+    const colorScheme = useThemeStore(state => state.colorScheme)
     const [currentListValues, setCurrentValues] = useState(defaultListValues)
 
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
@@ -24,7 +26,10 @@ export default function ListValues() {
             <FlatList
                 data={item.values}
                 nestedScrollEnabled={true}
-                style={listValuesScreenStyles.valuesContainer}
+                style={[
+                    listValuesScreenStyles.valuesContainer,
+                    { backgroundColor: colorScheme.button }
+                ]}
                 renderItem={({ item }) => (
                     <View style={listValuesScreenStyles.valuesSectionsContainer}>
                         <View style={listValuesScreenStyles.valuesImperial}>
