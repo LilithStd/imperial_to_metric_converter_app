@@ -24,7 +24,7 @@ export const converterScreenStyles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	valuesBlockBackground: {
-		backgroundColor: '#7fff00',
+		// backgroundColor: '#7fff00',
 		borderRadius: 20,
 		padding: 20,
 	},
@@ -57,12 +57,12 @@ export const converterScreenStyles = StyleSheet.create({
 		justifyContent: 'center',
 		marginRight: -50,
 		marginLeft: -50,
+		borderRadius: 10,
 	},
 	valuesGroupContainer: {
 		margin: 20,
 	},
 	valuesGroupActiveTab: {
-		backgroundColor: '#7fff00',
 		borderRadius: 6,
 	},
 	valuesGroupEmptyFavorites: {

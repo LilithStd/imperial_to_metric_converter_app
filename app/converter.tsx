@@ -9,7 +9,7 @@ import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
 import { useEffect, useState } from "react";
-import { FlatList, ImageBackground, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FavoritesIcon from '../assets/images/icons/heart(empty).svg';
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
@@ -149,7 +149,7 @@ export default function Convertor() {
 
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <TouchableOpacity
-            style={[converterScreenStyles.valuesGroupItem, activeGroup === item.type ? converterScreenStyles.valuesGroupActiveTab : '']}
+            style={[converterScreenStyles.valuesGroupItem, activeGroup === item.type ? { backgroundColor: colorScheme.button, borderRadius: 10 } : '']}
             onPress={() => setActiveGroup(item.type)}
         >
             <Text style={[
@@ -161,16 +161,21 @@ export default function Convertor() {
 
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={converterScreenStyles.valuesBlockContainer}>
-            <View style={converterScreenStyles.valuesBlockBackground}>
+            <View style={[
+                converterScreenStyles.valuesBlockBackground,
+
+            ]}>
                 <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>{item.label}</Text>
                 <FlatList
                     data={item.values}
                     nestedScrollEnabled={true}
                     renderItem={({ item }) => (
                         <View style={converterScreenStyles.valuesSectionsContainer}>
-                            <ImageBackground
-                                style={converterScreenStyles.buttonBackground}
-                                source={buttonBackground}
+                            <View
+                                style={[
+                                    converterScreenStyles.buttonBackground,
+                                    { backgroundColor: colorScheme.button }
+                                ]}
                             >
                                 <View style={converterScreenStyles.valuesItemContainer}>
                                     {invalidInputValue &&
@@ -183,6 +188,7 @@ export default function Convertor() {
                                             { color: colorScheme.text }
                                         ]}
                                         placeholder={'1'}
+                                        placeholderTextColor={colorScheme.text}
                                         keyboardType='decimal-pad'
                                         value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.IMPERIAL)}
                                         onFocus={() => handleFocus(item.id)}
@@ -196,22 +202,26 @@ export default function Convertor() {
                                         ]}>{item.imperialTypeValue}</Text>
                                     </View>
                                 </View>
-                            </ImageBackground>
+                            </View>
 
-                            <SwitchValueArrow />
+                            <SwitchValueArrow stroke={colorScheme.text} />
                             <TouchableOpacity onPress={() => {
                                 addFavorites(item);
                                 setUpdateFavorites(true)
                             }}
                             >
                                 <FavoritesIcon
+                                    stroke={colorScheme.text}
                                     fill={checkIsFavorites(item.id) ? 'red' : 'transparent'}
                                 />
                             </TouchableOpacity>
 
-                            <ImageBackground
-                                style={converterScreenStyles.buttonBackground}
-                                source={buttonBackground}
+                            <View
+                                style={[
+                                    converterScreenStyles.buttonBackground,
+                                    { backgroundColor: colorScheme.button }
+                                ]}
+
                             >
                                 <View style={converterScreenStyles.valuesItemContainer}>
                                     <TextInput
@@ -219,6 +229,7 @@ export default function Convertor() {
                                             converterScreenStyles.valuesItem,
                                             { color: colorScheme.text }
                                         ]}
+                                        placeholderTextColor={colorScheme.text}
                                         placeholder={item.value.toString()}
                                         keyboardType='decimal-pad'
                                         value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.METRIC)}
@@ -233,11 +244,14 @@ export default function Convertor() {
                                         ]}>{item.metricTypeValue}</Text>
                                     </View>
                                 </View>
-                            </ImageBackground>
+                            </View>
                         </View>
                     )}
                     ListEmptyComponent={
-                        <Text style={converterScreenStyles.valuesGroupEmptyFavorites}>{emptyFavoritesDescription(currentLanguage)}</Text>
+                        <Text style={[
+                            converterScreenStyles.valuesGroupEmptyFavorites,
+                            { color: colorScheme.text }
+                        ]}>{emptyFavoritesDescription(currentLanguage)}</Text>
                     }
                 />
             </View>
