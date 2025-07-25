@@ -11,6 +11,14 @@ export const listValuesScreenStyles = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 	},
+	linearGradienButtontContainer: {
+		width: '100%',
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: 10,
+		// gap: 10,
+	},
 	listValuesContainer: {
 		flex: 1,
 		width: '100%',
@@ -30,27 +38,29 @@ export const listValuesScreenStyles = StyleSheet.create({
 	valuesTitle: {
 		textAlign: 'center',
 	},
-	valuesImperial: {
-		width: '40%',
-		alignItems: 'flex-start',
+	valuesImperialContainer: {
+		width: '50%',
+		// alignItems: 'flex-start',
 	},
 	valuesMetricContainer: {
 		width: '50%',
 	},
 	valuesMetric: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
+		// margin: 10,
 	},
 	values: {},
 	valuesTextContainer: {
 		flex: 1,
-		alignItems: 'flex-end',
-		marginRight: 10,
+		alignItems: 'center',
+		borderColor: 'yellow',
+		borderWidth: 2,
+		// margin: 10,
 	},
 	valuesSectionsContainer: {
 		flexDirection: 'row',
-		gap: 10,
-		justifyContent: 'space-between',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '100%',
 	},
 	sectionButtonTitle: {
 		fontSize: 16,

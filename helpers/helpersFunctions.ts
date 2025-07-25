@@ -1,6 +1,7 @@
 import {ResultAfterConvertationType} from '@/app/converter';
 import {GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE} from '@/constants/global';
 import {LANGUAGE_APP} from '@/stores/const/globalStoreConst';
+import {ColorValue} from 'react-native';
 import {
 	EMPTY_FAVORITES_DESCRIPTION,
 	LIST_LABEL,
@@ -95,4 +96,19 @@ export const emptyFavoritesDescription = (language: LANGUAGE_APP) => {
 		case LANGUAGE_APP.RU:
 			return EMPTY_FAVORITES_DESCRIPTION.RU;
 	}
+};
+
+export const currentGradientColors = (
+	element?: ColorValue | ColorValue[],
+): [ColorValue, ColorValue] => {
+	if (!element) return ['#000000', '#000000'];
+
+	if (Array.isArray(element)) {
+		return element.length >= 2
+			? (element as [ColorValue, ColorValue])
+			: [element[0], element[0]];
+	}
+
+	// Если передали одну строку (цвет)
+	return [element, element];
 };

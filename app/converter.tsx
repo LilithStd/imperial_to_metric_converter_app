@@ -1,15 +1,16 @@
 import { AnimatedGradientBackground } from "@/components/animatedGradientBackground";
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
 import { LIST_LABEL } from "@/helpers/helpersConst";
-import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
+import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
 import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
+import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
-import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FavoritesIcon from '../assets/images/icons/heart(empty).svg';
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
@@ -149,7 +150,7 @@ export default function Convertor() {
 
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <TouchableOpacity
-            style={[converterScreenStyles.valuesGroupItem, activeGroup === item.type ? { backgroundColor: colorScheme.button, borderRadius: 10 } : '']}
+            style={[converterScreenStyles.valuesGroupItem, activeGroup === item.type ? { backgroundColor: colorScheme.button[0], borderRadius: 10 } : '']}
             onPress={() => setActiveGroup(item.type)}
         >
             <Text style={[
@@ -171,37 +172,42 @@ export default function Convertor() {
                     nestedScrollEnabled={true}
                     renderItem={({ item }) => (
                         <View style={converterScreenStyles.valuesSectionsContainer}>
-                            <View
-                                style={[
-                                    converterScreenStyles.buttonBackground,
-                                    { backgroundColor: colorScheme.button }
-                                ]}
-                            >
-                                <View style={converterScreenStyles.valuesItemContainer}>
-                                    {invalidInputValue &&
-                                        <View>
-                                            <Text>incorrect input value need only 1-9 and . for input</Text>
-                                        </View>}
-                                    <TextInput
-                                        style={[
-                                            converterScreenStyles.valuesItem,
-                                            { color: colorScheme.text }
-                                        ]}
-                                        placeholder={'1'}
-                                        placeholderTextColor={colorScheme.text}
-                                        keyboardType='decimal-pad'
-                                        value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.IMPERIAL)}
-                                        onFocus={() => handleFocus(item.id)}
-                                        onChangeText={(text) => handleImperialChange(text, item.id, item.value)}
-                                        onBlur={() => handleBlur(item.id)}
-                                    />
-                                    <View style={converterScreenStyles.valuesImperialTitleItemContainer}>
-                                        <Text style={[
-                                            converterScreenStyles.valuesItem,
-                                            { color: colorScheme.text }
-                                        ]}>{item.imperialTypeValue}</Text>
+                            <View style={[
+                                converterScreenStyles.buttonBackground,
+
+                            ]}>
+
+
+                                <LinearGradient
+
+                                    colors={currentGradientColors(colorScheme.button)}
+                                >
+                                    <View style={converterScreenStyles.valuesItemContainer}>
+                                        {invalidInputValue &&
+                                            <View>
+                                                <Text>incorrect input value need only 1-9 and . for input</Text>
+                                            </View>}
+                                        <TextInput
+                                            style={[
+                                                converterScreenStyles.valuesItem,
+                                                { color: colorScheme.text }
+                                            ]}
+                                            placeholder={'1'}
+                                            placeholderTextColor={colorScheme.text}
+                                            keyboardType='decimal-pad'
+                                            value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.IMPERIAL)}
+                                            onFocus={() => handleFocus(item.id)}
+                                            onChangeText={(text) => handleImperialChange(text, item.id, item.value)}
+                                            onBlur={() => handleBlur(item.id)}
+                                        />
+                                        <View style={converterScreenStyles.valuesImperialTitleItemContainer}>
+                                            <Text style={[
+                                                converterScreenStyles.valuesItem,
+                                                { color: colorScheme.text }
+                                            ]}>{item.imperialTypeValue}</Text>
+                                        </View>
                                     </View>
-                                </View>
+                                </LinearGradient>
                             </View>
 
                             <SwitchValueArrow stroke={colorScheme.text} />
@@ -216,11 +222,14 @@ export default function Convertor() {
                                 />
                             </TouchableOpacity>
 
-                            <View
-                                style={[
-                                    converterScreenStyles.buttonBackground,
-                                    { backgroundColor: colorScheme.button }
-                                ]}
+                            <LinearGradient
+                                // style={[
+                                //     converterScreenStyles.buttonBackground,
+
+                                //     { backgroundColor: colorScheme.button }
+                                // ]}
+                                style={StyleSheet.absoluteFill}
+                                colors={currentGradientColors(colorScheme.button)}
 
                             >
                                 <View style={converterScreenStyles.valuesItemContainer}>
@@ -244,7 +253,7 @@ export default function Convertor() {
                                         ]}>{item.metricTypeValue}</Text>
                                     </View>
                                 </View>
-                            </View>
+                            </LinearGradient>
                         </View>
                     )}
                     ListEmptyComponent={
