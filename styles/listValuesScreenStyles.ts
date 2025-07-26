@@ -54,6 +54,7 @@ export const listValuesScreenStyles = StyleSheet.create({
 		alignItems: 'center',
 		borderColor: 'yellow',
 		borderWidth: 2,
+		borderRadius: 10,
 		// margin: 10,
 	},
 	valuesSectionsContainer: {

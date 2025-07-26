@@ -29,7 +29,6 @@ export default function ListValues() {
                 nestedScrollEnabled={true}
                 style={[
                     listValuesScreenStyles.valuesContainer,
-                    // { backgroundColor: colorScheme.button }
                 ]}
                 renderItem={({ item }) => (
                     <View style={listValuesScreenStyles.valuesSectionsContainer}>
@@ -78,30 +77,6 @@ export default function ListValues() {
                                 </LinearGradient>
                             </View>
                         </View>
-                        {/* <View style={listValuesScreenStyles.valuesSectionsContainer}>
-                            <View style={listValuesScreenStyles.valuesMetricContainer}>
-                                <View style={listValuesScreenStyles.valuesTextContainer}>
-                                    <LinearGradient
-                                        colors={currentGradientColors(colorScheme.button)}
-                                        style={[listValuesScreenStyles.linearGradienButtontContainer]}
-                                    >
-                                        <Text style={[
-                                            listValuesScreenStyles.sectionButtonTitle,
-                                            { color: colorScheme.text }
-                                        ]}>
-                                            {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value}
-                                        </Text>
-                                        <Text
-                                            style={[
-                                                listValuesScreenStyles.sectionButtonTitle,
-                                                { color: colorScheme.text }
-                                            ]}>
-                                            {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.FAHRENHEIT ? '' : item.metricTypeValue}
-                                        </Text>
-                                    </LinearGradient>
-                                </View>
-                            </View>
-                        </View> */}
                     </View>
 
                 )
