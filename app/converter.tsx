@@ -10,7 +10,7 @@ import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FavoritesIcon from '../assets/images/icons/heart(empty).svg';
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
@@ -179,7 +179,11 @@ export default function Convertor() {
 
 
                                 <LinearGradient
+                                    style={[
+                                        converterScreenStyles.buttonBackground,
+                                        { borderColor: colorScheme.border }
 
+                                    ]}
                                     colors={currentGradientColors(colorScheme.button)}
                                 >
                                     <View style={converterScreenStyles.valuesItemContainer}>
@@ -223,12 +227,12 @@ export default function Convertor() {
                             </TouchableOpacity>
 
                             <LinearGradient
-                                // style={[
-                                //     converterScreenStyles.buttonBackground,
+                                style={[
+                                    converterScreenStyles.buttonBackground,
+                                    { borderColor: colorScheme.border }
 
-                                //     { backgroundColor: colorScheme.button }
-                                // ]}
-                                style={StyleSheet.absoluteFill}
+                                ]}
+
                                 colors={currentGradientColors(colorScheme.button)}
 
                             >

@@ -68,6 +68,7 @@ export default function MainScreen() {
                         <LinearGradient
                             style={[
                                 mainScreenStyles.buttonBackground,
+                                { borderColor: colorScheme.border }
 
                             ]}
                             colors={colorScheme.button}
@@ -86,6 +87,7 @@ export default function MainScreen() {
                         <LinearGradient
                             style={[
                                 mainScreenStyles.buttonBackground,
+                                { borderColor: colorScheme.border }
 
                             ]}
                             colors={colorScheme.button}

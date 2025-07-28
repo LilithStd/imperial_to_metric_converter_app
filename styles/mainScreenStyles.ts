@@ -32,19 +32,20 @@ export const mainScreenStyles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		top: '30%',
+		gap: 10,
 	},
 	buttonBackground: {
-		transform: [{scale: 0.7}],
-		width: 263,
-		height: 85,
 		alignItems: 'center',
 		justifyContent: 'center',
+		width: 200,
+		height: 90,
+		borderWidth: 1,
 		borderRadius: 10,
 	},
 	buttonText: {
 		textAlign: 'center',
 		fontWeight: 900,
-		fontSize: 30,
+		fontSize: 20,
 	},
 	buttonContainerDark: {
 		...Platform.select({

@@ -53,7 +53,6 @@ export const listValuesScreenStyles = StyleSheet.create({
 	valuesTextContainer: {
 		flex: 1,
 		alignItems: 'center',
-		borderColor: '#002b80',
 		borderWidth: 2,
 		borderRadius: 10,
 		height: 100,
