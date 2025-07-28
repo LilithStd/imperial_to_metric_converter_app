@@ -18,7 +18,7 @@ export enum STATUS_THEME {
 
 export const COLOR_SCHEME: colorLinearGradient = {
 	light: {
-		background: ['#2193b0', '#6dd5ed'],
+		background: ['#22C1C3', '#2DA3FD'],
 		button: ['#00ace6', '#00ace6'],
 		text: 'black',
 	},

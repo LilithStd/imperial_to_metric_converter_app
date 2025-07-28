@@ -7,6 +7,7 @@ import { THEME_APP } from '@/stores/const/globalStoreConst'
 import { useGlobalStore } from '@/stores/globalStore'
 import { useThemeStore } from '@/stores/themeStore'
 import { mainScreenStyles } from '@/styles/mainScreenStyles'
+import { LinearGradient } from 'expo-linear-gradient'
 import { useRouter } from 'expo-router'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -64,28 +65,30 @@ export default function MainScreen() {
                         onPress={redirectToListValuesScreen}
 
                     >
-                        <View
+                        <LinearGradient
                             style={[
                                 mainScreenStyles.buttonBackground,
-                                currentTheme === THEME_APP.LIGHT ? (mainScreenStyles.buttonContainerLight, { backgroundColor: colorScheme.button }) : (mainScreenStyles.buttonContainerDark, { backgroundColor: colorScheme.button })
+
                             ]}
+                            colors={colorScheme.button}
                         >
                             <Text style={[
                                 mainScreenStyles.buttonText,
                                 { color: colorScheme.text },
                                 currentTheme === THEME_APP.LIGHT ? mainScreenStyles.buttonLightView : mainScreenStyles.buttonDarkView
                             ]}>{currentLanguageTranslateListValues[currentLanguage]}</Text>
-                        </View>
+                        </LinearGradient>
 
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={redirectToConverterScreen}
                     >
-                        <View
+                        <LinearGradient
                             style={[
                                 mainScreenStyles.buttonBackground,
-                                currentTheme === THEME_APP.LIGHT ? (mainScreenStyles.buttonContainerLight, { backgroundColor: colorScheme.button }) : (mainScreenStyles.buttonContainerDark, { backgroundColor: colorScheme.button })
+
                             ]}
+                            colors={colorScheme.button}
                         >
                             <Text style={[
                                 mainScreenStyles.buttonText,
@@ -93,7 +96,7 @@ export default function MainScreen() {
                                 currentTheme === THEME_APP.LIGHT ? mainScreenStyles.buttonLightView : mainScreenStyles.buttonDarkView
                             ]}>{currentLanguageTranslateConverter[currentLanguage]}
                             </Text>
-                        </View>
+                        </LinearGradient>
                     </TouchableOpacity>
                 </View>
                 <View style={mainScreenStyles.languageSwitcherContainer}>
