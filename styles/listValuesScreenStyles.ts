@@ -27,17 +27,20 @@ export const listValuesScreenStyles = StyleSheet.create({
 		alignItems: 'center',
 		paddingBottom: 10,
 	},
-	listValues: {},
-	sectionsButton: {
-		gap: 5,
+	listValues: {
+		margin: 10,
 	},
+	sectionsButton: {},
 	valuesContainer: {
 		// backgroundColor: 'turquoise',
 		borderRadius: 10,
 		padding: 10,
+		gap: 10,
 	},
 	valuesTitle: {
 		textAlign: 'center',
+		fontSize: 16,
+		fontWeight: 900,
 	},
 	valuesImperialContainer: {
 		width: '50%',
@@ -63,6 +66,7 @@ export const listValuesScreenStyles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		width: '100%',
+		gap: 10,
 	},
 	sectionButtonTitle: {
 		fontSize: 16,

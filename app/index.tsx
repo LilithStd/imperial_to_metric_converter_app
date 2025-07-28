@@ -12,11 +12,6 @@ import { useRouter } from 'expo-router'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const defaultBackgroundImage = require('../assets/images/backgrounds/bg_00.jpg')
-const greenButton = require('../assets/images/buttons/greenButton(Small).png')
-
-
-
 export default function MainScreen() {
     const router = useRouter()
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
@@ -53,9 +48,7 @@ export default function MainScreen() {
             <AnimatedGradientBackground
                 typeAnimate={ANIMATED_TYPES.WITH_GRADIENT}
             >
-                <View style={mainScreenStyles.mainTitleContainer}>
-                    <Text style={mainScreenStyles.mainTitle}>Main Screen</Text>
-                </View>
+
                 <View style={mainScreenStyles.themeSwitcherContainer}>
                     <ThemeSwitcher />
                 </View>

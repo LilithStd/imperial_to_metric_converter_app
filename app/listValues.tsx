@@ -12,7 +12,7 @@ import { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 //
-const defaultBackground = require('../assets/images/backgrounds/bg_00.jpg')
+
 const fahrenheitToCelsiusFormula = '°C = (°F - 32) * 5 / 9'
 
 export default function ListValues() {
@@ -23,7 +23,10 @@ export default function ListValues() {
     const [currentListValues, setCurrentValues] = useState(defaultListValues)
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={listValuesScreenStyles.sectionsButton}>
-            <Text style={listValuesScreenStyles.valuesTitle}>{item.type}</Text>
+            <Text style={[
+                listValuesScreenStyles.valuesTitle,
+                { color: colorScheme.text }
+            ]}>{item.type}</Text>
             <FlatList
                 data={item.values}
                 nestedScrollEnabled={true}
@@ -87,7 +90,6 @@ export default function ListValues() {
     return (
         <SafeAreaView style={listValuesScreenStyles.mainContainer}>
             <AnimatedGradientBackground typeAnimate={ANIMATED_TYPES.WITH_GRADIENT}>
-                <Text>listValues</Text>
                 <View style={listValuesScreenStyles.listValuesContainer}>
                     <FlatList
                         data={currentListValues.filter((item) => item.values)}
