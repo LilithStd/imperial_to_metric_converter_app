@@ -1,11 +1,27 @@
 import {LIST_LABEL, LIST_LABEL_TRANSLATE} from '@/helpers/helpersConst';
+
+import {updateTranslatedValues} from '@/helpers/helpersFunctions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
 import {LANGUAGE_APP} from './const/globalStoreConst';
 import {
 	AREA_VALUES,
+	IMPERIAL_AREA_VALUES,
+	IMPERIAL_LENGTH_VALUES,
+	IMPERIAL_PRESSURE_VALUES,
+	IMPERIAL_SPEED_VALUES,
+	IMPERIAL_TEMPERATURE_VALUES,
+	IMPERIAL_VOLUME_VALUES,
+	IMPERIAL_WEIGHT_VALUES,
 	LENGTH_VALUES,
+	METRIC_AREA_VALUES,
+	METRIC_LENGTH_VALUES,
+	METRIC_PRESSURE_VALUES,
+	METRIC_SPEED_VALUES,
+	METRIC_TEMPERATURE_VALUES,
+	METRIC_VOLUME_VALUES,
+	METRIC_WEIGHT_VALUES,
 	PRESSURE_VALUES,
 	RESULT_VALUES_TYPE,
 	SPEED_VALUES,
@@ -51,65 +67,169 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				const volumeValues = get().volumeValues.values;
 				const temperatureValues = get().temperatureValues.values;
 				const weightValues = get().weightValues.values;
-				let favoritesWithCurrentLanguage = LIST_LABEL_TRANSLATE.FAVORITES.EN;
-				let lengthValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.LENGTH;
-				let areaValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.AREA;
-				let pressureValuesWithCurrentLanguage =
+				//label
+				let favoritesLabelWithCurrentLanguage =
+					LIST_LABEL_TRANSLATE.FAVORITES.EN;
+				let lengthValuesLabelWithCurrentLanguage =
+					VALUES_TYPES_TRANSLATED.EN.LENGTH;
+				let areaValuesLabelWithCurrentLanguage =
+					VALUES_TYPES_TRANSLATED.EN.AREA;
+				let pressureValuesLabelWithCurrentLanguage =
 					VALUES_TYPES_TRANSLATED.EN.PRESSURE;
-				let speedValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.SPEED;
-				let volumeValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.VOLUME;
-				let weightValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.WEIGHT;
-				let temperatureValuesWithCurrentLanguage =
+				let speedValuesLabelWithCurrentLanguage =
+					VALUES_TYPES_TRANSLATED.EN.SPEED;
+				let volumeValuesLabelWithCurrentLanguage =
+					VALUES_TYPES_TRANSLATED.EN.VOLUME;
+				let weightValuesLabelWithCurrentLanguage =
+					VALUES_TYPES_TRANSLATED.EN.WEIGHT;
+				let temperatureValuesLabelWithCurrentLanguage =
 					VALUES_TYPES_TRANSLATED.EN.TEMPERATURE;
 
+				//values
+				// const favoritesValuesWithCurrentLanguage = {};
+				let lengthValuesWithCurrentLanguage = [...lengthValues];
+				let areaValuesWithCurrentLanguage = [...areaValues];
+				let pressureValuesWithCurrentLanguage = [...pressureValues];
+				let speedValuesWithCurrentLanguage = [...speedValues];
+				let volumeValuesWithCurrentLanguage = [...volumeValues];
+				let weightValuesWithCurrentLanguage = [...weightValues];
+				let temperatureValuesWithCurrentLanguage = [...temperatureValues];
+				//
 				switch (type) {
 					case VALUES_TYPES.ALL:
 						switch (language) {
 							case LANGUAGE_APP.LV:
-								lengthValuesWithCurrentLanguage =
+								lengthValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.LV.LENGTH;
-								areaValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.LV.AREA;
-								pressureValuesWithCurrentLanguage =
+								lengthValuesWithCurrentLanguage = updateTranslatedValues(
+									lengthValues,
+									LANGUAGE_APP.LV,
+									IMPERIAL_LENGTH_VALUES,
+									METRIC_LENGTH_VALUES,
+								);
+								areaValuesLabelWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.LV.AREA;
+								areaValuesWithCurrentLanguage = updateTranslatedValues(
+									areaValues,
+									LANGUAGE_APP.LV,
+									IMPERIAL_AREA_VALUES,
+									METRIC_AREA_VALUES,
+								);
+								pressureValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.LV.PRESSURE;
-								volumeValuesWithCurrentLanguage =
+								pressureValuesWithCurrentLanguage = updateTranslatedValues(
+									pressureValues,
+									LANGUAGE_APP.LV,
+									IMPERIAL_PRESSURE_VALUES,
+									METRIC_PRESSURE_VALUES,
+								);
+								volumeValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.LV.VOLUME;
-								weightValuesWithCurrentLanguage =
+								volumeValuesWithCurrentLanguage = updateTranslatedValues(
+									volumeValues,
+									LANGUAGE_APP.LV,
+									IMPERIAL_VOLUME_VALUES,
+									METRIC_VOLUME_VALUES,
+								);
+								weightValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.LV.WEIGHT;
-								temperatureValuesWithCurrentLanguage =
+								weightValuesWithCurrentLanguage = updateTranslatedValues(
+									weightValues,
+									LANGUAGE_APP.LV,
+									IMPERIAL_WEIGHT_VALUES,
+									METRIC_WEIGHT_VALUES,
+								);
+								temperatureValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.LV.TEMPERATURE;
-								speedValuesWithCurrentLanguage =
+								temperatureValuesWithCurrentLanguage = updateTranslatedValues(
+									temperatureValues,
+									LANGUAGE_APP.LV,
+									IMPERIAL_TEMPERATURE_VALUES,
+									METRIC_TEMPERATURE_VALUES,
+								);
+								speedValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.LV.SPEED;
+								speedValuesWithCurrentLanguage = updateTranslatedValues(
+									speedValues,
+									LANGUAGE_APP.LV,
+									IMPERIAL_SPEED_VALUES,
+									METRIC_SPEED_VALUES,
+								);
 
 								break;
 							case LANGUAGE_APP.RU:
-								lengthValuesWithCurrentLanguage =
+								lengthValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.RU.LENGTH;
-								areaValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.RU.AREA;
-								pressureValuesWithCurrentLanguage =
+								lengthValuesWithCurrentLanguage = updateTranslatedValues(
+									lengthValues,
+									LANGUAGE_APP.RU,
+									IMPERIAL_LENGTH_VALUES,
+									METRIC_LENGTH_VALUES,
+								);
+								areaValuesLabelWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.RU.AREA;
+								areaValuesWithCurrentLanguage = updateTranslatedValues(
+									areaValues,
+									LANGUAGE_APP.RU,
+									IMPERIAL_AREA_VALUES,
+									METRIC_AREA_VALUES,
+								);
+								pressureValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.RU.PRESSURE;
-								volumeValuesWithCurrentLanguage =
+								pressureValuesWithCurrentLanguage = updateTranslatedValues(
+									pressureValues,
+									LANGUAGE_APP.RU,
+									IMPERIAL_PRESSURE_VALUES,
+									METRIC_PRESSURE_VALUES,
+								);
+								volumeValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.RU.VOLUME;
-								weightValuesWithCurrentLanguage =
+								volumeValuesWithCurrentLanguage = updateTranslatedValues(
+									volumeValues,
+									LANGUAGE_APP.RU,
+									IMPERIAL_VOLUME_VALUES,
+									METRIC_VOLUME_VALUES,
+								);
+								weightValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.RU.WEIGHT;
-								temperatureValuesWithCurrentLanguage =
+								weightValuesWithCurrentLanguage = updateTranslatedValues(
+									weightValues,
+									LANGUAGE_APP.RU,
+									IMPERIAL_WEIGHT_VALUES,
+									METRIC_WEIGHT_VALUES,
+								);
+								temperatureValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.RU.TEMPERATURE;
-								speedValuesWithCurrentLanguage =
+								updateTranslatedValues(
+									temperatureValues,
+									LANGUAGE_APP.RU,
+									IMPERIAL_TEMPERATURE_VALUES,
+									METRIC_TEMPERATURE_VALUES,
+								);
+								speedValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.RU.SPEED;
+								speedValuesWithCurrentLanguage = updateTranslatedValues(
+									speedValues,
+									LANGUAGE_APP.RU,
+									IMPERIAL_SPEED_VALUES,
+									METRIC_SPEED_VALUES,
+								);
 
 								break;
 							case LANGUAGE_APP.EN:
-								lengthValuesWithCurrentLanguage =
+								lengthValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.EN.LENGTH;
-								areaValuesWithCurrentLanguage = VALUES_TYPES_TRANSLATED.EN.AREA;
-								pressureValuesWithCurrentLanguage =
+								areaValuesLabelWithCurrentLanguage =
+									VALUES_TYPES_TRANSLATED.EN.AREA;
+								pressureValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.EN.PRESSURE;
-								volumeValuesWithCurrentLanguage =
+								volumeValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.EN.VOLUME;
-								weightValuesWithCurrentLanguage =
+								weightValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.EN.WEIGHT;
-								temperatureValuesWithCurrentLanguage =
+								temperatureValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.EN.TEMPERATURE;
-								speedValuesWithCurrentLanguage =
+								speedValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.EN.SPEED;
 
 								break;
@@ -117,81 +237,81 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						resultValues.push(
 							{
 								type: VALUES_TYPES.LENGTH,
-								label: lengthValuesWithCurrentLanguage,
-								values: lengthValues,
+								label: lengthValuesLabelWithCurrentLanguage,
+								values: lengthValuesWithCurrentLanguage,
 							},
 							{
 								type: VALUES_TYPES.AREA,
-								label: areaValuesWithCurrentLanguage,
-								values: areaValues,
+								label: areaValuesLabelWithCurrentLanguage,
+								values: areaValuesWithCurrentLanguage,
 							},
 							{
 								type: VALUES_TYPES.PRESSURE,
-								label: pressureValuesWithCurrentLanguage,
-								values: pressureValues,
+								label: pressureValuesLabelWithCurrentLanguage,
+								values: pressureValuesWithCurrentLanguage,
 							},
 							{
 								type: VALUES_TYPES.VOLUME,
-								label: volumeValuesWithCurrentLanguage,
-								values: volumeValues,
+								label: volumeValuesLabelWithCurrentLanguage,
+								values: volumeValuesWithCurrentLanguage,
 							},
 							{
 								type: VALUES_TYPES.WEIGHT,
-								label: weightValuesWithCurrentLanguage,
-								values: weightValues,
+								label: weightValuesLabelWithCurrentLanguage,
+								values: weightValuesWithCurrentLanguage,
 							},
 							{
 								type: VALUES_TYPES.SPEED,
-								label: speedValuesWithCurrentLanguage,
-								values: speedValues,
+								label: speedValuesLabelWithCurrentLanguage,
+								values: speedValuesWithCurrentLanguage,
 							},
 							{
 								type: VALUES_TYPES.TEMPERATURE,
-								label: temperatureValuesWithCurrentLanguage,
-								values: temperatureValues,
+								label: temperatureValuesLabelWithCurrentLanguage,
+								values: temperatureValuesWithCurrentLanguage,
 							},
 						);
 						break;
 					case VALUES_TYPES.FAVORITES:
 						switch (language) {
 							case LANGUAGE_APP.EN:
-								favoritesWithCurrentLanguage =
+								favoritesLabelWithCurrentLanguage =
 									LIST_LABEL_TRANSLATE.FAVORITES.EN;
 								break;
 							case LANGUAGE_APP.LV:
-								favoritesWithCurrentLanguage =
+								favoritesLabelWithCurrentLanguage =
 									LIST_LABEL_TRANSLATE.FAVORITES.LV;
 								break;
 							case LANGUAGE_APP.RU:
-								favoritesWithCurrentLanguage =
+								favoritesLabelWithCurrentLanguage =
 									LIST_LABEL_TRANSLATE.FAVORITES.RU;
 								break;
 						}
 						resultValues.push({
 							type: LIST_LABEL.FAVORITES,
-							label: favoritesWithCurrentLanguage,
+							label: favoritesLabelWithCurrentLanguage,
 							values: get().favoritesValues,
 						});
 						break;
 					case VALUES_TYPES.LENGTH:
 						switch (language) {
 							case LANGUAGE_APP.LV:
-								lengthValuesWithCurrentLanguage =
+								lengthValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.LV.LENGTH;
 								break;
 							case LANGUAGE_APP.RU:
-								lengthValuesWithCurrentLanguage =
+								lengthValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.RU.LENGTH;
 								break;
 							case LANGUAGE_APP.EN:
-								lengthValuesWithCurrentLanguage =
+								lengthValuesLabelWithCurrentLanguage =
 									VALUES_TYPES_TRANSLATED.EN.LENGTH;
 								break;
 						}
 
 						resultValues.push({
 							type: VALUES_TYPES.LENGTH,
-							label: lengthValuesWithCurrentLanguage,
+							label: lengthValuesLabelWithCurrentLanguage,
 							values: lengthValues,
 						});
 						break;

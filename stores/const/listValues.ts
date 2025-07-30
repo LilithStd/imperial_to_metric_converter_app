@@ -131,7 +131,7 @@ export const METRIC_VOLUME_VALUES = {
 	},
 };
 
-const IMPERIAL_VOLUME_VALUES = {
+export const IMPERIAL_VOLUME_VALUES = {
 	EN: {
 		CUBIC_INCH: 'cubic inch',
 		CUBIC_FOOT: 'cubic foot',
@@ -157,7 +157,7 @@ const IMPERIAL_VOLUME_VALUES = {
 		QUART: 'kvarts',
 	},
 };
-const METRIC_TEMPERATURE_VALUES = {
+export const METRIC_TEMPERATURE_VALUES = {
 	EN: {
 		CELSIUS: '℃',
 	},
@@ -180,7 +180,7 @@ export const IMPERIAL_TEMPERATURE_VALUES = {
 		FAHRENHEIT: '℉',
 	},
 };
-const METRIC_SPEED_VALUES = {
+export const METRIC_SPEED_VALUES = {
 	EN: {
 		KM_PER_HOUR: 'km/h',
 	},
@@ -192,7 +192,7 @@ const METRIC_SPEED_VALUES = {
 	},
 };
 
-const IMPERIAL_SPEED_VALUES = {
+export const IMPERIAL_SPEED_VALUES = {
 	EN: {
 		MILE_PER_HOUR: 'mp/h',
 	},
@@ -203,7 +203,7 @@ const IMPERIAL_SPEED_VALUES = {
 		MILE_PER_HOUR: 'mp/s',
 	},
 };
-const METRIC_PRESSURE_VALUES = {
+export const METRIC_PRESSURE_VALUES = {
 	EN: {
 		PASCALS: 'Pa',
 	},
@@ -215,7 +215,7 @@ const METRIC_PRESSURE_VALUES = {
 	},
 };
 
-const IMPERIAL_PRESSURE_VALUES = {
+export const IMPERIAL_PRESSURE_VALUES = {
 	EN: {
 		PSI: 'psi',
 	},

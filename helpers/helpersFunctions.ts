@@ -1,6 +1,7 @@
 import {ResultAfterConvertationType} from '@/app/converter';
 import {GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE} from '@/constants/global';
 import {LANGUAGE_APP} from '@/stores/const/globalStoreConst';
+import {VALUES_ITEM} from '@/stores/const/listValues';
 import {ColorValue} from 'react-native';
 import {
 	EMPTY_FAVORITES_DESCRIPTION,
@@ -112,3 +113,27 @@ export const currentGradientColors = (
 	// Если передали одну строку (цвет)
 	return [element, element];
 };
+
+export function updateTranslatedValues<
+	I extends Record<string, string>,
+	M extends Record<string, string>,
+	ILangMap extends Record<string, I>,
+	MLangMap extends Record<string, M>,
+	Lang extends keyof ILangMap & keyof MLangMap,
+>(
+	array: VALUES_ITEM[],
+	language: Lang,
+	imperialMap: ILangMap,
+	metricMap: MLangMap,
+): VALUES_ITEM[] {
+	return array.map((item) => {
+		const imperialKey = item.id.toUpperCase() as keyof I;
+		const metricKey = item.metricTypeValue.toUpperCase() as keyof M;
+
+		return {
+			...item,
+			imperialTypeValue: imperialMap[language][imperialKey],
+			metricTypeValue: metricMap[language][metricKey],
+		};
+	});
+}
