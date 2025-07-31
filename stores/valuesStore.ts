@@ -45,6 +45,7 @@ interface ValuesStoreInterface {
 	getListValues: (type: string, language: LANGUAGE_APP) => RESULT_VALUES_TYPE[];
 	checkIsFavorites: (id: string) => boolean;
 	setFavoritesValues: (value: VALUES_ITEM) => void;
+	reset: () => void;
 }
 
 export const useValuesStore = create<ValuesStoreInterface>()(
@@ -94,6 +95,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				let volumeValuesWithCurrentLanguage = [...volumeValues];
 				let weightValuesWithCurrentLanguage = [...weightValues];
 				let temperatureValuesWithCurrentLanguage = [...temperatureValues];
+
 				//
 				switch (type) {
 					case VALUES_TYPES.ALL:
@@ -198,9 +200,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 									IMPERIAL_WEIGHT_VALUES,
 									METRIC_WEIGHT_VALUES,
 								);
-								temperatureValuesLabelWithCurrentLanguage =
-									VALUES_TYPES_TRANSLATED.RU.TEMPERATURE;
-								updateTranslatedValues(
+								temperatureValuesWithCurrentLanguage = updateTranslatedValues(
 									temperatureValues,
 									LANGUAGE_APP.RU,
 									IMPERIAL_TEMPERATURE_VALUES,
@@ -466,6 +466,18 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						favoritesValues: [...state.favoritesValues, value],
 					}));
 				}
+			},
+			reset: () => {
+				set({
+					lengthValues: LENGTH_VALUES,
+					areaValues: AREA_VALUES,
+					volumeValues: VOLUME_VALUES,
+					weightValues: WEIGHT_VALUES,
+					speedValues: SPEED_VALUES,
+					temperatureValues: TEMPERATURE_VALUES,
+					pressureValues: PRESSURE_VALUES,
+					favoritesValues: [],
+				});
 			},
 		}),
 		{

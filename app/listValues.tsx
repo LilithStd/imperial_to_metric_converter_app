@@ -8,7 +8,7 @@ import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { listValuesScreenStyles } from "@/styles/listValuesScreenStyles";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 //
@@ -21,6 +21,11 @@ export default function ListValues() {
     const defaultListValues = getListValues(VALUES_TYPES.ALL, currentAppLanguage)
     const colorScheme = useThemeStore(state => state.colorScheme)
     const [currentListValues, setCurrentValues] = useState(defaultListValues)
+
+    useEffect(() => {
+        useValuesStore.getState().reset();
+        console.log('reset compl')
+    }, [])
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={listValuesScreenStyles.sectionsButton}>
             <Text style={[
@@ -68,14 +73,14 @@ export default function ListValues() {
                                         listValuesScreenStyles.sectionButtonTitle,
                                         { color: colorScheme.text }
                                     ]}>
-                                        {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value}
+                                        {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.EN.FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value}
                                     </Text>
                                     <Text
                                         style={[
                                             listValuesScreenStyles.sectionButtonTitle,
                                             { color: colorScheme.text }
                                         ]}>
-                                        {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.FAHRENHEIT ? '' : item.metricTypeValue}
+                                        {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.EN.FAHRENHEIT ? '' : item.metricTypeValue}
                                     </Text>
                                 </LinearGradient>
                             </View>

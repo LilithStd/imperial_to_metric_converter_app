@@ -132,8 +132,14 @@ export function updateTranslatedValues<
 
 		return {
 			...item,
-			imperialTypeValue: imperialMap[language][imperialKey],
-			metricTypeValue: metricMap[language][metricKey],
+			imperialTypeValue:
+				imperialMap[language]?.[imperialKey] ?? item.imperialTypeValue,
+			metricTypeValue: metricMap[language]?.[metricKey] ?? item.metricTypeValue,
 		};
 	});
 }
+export const translatedValuesWithCurrentLanguage = (
+	array: VALUES_ITEM[],
+	values: [],
+	language: LANGUAGE_APP,
+) => {};
