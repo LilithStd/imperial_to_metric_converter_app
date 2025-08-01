@@ -8,7 +8,7 @@ import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { listValuesScreenStyles } from "@/styles/listValuesScreenStyles";
 import { LinearGradient } from "expo-linear-gradient";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 //
@@ -22,10 +22,6 @@ export default function ListValues() {
     const colorScheme = useThemeStore(state => state.colorScheme)
     const [currentListValues, setCurrentValues] = useState(defaultListValues)
 
-    useEffect(() => {
-        useValuesStore.getState().reset();
-        console.log('reset compl')
-    }, [])
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <View style={listValuesScreenStyles.sectionsButton}>
             <Text style={[

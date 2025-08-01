@@ -1,7 +1,7 @@
 import {ResultAfterConvertationType} from '@/app/converter';
 import {GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE} from '@/constants/global';
 import {LANGUAGE_APP} from '@/stores/const/globalStoreConst';
-import {VALUES_ITEM} from '@/stores/const/listValues';
+import {IMPERIAL_LENGTH_VALUES, VALUES_ITEM} from '@/stores/const/listValues';
 import {ColorValue} from 'react-native';
 import {
 	EMPTY_FAVORITES_DESCRIPTION,
@@ -110,7 +110,6 @@ export const currentGradientColors = (
 			: [element[0], element[0]];
 	}
 
-	// Если передали одну строку (цвет)
 	return [element, element];
 };
 
