@@ -51,36 +51,6 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				switch (type) {
 					case VALUES_TYPES.ALL:
 						resultValues.push(
-							// {
-							// 	type: VALUES_TYPES.LENGTH,
-							// 	label: lengthValuesLabelWithCurrentLanguage,
-							// 	values: lengthValuesWithCurrentLanguage,
-							// },
-							// {
-							// 	type: VALUES_TYPES.AREA,
-							// 	label: areaValuesLabelWithCurrentLanguage,
-							// 	values: areaValuesWithCurrentLanguage,
-							// },
-							// {
-							// 	type: VALUES_TYPES.PRESSURE,
-							// 	label: pressureValuesLabelWithCurrentLanguage,
-							// 	values: pressureValuesWithCurrentLanguage,
-							// },
-							// {
-							// 	type: VALUES_TYPES.VOLUME,
-							// 	label: volumeValuesLabelWithCurrentLanguage,
-							// 	values: volumeValuesWithCurrentLanguage,
-							// },
-							// {
-							// 	type: VALUES_TYPES.WEIGHT,
-							// 	label: weightValuesLabelWithCurrentLanguage,
-							// 	values: weightValuesWithCurrentLanguage,
-							// },
-							// {
-							// 	type: VALUES_TYPES.SPEED,
-							// 	label: speedValuesLabelWithCurrentLanguage,
-							// 	values: speedValuesWithCurrentLanguage,
-							// },
 							LENGTH_VALUES(language),
 							AREA_VALUES(language),
 							VOLUME_VALUES(language),
@@ -89,11 +59,6 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 							TEMPERATURE_VALUES(language),
 							PRESSURE_VALUES(language),
 							SPEED_VALUES(language),
-							// {
-							// 	type: VALUES_TYPES.TEMPERATURE,
-							// 	label: temperatureValuesLabelWithCurrentLanguage,
-							// 	values: temperatureValuesWithCurrentLanguage,
-							// },
 						);
 						break;
 					case VALUES_TYPES.FAVORITES:
