@@ -46,8 +46,6 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 			getListValues: (type, language) => {
 				const resultValues: RESULT_VALUES_TYPE[] = [];
 				//label
-				let favoritesLabelWithCurrentLanguage =
-					LIST_LABEL_TRANSLATE.FAVORITES.EN;
 				switch (type) {
 					case VALUES_TYPES.ALL:
 						resultValues.push(
@@ -62,20 +60,6 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						);
 						break;
 					case VALUES_TYPES.FAVORITES:
-						switch (language) {
-							case LANGUAGE_APP.EN:
-								favoritesLabelWithCurrentLanguage =
-									LIST_LABEL_TRANSLATE.FAVORITES.EN;
-								break;
-							case LANGUAGE_APP.LV:
-								favoritesLabelWithCurrentLanguage =
-									LIST_LABEL_TRANSLATE.FAVORITES.LV;
-								break;
-							case LANGUAGE_APP.RU:
-								favoritesLabelWithCurrentLanguage =
-									LIST_LABEL_TRANSLATE.FAVORITES.RU;
-								break;
-						}
 						const allValues = [
 							...LENGTH_VALUES(language).values,
 							...WEIGHT_VALUES(language).values,
@@ -90,28 +74,9 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						);
 						resultValues.push({
 							type: LIST_LABEL.FAVORITES,
-							label: favoritesLabelWithCurrentLanguage,
+							label: LIST_LABEL_TRANSLATE.FAVORITES[language],
 							values: favoriteItems,
 						});
-						// switch (language) {
-						// 	case LANGUAGE_APP.EN:
-						// 		favoritesLabelWithCurrentLanguage =
-						// 			LIST_LABEL_TRANSLATE.FAVORITES.EN;
-						// 		break;
-						// 	case LANGUAGE_APP.LV:
-						// 		favoritesLabelWithCurrentLanguage =
-						// 			LIST_LABEL_TRANSLATE.FAVORITES.LV;
-						// 		break;
-						// 	case LANGUAGE_APP.RU:
-						// 		favoritesLabelWithCurrentLanguage =
-						// 			LIST_LABEL_TRANSLATE.FAVORITES.RU;
-						// 		break;
-						// }
-						// resultValues.push({
-						// 	type: LIST_LABEL.FAVORITES,
-						// 	label: favoritesLabelWithCurrentLanguage,
-						// 	values: get().favoritesValues,
-						// });
 						break;
 					case VALUES_TYPES.LENGTH:
 						resultValues.push(LENGTH_VALUES(language));
