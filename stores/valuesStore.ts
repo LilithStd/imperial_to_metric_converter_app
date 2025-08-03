@@ -25,7 +25,7 @@ interface ValuesStoreInterface {
 	speedValues: RESULT_VALUES_TYPE;
 	temperatureValues: RESULT_VALUES_TYPE;
 	pressureValues: RESULT_VALUES_TYPE;
-	favoritesValues: VALUES_ITEM[];
+	favoritesValues: string[];
 	getListValues: (type: string, language: LANGUAGE_APP) => RESULT_VALUES_TYPE[];
 	checkIsFavorites: (id: string) => boolean;
 	setFavoritesValues: (value: VALUES_ITEM) => void;
@@ -62,25 +62,42 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						);
 						break;
 					case VALUES_TYPES.FAVORITES:
-						switch (language) {
-							case LANGUAGE_APP.EN:
-								favoritesLabelWithCurrentLanguage =
-									LIST_LABEL_TRANSLATE.FAVORITES.EN;
-								break;
-							case LANGUAGE_APP.LV:
-								favoritesLabelWithCurrentLanguage =
-									LIST_LABEL_TRANSLATE.FAVORITES.LV;
-								break;
-							case LANGUAGE_APP.RU:
-								favoritesLabelWithCurrentLanguage =
-									LIST_LABEL_TRANSLATE.FAVORITES.RU;
-								break;
-						}
+						const allValues = [
+							...LENGTH_VALUES(language).values,
+							...WEIGHT_VALUES(language).values,
+							...AREA_VALUES(language).values,
+							...VOLUME_VALUES(language).values,
+							...TEMPERATURE_VALUES(language).values,
+							...PRESSURE_VALUES(language).values,
+							...SPEED_VALUES(language).values,
+						];
+						const favoriteItems = allValues.filter((item) =>
+							get().favoritesValues.includes(item.id),
+						);
 						resultValues.push({
 							type: LIST_LABEL.FAVORITES,
 							label: favoritesLabelWithCurrentLanguage,
-							values: get().favoritesValues,
+							values: favoriteItems,
 						});
+						// switch (language) {
+						// 	case LANGUAGE_APP.EN:
+						// 		favoritesLabelWithCurrentLanguage =
+						// 			LIST_LABEL_TRANSLATE.FAVORITES.EN;
+						// 		break;
+						// 	case LANGUAGE_APP.LV:
+						// 		favoritesLabelWithCurrentLanguage =
+						// 			LIST_LABEL_TRANSLATE.FAVORITES.LV;
+						// 		break;
+						// 	case LANGUAGE_APP.RU:
+						// 		favoritesLabelWithCurrentLanguage =
+						// 			LIST_LABEL_TRANSLATE.FAVORITES.RU;
+						// 		break;
+						// }
+						// resultValues.push({
+						// 	type: LIST_LABEL.FAVORITES,
+						// 	label: favoritesLabelWithCurrentLanguage,
+						// 	values: get().favoritesValues,
+						// });
 						break;
 					case VALUES_TYPES.LENGTH:
 						resultValues.push(LENGTH_VALUES(language));
@@ -108,21 +125,19 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 			},
 
 			checkIsFavorites: (id) => {
-				return get().favoritesValues.some((item) => item.id === id);
+				return get().favoritesValues.includes(id);
 			},
 			setFavoritesValues: (value) => {
-				const exists = get().favoritesValues.some(
-					(item) => item.id === value.id,
-				);
+				const exists = get().favoritesValues.includes(value.id);
 				if (exists) {
 					set((state) => ({
 						favoritesValues: state.favoritesValues.filter(
-							(item) => item.id !== value.id,
+							(id) => id !== value.id,
 						),
 					}));
 				} else {
 					set((state) => ({
-						favoritesValues: [...state.favoritesValues, value],
+						favoritesValues: [...state.favoritesValues, value.id],
 					}));
 				}
 			},
