@@ -62,6 +62,20 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						);
 						break;
 					case VALUES_TYPES.FAVORITES:
+						switch (language) {
+							case LANGUAGE_APP.EN:
+								favoritesLabelWithCurrentLanguage =
+									LIST_LABEL_TRANSLATE.FAVORITES.EN;
+								break;
+							case LANGUAGE_APP.LV:
+								favoritesLabelWithCurrentLanguage =
+									LIST_LABEL_TRANSLATE.FAVORITES.LV;
+								break;
+							case LANGUAGE_APP.RU:
+								favoritesLabelWithCurrentLanguage =
+									LIST_LABEL_TRANSLATE.FAVORITES.RU;
+								break;
+						}
 						const allValues = [
 							...LENGTH_VALUES(language).values,
 							...WEIGHT_VALUES(language).values,
