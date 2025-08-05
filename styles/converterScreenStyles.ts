@@ -16,6 +16,7 @@ export const converterScreenStyles = StyleSheet.create({
 		fontSize: 24,
 		fontWeight: 900,
 		textAlign: 'center',
+		margin: 10,
 	},
 	valuesSectionsContainer: {
 		flex: 1,
@@ -32,6 +33,10 @@ export const converterScreenStyles = StyleSheet.create({
 	},
 	valuesBlockContainer: {
 		// padding: 20,
+		margin: 20,
+		justifyContent: 'center',
+		textAlign: 'center',
+		alignContent: 'center',
 	},
 	valuesItemContainer: {
 		flexDirection: 'column',
@@ -42,12 +47,18 @@ export const converterScreenStyles = StyleSheet.create({
 	valuesItem: {
 		fontSize: 20,
 		fontWeight: 900,
+		padding: 10,
+		textAlign: 'center',
+		alignItems: 'center',
+		flexDirection: 'column',
+		justifyContent: 'center',
 	},
 	valuesMetricTitleItemContainer: {
 		justifyContent: 'flex-start',
 	},
 	valuesImperialTitleItemContainer: {
-		justifyContent: 'flex-start',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	buttonBackground: {
 		alignItems: 'center',
