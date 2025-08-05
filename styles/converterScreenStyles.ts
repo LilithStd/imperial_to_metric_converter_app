@@ -26,13 +26,9 @@ export const converterScreenStyles = StyleSheet.create({
 		// gap: 4,
 	},
 	valuesBlockBackground: {
-		// backgroundColor: '#7fff00',
 		borderRadius: 20,
-		// padding: 20,
-		// gap: 5,
 	},
 	valuesBlockContainer: {
-		// padding: 20,
 		margin: 20,
 		justifyContent: 'center',
 		textAlign: 'center',
