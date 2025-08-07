@@ -1,5 +1,7 @@
 import {LANGUAGE_APP} from './globalStoreConst';
 
+export const fahrenheitToCelsiusFormula = '°C = (°F - 32) * 5 / 9';
+
 export const METRIC_LENGTH_VALUES = {
 	EN: {
 		CM: 'cm',

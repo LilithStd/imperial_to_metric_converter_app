@@ -3,7 +3,7 @@ import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
-import { RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
+import { fahrenheitToCelsiusFormula, METRIC_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
@@ -172,63 +172,54 @@ export default function Convertor() {
                     nestedScrollEnabled={true}
                     renderItem={({ item }) => (
                         <View style={converterScreenStyles.valuesSectionsContainer}>
-                            <View style={[
-                                converterScreenStyles.buttonBackground,
+                            <LinearGradient
+                                style={[
+                                    converterScreenStyles.buttonBackground,
+                                    converterScreenStyles.gradientContainer,
+                                    { borderColor: colorScheme.border }
 
-                            ]}>
-
-
-                                <LinearGradient
+                                ]}
+                                colors={currentGradientColors(colorScheme.button)}
+                            >
+                                <TextInput
                                     style={[
-                                        converterScreenStyles.buttonBackground,
-                                        { borderColor: colorScheme.border }
-
+                                        converterScreenStyles.valuesItem,
+                                        { color: colorScheme.text }
                                     ]}
-                                    colors={currentGradientColors(colorScheme.button)}
+                                    placeholder={'1'}
+                                    placeholderTextColor={colorScheme.text}
+                                    keyboardType='decimal-pad'
+                                    value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.IMPERIAL)}
+                                    onFocus={() => handleFocus(item.id)}
+                                    onChangeText={(text) => handleImperialChange(text, item.id, item.value)}
+                                    onBlur={() => handleBlur(item.id)}
+                                />
+                                <Text style={[
+                                    converterScreenStyles.valuesItem,
+                                    { color: colorScheme.text }
+                                ]}>
+                                    {item.imperialTypeValue}
+                                </Text>
+                            </LinearGradient>
+                            <View style={converterScreenStyles.favoritesContainer}>
+                                <SwitchValueArrow stroke={colorScheme.text} />
+                                <TouchableOpacity onPress={() => {
+                                    addFavorites(item);
+                                    setUpdateFavorites(true)
+                                }}
                                 >
-                                    <View style={converterScreenStyles.valuesItemContainer}>
-                                        {invalidInputValue &&
-                                            <View>
-                                                <Text>incorrect input value need only 1-9 and . for input</Text>
-                                            </View>}
-                                        <TextInput
-                                            style={[
-                                                converterScreenStyles.valuesItem,
-                                                { color: colorScheme.text }
-                                            ]}
-                                            placeholder={'1'}
-                                            placeholderTextColor={colorScheme.text}
-                                            keyboardType='decimal-pad'
-                                            value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.IMPERIAL)}
-                                            onFocus={() => handleFocus(item.id)}
-                                            onChangeText={(text) => handleImperialChange(text, item.id, item.value)}
-                                            onBlur={() => handleBlur(item.id)}
-                                        />
-                                        <View style={converterScreenStyles.valuesImperialTitleItemContainer}>
-                                            <Text style={[
-                                                converterScreenStyles.valuesItem,
-                                                { color: colorScheme.text }
-                                            ]}>{item.imperialTypeValue}</Text>
-                                        </View>
-                                    </View>
-                                </LinearGradient>
+                                    <FavoritesIcon
+                                        stroke={colorScheme.text}
+                                        fill={checkIsFavorites(item.id) ? 'red' : 'transparent'}
+                                    />
+                                </TouchableOpacity>
                             </View>
 
-                            <SwitchValueArrow stroke={colorScheme.text} />
-                            <TouchableOpacity onPress={() => {
-                                addFavorites(item);
-                                setUpdateFavorites(true)
-                            }}
-                            >
-                                <FavoritesIcon
-                                    stroke={colorScheme.text}
-                                    fill={checkIsFavorites(item.id) ? 'red' : 'transparent'}
-                                />
-                            </TouchableOpacity>
 
                             <LinearGradient
                                 style={[
                                     converterScreenStyles.buttonBackground,
+                                    converterScreenStyles.gradientContainer,
                                     { borderColor: colorScheme.border }
 
                                 ]}
@@ -236,27 +227,27 @@ export default function Convertor() {
                                 colors={currentGradientColors(colorScheme.button)}
 
                             >
-                                <View style={converterScreenStyles.valuesItemContainer}>
-                                    <TextInput
-                                        style={[
-                                            converterScreenStyles.valuesItem,
-                                            { color: colorScheme.text }
-                                        ]}
-                                        placeholderTextColor={colorScheme.text}
-                                        placeholder={item.value.toString()}
-                                        keyboardType='decimal-pad'
-                                        value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.METRIC)}
-                                        onFocus={() => handleFocus(item.id)}
-                                        onChangeText={(text) => handleMetricChange(text, item.id, item.value)}
-                                        onBlur={() => handleBlur(item.id)}
-                                    />
-                                    <View style={converterScreenStyles.valuesMetricTitleItemContainer}>
-                                        <Text style={[
-                                            converterScreenStyles.valuesItem,
-                                            { color: colorScheme.text }
-                                        ]}>{item.metricTypeValue}</Text>
-                                    </View>
-                                </View>
+
+                                <TextInput
+                                    style={[
+                                        converterScreenStyles.valuesItem,
+                                        { color: colorScheme.text }
+                                    ]}
+                                    placeholderTextColor={colorScheme.text}
+                                    placeholder={item.id === METRIC_TEMPERATURE_VALUES[currentLanguage].CELSIUS ? fahrenheitToCelsiusFormula : item.value.toString()}
+                                    keyboardType='decimal-pad'
+                                    value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.METRIC)}
+                                    onFocus={() => handleFocus(item.id)}
+                                    onChangeText={(text) => handleMetricChange(text, item.id, item.value)}
+                                    onBlur={() => handleBlur(item.id)}
+                                />
+                                <Text style={[
+                                    converterScreenStyles.valuesItem,
+                                    { color: colorScheme.text }
+                                ]}>
+                                    {item.metricTypeValue}
+                                </Text>
+
                             </LinearGradient>
                         </View>
                     )}

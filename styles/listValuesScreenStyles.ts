@@ -44,14 +44,11 @@ export const listValuesScreenStyles = StyleSheet.create({
 	},
 	valuesImperialContainer: {
 		width: '50%',
-		// alignItems: 'flex-start',
 	},
 	valuesMetricContainer: {
 		width: '50%',
 	},
-	valuesMetric: {
-		// margin: 10,
-	},
+	valuesMetric: {},
 	values: {},
 	valuesTextContainer: {
 		flex: 1,
@@ -59,7 +56,6 @@ export const listValuesScreenStyles = StyleSheet.create({
 		borderWidth: 2,
 		borderRadius: 10,
 		height: 100,
-		// margin: 10,
 	},
 	valuesSectionsContainer: {
 		flexDirection: 'row',

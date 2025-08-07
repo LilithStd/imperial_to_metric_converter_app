@@ -26,7 +26,7 @@ export const COLOR_SCHEME: colorLinearGradient = {
 	},
 	dark: {
 		background: ['#0f0f0f', '#093F79', '#0f0f0f'],
-		button: ['#3222C3', '#051657'],
+		button: ['#0059b3', '#051657'],
 		text: 'white',
 		border: '#002b80',
 	},

@@ -16,11 +16,6 @@ interface ThemeStoreInterface {
 	setStatusTheme: (status: STATUS_THEME) => void;
 }
 
-const darkThemeBackground = require('../assets/images/backgrounds/dark_theme_bottom_bg.png');
-const lightThemeBackground = require('../assets/images/backgrounds/light_theme_bottom_bg.png');
-// const darkThemeBackground = require('../assets/images/backgrounds/dark_theme_bg.jpg');
-// const lightThemeBackground = require('../assets/images/backgrounds/light_theme_bg.jpg');
-
 export const useThemeStore = create<ThemeStoreInterface>()(
 	persist(
 		(set, get) => ({

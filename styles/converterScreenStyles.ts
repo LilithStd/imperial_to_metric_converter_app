@@ -36,31 +36,39 @@ export const converterScreenStyles = StyleSheet.create({
 	},
 	valuesItemContainer: {
 		flexDirection: 'column',
-		// justifyContent: 'space-between',
+		// width: 160,
+		// height: 120,
+		// alignItems: 'center',
+	},
+	favoritesContainer: {
+		flexDirection: 'row',
+		margin: 10,
+	},
+	gradientContainer: {
 		width: 160,
+		justifyContent: 'center',
 		alignItems: 'center',
+		padding: 10,
+		height: '100%',
 	},
 	valuesItem: {
 		fontSize: 20,
 		fontWeight: 900,
-		padding: 10,
 		textAlign: 'center',
 		alignItems: 'center',
 		flexDirection: 'column',
 		justifyContent: 'center',
 	},
 	valuesMetricTitleItemContainer: {
-		justifyContent: 'flex-start',
+		// justifyContent: 'flex-start',
 	},
 	valuesImperialTitleItemContainer: {
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	buttonBackground: {
-		alignItems: 'center',
-		justifyContent: 'center',
 		borderRadius: 10,
-		borderWidth: 1,
+		borderWidth: 2,
 	},
 	valuesGroupContainer: {
 		margin: 20,

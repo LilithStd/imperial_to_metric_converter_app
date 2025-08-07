@@ -2,7 +2,7 @@
 import { AnimatedGradientBackground } from "@/components/animatedGradientBackground";
 import { currentGradientColors } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
-import { DEFAULT_IMPERIAL_COUNT, IMPERIAL_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
+import { DEFAULT_IMPERIAL_COUNT, fahrenheitToCelsiusFormula, IMPERIAL_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
@@ -12,8 +12,6 @@ import { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 //
-
-const fahrenheitToCelsiusFormula = '°C = (°F - 32) * 5 / 9'
 
 export default function ListValues() {
     const getListValues = useValuesStore(state => state.getListValues)
@@ -69,14 +67,14 @@ export default function ListValues() {
                                         listValuesScreenStyles.sectionButtonTitle,
                                         { color: colorScheme.text }
                                     ]}>
-                                        {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.EN.FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value}
+                                        {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES[currentAppLanguage].FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value}
                                     </Text>
                                     <Text
                                         style={[
                                             listValuesScreenStyles.sectionButtonTitle,
                                             { color: colorScheme.text }
                                         ]}>
-                                        {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES.EN.FAHRENHEIT ? '' : item.metricTypeValue}
+                                        {item.imperialTypeValue === IMPERIAL_TEMPERATURE_VALUES[currentAppLanguage].FAHRENHEIT ? '' : item.metricTypeValue}
                                     </Text>
                                 </LinearGradient>
                             </View>
