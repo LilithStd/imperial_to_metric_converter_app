@@ -14,8 +14,6 @@ import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import FavoritesIcon from '../assets/images/icons/heart(empty).svg';
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
-const defaultBackground = require('../assets/images/backgrounds/bg_00.jpg')
-const buttonBackground = require('../assets/images/buttons/greenButton(Small).png')
 
 export type ResultAfterConvertationType = {
     id: string,
@@ -26,10 +24,9 @@ export type ResultAfterConvertationType = {
 export default function Convertor() {
     const valuesListStore = useValuesStore(state => state.getListValues)
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
-    const favoritesList = useValuesStore(state => state.favoritesValues)
+    // const favoritesList = useValuesStore(state => state.favoritesValues)
     const checkIsFavorites = useValuesStore(state => state.checkIsFavorites)
     const addFavorites = useValuesStore(state => state.setFavoritesValues)
-    const currentTheme = useThemeStore(state => state.currentTheme)
     const colorScheme = useThemeStore(state => state.colorScheme)
 
     const valuesListToView = valuesListStore(VALUES_TYPES.ALL, currentLanguage)
@@ -42,7 +39,7 @@ export default function Convertor() {
     const [tempImperialValue, setTempImperialValue] = useState('')
     const [tempMetricValue, setTempMetricValue] = useState('')
 
-    const [invalidInputValue, setInvalidInputValue] = useState(false)
+    // const [invalidInputValue, setInvalidInputValue] = useState(false)
     const [updateFavorites, setUpdateFavorites] = useState(false)
 
     const valuesGroups = [
@@ -144,7 +141,13 @@ export default function Convertor() {
     }
 
     useEffect(() => {
-        setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
+        if (activeGroup === LIST_LABEL.FAVORITES) {
+            setResultAfterConvertion([])
+            setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
+        } else {
+            setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
+        }
+
         setUpdateFavorites(false)
     }, [activeGroup, updateFavorites])
 
@@ -204,7 +207,7 @@ export default function Convertor() {
                             <View style={converterScreenStyles.favoritesContainer}>
                                 <SwitchValueArrow stroke={colorScheme.text} />
                                 <TouchableOpacity onPress={() => {
-                                    addFavorites(item);
+                                    addFavorites(item.id);
                                     setUpdateFavorites(true)
                                 }}
                                 >

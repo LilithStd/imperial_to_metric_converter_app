@@ -11,7 +11,6 @@ import {
 	RESULT_VALUES_TYPE,
 	SPEED_VALUES,
 	TEMPERATURE_VALUES,
-	VALUES_ITEM,
 	VALUES_TYPES,
 	VOLUME_VALUES,
 	WEIGHT_VALUES,
@@ -28,7 +27,7 @@ interface ValuesStoreInterface {
 	favoritesValues: string[];
 	getListValues: (type: string, language: LANGUAGE_APP) => RESULT_VALUES_TYPE[];
 	checkIsFavorites: (id: string) => boolean;
-	setFavoritesValues: (value: VALUES_ITEM) => void;
+	setFavoritesValues: (id: string) => void;
 	reset: () => void;
 }
 
@@ -106,17 +105,15 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 			checkIsFavorites: (id) => {
 				return get().favoritesValues.includes(id);
 			},
-			setFavoritesValues: (value) => {
-				const exists = get().favoritesValues.includes(value.id);
+			setFavoritesValues: (id) => {
+				const exists = get().favoritesValues.includes(id);
 				if (exists) {
 					set((state) => ({
-						favoritesValues: state.favoritesValues.filter(
-							(id) => id !== value.id,
-						),
+						favoritesValues: state.favoritesValues.filter((id) => id !== id),
 					}));
 				} else {
 					set((state) => ({
-						favoritesValues: [...state.favoritesValues, value.id],
+						favoritesValues: [...state.favoritesValues, id],
 					}));
 				}
 			},

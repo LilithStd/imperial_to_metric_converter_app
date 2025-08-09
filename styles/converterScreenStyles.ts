@@ -23,7 +23,8 @@ export const converterScreenStyles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		// gap: 4,
+		// gap: 2,
+		margin: 10,
 	},
 	valuesBlockBackground: {
 		borderRadius: 20,
