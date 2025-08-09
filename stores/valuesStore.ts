@@ -6,6 +6,7 @@ import {createJSONStorage, persist} from 'zustand/middleware';
 import {LANGUAGE_APP} from './const/globalStoreConst';
 import {
 	AREA_VALUES,
+	HISTORY_VALUES_TYPE,
 	LENGTH_VALUES,
 	PRESSURE_VALUES,
 	RESULT_VALUES_TYPE,
@@ -25,6 +26,8 @@ interface ValuesStoreInterface {
 	temperatureValues: RESULT_VALUES_TYPE;
 	pressureValues: RESULT_VALUES_TYPE;
 	favoritesValues: string[];
+	historyValues: HISTORY_VALUES_TYPE[];
+	addHistoryValues: (values: HISTORY_VALUES_TYPE) => void;
 	getListValues: (type: string, language: LANGUAGE_APP) => RESULT_VALUES_TYPE[];
 	checkIsFavorites: (id: string) => boolean;
 	setFavoritesValues: (id: string) => void;
@@ -42,6 +45,12 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 			temperatureValues: TEMPERATURE_VALUES(LANGUAGE_APP.EN),
 			pressureValues: PRESSURE_VALUES(LANGUAGE_APP.EN),
 			favoritesValues: [],
+			historyValues: [],
+			addHistoryValues: (values) => {
+				set((state) => ({
+					historyValues: [...state.historyValues, values],
+				}));
+			},
 			getListValues: (type, language) => {
 				const resultValues: RESULT_VALUES_TYPE[] = [];
 				//label
@@ -107,9 +116,12 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 			},
 			setFavoritesValues: (id) => {
 				const exists = get().favoritesValues.includes(id);
+
 				if (exists) {
 					set((state) => ({
-						favoritesValues: state.favoritesValues.filter((id) => id !== id),
+						favoritesValues: state.favoritesValues.filter(
+							(favId) => favId !== id,
+						),
 					}));
 				} else {
 					set((state) => ({
@@ -127,6 +139,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 					temperatureValues: TEMPERATURE_VALUES(LANGUAGE_APP.EN),
 					pressureValues: PRESSURE_VALUES(LANGUAGE_APP.EN),
 					favoritesValues: [],
+					historyValues: [],
 				});
 			},
 		}),

@@ -17,6 +17,17 @@ export const METRIC_LENGTH_VALUES = {
 	},
 };
 
+export type HISTORY_VALUES_TYPE = {
+	imperialValues: {
+		label: string;
+		value: string;
+	};
+	metricValues: {
+		label: string;
+		values: string;
+	};
+};
+
 export const IMPERIAL_LENGTH_VALUES = {
 	EN: {
 		INCH: 'inch',
@@ -274,6 +285,7 @@ export const DEFAULT_IMPERIAL_COUNT = 1;
 export const VALUES_TYPES = {
 	ALL: 'All',
 	FAVORITES: 'Favorites',
+	HISTORY: 'History',
 	LENGTH: 'Length',
 	AREA: 'Area',
 	VOLUME: 'Volume',
@@ -480,19 +492,6 @@ export const VOLUME_VALUES = (language: LANGUAGE_APP) => ({
 		},
 	],
 });
-
-// export const SPEED_VALUES: RESULT_VALUES_TYPE = {
-// 	type: VALUES_TYPES.SPEED,
-// 	label: VALUES_TYPES_TRANSLATED.EN.SPEED,
-// 	values: [
-// 		{
-// 			id: 'mile_per_hour',
-// 			imperialTypeValue: IMPERIAL_SPEED_VALUES.EN.MILE_PER_HOUR,
-// 			metricTypeValue: METRIC_SPEED_VALUES.EN.KM_PER_HOUR,
-// 			value: 1.609,
-// 		},
-// 	],
-// };
 
 export const SPEED_VALUES = (currentLanguage: LANGUAGE_APP) => ({
 	type: VALUES_TYPES.SPEED,

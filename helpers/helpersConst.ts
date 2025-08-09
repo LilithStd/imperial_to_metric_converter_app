@@ -1,6 +1,7 @@
 export const LIST_LABEL = {
 	ALL: 'All',
 	FAVORITES: 'Favorites',
+	HISTORY: 'History',
 };
 export const LIST_LABEL_TRANSLATE = {
 	ALL: {
@@ -12,6 +13,11 @@ export const LIST_LABEL_TRANSLATE = {
 		EN: 'Favorites',
 		LV: 'Izlase',
 		RU: 'Избранное',
+	},
+	HISTORY: {
+		EN: 'History',
+		LV: 'Vēsture',
+		RU: 'История',
 	},
 };
 
