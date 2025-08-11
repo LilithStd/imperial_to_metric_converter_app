@@ -1,7 +1,7 @@
 import {ResultAfterConvertationType} from '@/app/converter';
 import {GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE} from '@/constants/global';
 import {LANGUAGE_APP} from '@/stores/const/globalStoreConst';
-import {IMPERIAL_LENGTH_VALUES, VALUES_ITEM} from '@/stores/const/listValues';
+import {VALUES_ITEM} from '@/stores/const/listValues';
 import {ColorValue} from 'react-native';
 import {
 	EMPTY_FAVORITES_DESCRIPTION,
@@ -81,6 +81,19 @@ export const translatedLabelForCurrentLanguage = (
 					break;
 				case LANGUAGE_APP.EN:
 					translatedLabel = LIST_LABEL_TRANSLATE.FAVORITES.EN;
+					break;
+			}
+			break;
+		case LIST_LABEL.HISTORY:
+			switch (currentLanguage) {
+				case LANGUAGE_APP.LV:
+					translatedLabel = LIST_LABEL_TRANSLATE.HISTORY.LV;
+					break;
+				case LANGUAGE_APP.RU:
+					translatedLabel = LIST_LABEL_TRANSLATE.HISTORY.RU;
+					break;
+				case LANGUAGE_APP.EN:
+					translatedLabel = LIST_LABEL_TRANSLATE.HISTORY.EN;
 					break;
 			}
 			break;

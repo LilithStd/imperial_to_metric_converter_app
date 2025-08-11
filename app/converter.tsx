@@ -3,17 +3,18 @@ import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
-import { fahrenheitToCelsiusFormula, METRIC_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
+import { fahrenheitToCelsiusFormula, HISTORY_VALUES_TYPE, METRIC_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
-import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Button, FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FavoritesIcon from '../assets/images/icons/heart(empty).svg';
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
+
 
 export type ResultAfterConvertationType = {
     id: string,
@@ -24,10 +25,12 @@ export type ResultAfterConvertationType = {
 export default function Convertor() {
     const valuesListStore = useValuesStore(state => state.getListValues)
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
-    const favoritesList = useValuesStore(state => state.favoritesValues)
+
     const checkIsFavorites = useValuesStore(state => state.checkIsFavorites)
     const addFavorites = useValuesStore(state => state.setFavoritesValues)
-    const currentTheme = useThemeStore(state => state.currentTheme)
+    const historyValues = useValuesStore(state => state.historyValues)
+    const addValuesToHistory = useValuesStore(state => state.addHistoryValues)
+    const resetValuesStore = useValuesStore(state => state.reset)
     const colorScheme = useThemeStore(state => state.colorScheme)
 
     const valuesListToView = valuesListStore(VALUES_TYPES.ALL, currentLanguage)
@@ -37,19 +40,24 @@ export default function Convertor() {
     const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType[]>([])
 
 
+
     const [tempImperialValue, setTempImperialValue] = useState('')
     const [tempMetricValue, setTempMetricValue] = useState('')
 
-    const [invalidInputValue, setInvalidInputValue] = useState(false)
+
     const [updateFavorites, setUpdateFavorites] = useState(false)
 
     const valuesGroups = [
         { type: VALUES_TYPES.ALL, label: translatedLabelForCurrentLanguage(LIST_LABEL.ALL, currentLanguage), values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
         { type: VALUES_TYPES.FAVORITES, label: translatedLabelForCurrentLanguage(LIST_LABEL.FAVORITES, currentLanguage), values: [{ id: 'favorites', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
-        ...valuesListToView
+        {
+            type: VALUES_TYPES.HISTORY, label: translatedLabelForCurrentLanguage(LIST_LABEL.HISTORY, currentLanguage), values: [{ id: 'history', imperialTypeValue: '', metricTypeValue: '', value: 0 }]
+        },
+        ...valuesListToView,
+
     ];
 
-
+    // resetValuesStore()
     const handleImperialChange = (text: string, id: string, conversionValue: number) => {
         if (text === '') {
             setTempImperialValue('');
@@ -165,6 +173,7 @@ export default function Convertor() {
 
             ]}>
                 <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>{item.label}</Text>
+
                 <FlatList
                     data={item.values}
                     nestedScrollEnabled={true}
@@ -260,13 +269,107 @@ export default function Convertor() {
         </View>
     )
 
+    const renderHistory = ({ item }: { item: HISTORY_VALUES_TYPE }) => (
+        <View style={converterScreenStyles.valuesBlockContainer}>
+            <View style={[
+                converterScreenStyles.valuesBlockBackground,
+
+            ]}>
+                <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>History</Text>
+                <Button title="reset store" onPress={resetValuesStore} />
+                <View style={converterScreenStyles.valuesSectionsContainer}>
+                    <FlatList
+                        data={item.values}
+                        renderItem={({ item }) => (
+                            <View style={converterScreenStyles.valuesSectionsContainer}>
+                                <LinearGradient
+                                    style={[
+                                        converterScreenStyles.buttonBackground,
+                                        converterScreenStyles.gradientContainer,
+                                        { borderColor: colorScheme.border }
+
+                                    ]}
+                                    colors={currentGradientColors(colorScheme.button)}
+                                >
+                                    <View>
+                                        <Text>{item.imperialValues.label}</Text>
+                                        <Text>{item.imperialValues.value}</Text>
+                                    </View>
+                                </LinearGradient>
+                                <LinearGradient
+                                    style={[
+                                        converterScreenStyles.buttonBackground,
+                                        converterScreenStyles.gradientContainer,
+                                        { borderColor: colorScheme.border }
+
+                                    ]}
+
+                                    colors={currentGradientColors(colorScheme.button)}
+
+                                >
+                                    <View>
+                                        <Text>{item.metricValues.label}</Text>
+                                        <Text>{item.metricValues.value}</Text>
+                                    </View>
+                                </LinearGradient>
+                            </View>
+                        )}
+                        ListEmptyComponent={
+                            <Text style={[
+                                converterScreenStyles.valuesGroupEmptyFavorites,
+                                { color: colorScheme.text }
+                            ]}>empty history</Text>
+                        }
+                    />
+                </View>
+
+
+                {/* <FlatList
+                    data={[]}
+                    nestedScrollEnabled={true}
+                    renderItem={({ item }) => (
+                        <View style={converterScreenStyles.valuesSectionsContainer}>
+                            <LinearGradient
+                                style={[
+                                    converterScreenStyles.buttonBackground,
+                                    converterScreenStyles.gradientContainer,
+                                    { borderColor: colorScheme.border }
+
+                                ]}
+                                colors={currentGradientColors(colorScheme.button)}
+                            >
+
+                            </LinearGradient>
+                            <LinearGradient
+                                style={[
+                                    converterScreenStyles.buttonBackground,
+                                    converterScreenStyles.gradientContainer,
+                                    { borderColor: colorScheme.border }
+
+                                ]}
+
+                                colors={currentGradientColors(colorScheme.button)}
+
+                            >
+                            </LinearGradient>
+                        </View>
+                    )}
+                    ListEmptyComponent={
+                        <Text style={[
+                            converterScreenStyles.valuesGroupEmptyFavorites,
+                            { color: colorScheme.text }
+                        ]}>empty history</Text>
+                    }
+                /> */}
+            </View>
+        </View>
+    );
+
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>
             <AnimatedGradientBackground
                 typeAnimate={ANIMATED_TYPES.WITH_GRADIENT}
             >
-
-
                 <View>
                     <FlatList
                         data={valuesGroups}
@@ -276,14 +379,24 @@ export default function Convertor() {
                         showsHorizontalScrollIndicator={false}
                     />
                 </View>
+                {activeGroup === LIST_LABEL.HISTORY ? (
+                    <FlatList
+                        style={converterScreenStyles.valuesListContainer}
+                        data={historyValues}
+                        renderItem={renderHistory}
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
 
-                <FlatList
-                    data={currentGroupValues}
-                    renderItem={renderItem}
-                    style={converterScreenStyles.valuesListContainer}
-                    showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}
-                />
+                    />
+                ) : (
+                    <FlatList
+                        data={currentGroupValues}
+                        renderItem={renderItem}
+                        style={converterScreenStyles.valuesListContainer}
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                    />
+                )}
             </AnimatedGradientBackground>
         </SafeAreaView>
     )

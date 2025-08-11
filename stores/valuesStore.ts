@@ -86,6 +86,25 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 							values: favoriteItems,
 						});
 						break;
+					// case VALUES_TYPES.HISTORY:
+					// 	const allValues2 = [
+					// 		...LENGTH_VALUES(language).values,
+					// 		...WEIGHT_VALUES(language).values,
+					// 		...AREA_VALUES(language).values,
+					// 		...VOLUME_VALUES(language).values,
+					// 		...TEMPERATURE_VALUES(language).values,
+					// 		...PRESSURE_VALUES(language).values,
+					// 		...SPEED_VALUES(language).values,
+					// 	];
+					// 	const histoiryItemsItems = allValues2.filter((item) =>
+					// 		get().favoritesValues.includes(item.id),
+					// 	);
+					// 	resultValues.push({
+					// 		type: LIST_LABEL.FAVORITES,
+					// 		label: LIST_LABEL_TRANSLATE.FAVORITES[language],
+					// 		values: histoiryItemsItems,
+					// 	});
+					// 	break;
 					case VALUES_TYPES.LENGTH:
 						resultValues.push(LENGTH_VALUES(language));
 						break;
