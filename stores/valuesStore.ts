@@ -27,8 +27,10 @@ interface ValuesStoreInterface {
 	pressureValues: RESULT_VALUES_TYPE;
 	favoritesValues: string[];
 	historyValues: HISTORY_VALUES_TYPE[];
+
 	addHistoryValues: (values: HISTORY_VALUES_TYPE) => void;
 	getListValues: (type: string, language: LANGUAGE_APP) => RESULT_VALUES_TYPE[];
+	getHistoryValues: (language: LANGUAGE_APP) => HISTORY_VALUES_TYPE[];
 	checkIsFavorites: (id: string) => boolean;
 	setFavoritesValues: (id: string) => void;
 	reset: () => void;
@@ -86,25 +88,6 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 							values: favoriteItems,
 						});
 						break;
-					// case VALUES_TYPES.HISTORY:
-					// 	const allValues2 = [
-					// 		...LENGTH_VALUES(language).values,
-					// 		...WEIGHT_VALUES(language).values,
-					// 		...AREA_VALUES(language).values,
-					// 		...VOLUME_VALUES(language).values,
-					// 		...TEMPERATURE_VALUES(language).values,
-					// 		...PRESSURE_VALUES(language).values,
-					// 		...SPEED_VALUES(language).values,
-					// 	];
-					// 	const histoiryItemsItems = allValues2.filter((item) =>
-					// 		get().favoritesValues.includes(item.id),
-					// 	);
-					// 	resultValues.push({
-					// 		type: LIST_LABEL.FAVORITES,
-					// 		label: LIST_LABEL_TRANSLATE.FAVORITES[language],
-					// 		values: histoiryItemsItems,
-					// 	});
-					// 	break;
 					case VALUES_TYPES.LENGTH:
 						resultValues.push(LENGTH_VALUES(language));
 						break;
@@ -129,7 +112,18 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				}
 				return resultValues;
 			},
-
+			getHistoryValues: (language) => {
+				const historyValues: HISTORY_VALUES_TYPE[] = [];
+				if (get().historyValues.length === 0) {
+					historyValues.push({
+						data: 'history',
+						values: [],
+					});
+				} else {
+					historyValues.push(...get().historyValues);
+				}
+				return historyValues;
+			},
 			checkIsFavorites: (id) => {
 				return get().favoritesValues.includes(id);
 			},

@@ -16,21 +16,20 @@ export const METRIC_LENGTH_VALUES = {
 		KM: 'km',
 	},
 };
+type ValuesHistoryType = {
+	imperialValues: {
+		label: string;
+		value: string;
+	};
+	metricValues: {
+		label: string;
+		value: string;
+	};
+};
 
 export type HISTORY_VALUES_TYPE = {
 	data: string;
-	values: [
-		{
-			imperialValues: {
-				label: string;
-				value: string;
-			};
-			metricValues: {
-				label: string;
-				value: string;
-			};
-		},
-	];
+	values: ValuesHistoryType[];
 };
 
 export const IMPERIAL_LENGTH_VALUES = {

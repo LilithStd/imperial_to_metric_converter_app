@@ -29,6 +29,7 @@ export default function Convertor() {
     const checkIsFavorites = useValuesStore(state => state.checkIsFavorites)
     const addFavorites = useValuesStore(state => state.setFavoritesValues)
     const historyValues = useValuesStore(state => state.historyValues)
+    const getHistoryValues = useValuesStore(state => state.getHistoryValues)
     const addValuesToHistory = useValuesStore(state => state.addHistoryValues)
     const resetValuesStore = useValuesStore(state => state.reset)
     const colorScheme = useThemeStore(state => state.colorScheme)
@@ -43,6 +44,7 @@ export default function Convertor() {
 
     const [tempImperialValue, setTempImperialValue] = useState('')
     const [tempMetricValue, setTempMetricValue] = useState('')
+    const [endChangeValue, setEndChangeValue] = useState(false)
 
 
     const [updateFavorites, setUpdateFavorites] = useState(false)
@@ -79,9 +81,11 @@ export default function Convertor() {
                             : convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toString();
 
                 setTempMetricValue(convertedValue);
+                setEndChangeValue(true)
             } else {
                 setTempMetricValue('');
             }
+
         }
     };
 
@@ -113,7 +117,6 @@ export default function Convertor() {
         setActiveInputId(id)
     }
 
-
     const handleBlur = (id: string) => {
         setResultAfterConvertion(prev => {
             const existingIndex = prev.findIndex(item => item.id === id)
@@ -132,6 +135,19 @@ export default function Convertor() {
                 }]
             }
         })
+        addValuesToHistory({
+            data: 'history',
+            values: [{
+                imperialValues: {
+                    label: id,
+                    value: tempImperialValue
+                },
+                metricValues: {
+                    label: id,
+                    value: tempMetricValue
+                }
+            }]
+        })
         setActiveInputId(null)
     }
 
@@ -139,6 +155,7 @@ export default function Convertor() {
     const getDisplayValue = (id: string, type: GLOBAL_VALUES_TYPES) => {
         if (activeInputId === id) {
             return type === GLOBAL_VALUES_TYPES.IMPERIAL ? tempImperialValue : tempMetricValue
+
         }
 
         const savedItem = resultAfterConvertion.find(item => item.id === id)
@@ -153,6 +170,7 @@ export default function Convertor() {
         setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
         setUpdateFavorites(false)
     }, [activeGroup, updateFavorites])
+
 
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <TouchableOpacity
@@ -322,45 +340,6 @@ export default function Convertor() {
                         }
                     />
                 </View>
-
-
-                {/* <FlatList
-                    data={[]}
-                    nestedScrollEnabled={true}
-                    renderItem={({ item }) => (
-                        <View style={converterScreenStyles.valuesSectionsContainer}>
-                            <LinearGradient
-                                style={[
-                                    converterScreenStyles.buttonBackground,
-                                    converterScreenStyles.gradientContainer,
-                                    { borderColor: colorScheme.border }
-
-                                ]}
-                                colors={currentGradientColors(colorScheme.button)}
-                            >
-
-                            </LinearGradient>
-                            <LinearGradient
-                                style={[
-                                    converterScreenStyles.buttonBackground,
-                                    converterScreenStyles.gradientContainer,
-                                    { borderColor: colorScheme.border }
-
-                                ]}
-
-                                colors={currentGradientColors(colorScheme.button)}
-
-                            >
-                            </LinearGradient>
-                        </View>
-                    )}
-                    ListEmptyComponent={
-                        <Text style={[
-                            converterScreenStyles.valuesGroupEmptyFavorites,
-                            { color: colorScheme.text }
-                        ]}>empty history</Text>
-                    }
-                /> */}
             </View>
         </View>
     );
@@ -382,7 +361,7 @@ export default function Convertor() {
                 {activeGroup === LIST_LABEL.HISTORY ? (
                     <FlatList
                         style={converterScreenStyles.valuesListContainer}
-                        data={historyValues}
+                        data={getHistoryValues(currentLanguage)}
                         renderItem={renderHistory}
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
