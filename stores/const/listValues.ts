@@ -16,7 +16,7 @@ export const METRIC_LENGTH_VALUES = {
 		KM: 'km',
 	},
 };
-type ValuesHistoryType = {
+export type HISTORY_VALUE_TYPE = {
 	imperialValues: {
 		label: string;
 		value: string;
@@ -29,7 +29,7 @@ type ValuesHistoryType = {
 
 export type HISTORY_VALUES_TYPE = {
 	data: string;
-	values: ValuesHistoryType[];
+	values: HISTORY_VALUE_TYPE[];
 };
 
 export const IMPERIAL_LENGTH_VALUES = {

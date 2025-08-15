@@ -6,6 +6,7 @@ import {createJSONStorage, persist} from 'zustand/middleware';
 import {LANGUAGE_APP} from './const/globalStoreConst';
 import {
 	AREA_VALUES,
+	HISTORY_VALUE_TYPE,
 	HISTORY_VALUES_TYPE,
 	LENGTH_VALUES,
 	PRESSURE_VALUES,
@@ -26,9 +27,9 @@ interface ValuesStoreInterface {
 	temperatureValues: RESULT_VALUES_TYPE;
 	pressureValues: RESULT_VALUES_TYPE;
 	favoritesValues: string[];
-	historyValues: HISTORY_VALUES_TYPE[];
+	historyValues: HISTORY_VALUE_TYPE[];
 
-	addHistoryValues: (values: HISTORY_VALUES_TYPE) => void;
+	addHistoryValues: (values: HISTORY_VALUE_TYPE) => void;
 	getListValues: (type: string, language: LANGUAGE_APP) => RESULT_VALUES_TYPE[];
 	getHistoryValues: (language: LANGUAGE_APP) => HISTORY_VALUES_TYPE[];
 	checkIsFavorites: (id: string) => boolean;
@@ -120,7 +121,10 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						values: [],
 					});
 				} else {
-					historyValues.push(...get().historyValues);
+					historyValues.push({
+						data: 'history',
+						values: [...get().historyValues],
+					});
 				}
 				return historyValues;
 			},

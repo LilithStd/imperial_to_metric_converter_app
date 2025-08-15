@@ -135,19 +135,6 @@ export default function Convertor() {
                 }]
             }
         })
-        addValuesToHistory({
-            data: 'history',
-            values: [{
-                imperialValues: {
-                    label: id,
-                    value: tempImperialValue
-                },
-                metricValues: {
-                    label: id,
-                    value: tempMetricValue
-                }
-            }]
-        })
         setActiveInputId(null)
     }
 
