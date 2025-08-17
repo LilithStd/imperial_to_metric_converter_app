@@ -10,7 +10,7 @@ import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
-import { Button, FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { AppState, AppStateStatus, Button, FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FavoritesIcon from '../assets/images/icons/heart(empty).svg';
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
@@ -23,6 +23,9 @@ export type ResultAfterConvertationType = {
 }
 
 export default function Convertor() {
+    //app_state
+    const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState);
+    //
     const valuesListStore = useValuesStore(state => state.getListValues)
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
 
@@ -330,6 +333,33 @@ export default function Convertor() {
             </View>
         </View>
     );
+
+
+    //app_state_watcher
+    useEffect(() => {
+        const subscription = AppState.addEventListener("change", nextAppState => {
+            console.log("App state changed to:", nextAppState);
+
+            if (nextAppState === "background") {
+                resetValuesStore()
+                setResultAfterConvertion([])
+            }
+
+            if (nextAppState === "inactive") {
+                resetValuesStore()
+            }
+
+            if (nextAppState === "active") {
+
+            }
+
+            setAppState(nextAppState);
+        });
+
+        return () => subscription.remove();
+    }, []);
+
+    //
 
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>
