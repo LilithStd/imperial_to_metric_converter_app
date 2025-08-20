@@ -22,6 +22,17 @@ export type ResultAfterConvertationType = {
     metricValues: string
 }
 
+export type ResultAfterConvertationType2 = {
+    imperialValues: {
+        label: string;
+        value: string;
+    };
+    metricValues: {
+        label: string;
+        value: string;
+    };
+}
+
 export default function Convertor() {
     //app_state
     const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState);
@@ -41,7 +52,7 @@ export default function Convertor() {
     const [activeInputId, setActiveInputId] = useState<string | null>(null)
     const [activeGroup, setActiveGroup] = useState(VALUES_TYPES.ALL)
     const [currentGroupValues, setCurrentGroupValues] = useState(valuesListStore(VALUES_TYPES.ALL, currentLanguage))
-    const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType[]>([])
+    const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType2[]>([])
 
 
 
@@ -107,11 +118,11 @@ export default function Convertor() {
 
 
     const handleFocus = (id: string) => {
-        const existingItem = resultAfterConvertion.find(item => item.id === id)
+        const existingItem = resultAfterConvertion.find(item => item.imperialValues.label === id)
 
         if (existingItem) {
-            setTempImperialValue(existingItem.imperialValues)
-            setTempMetricValue(existingItem.metricValues)
+            setTempImperialValue(existingItem.imperialValues.value)
+            setTempMetricValue(existingItem.metricValues.value)
         } else {
             setTempImperialValue('')
             setTempMetricValue('')
@@ -121,25 +132,34 @@ export default function Convertor() {
     }
 
     const handleBlur = (id: string) => {
-        setResultAfterConvertion(prev => {
-            const existingIndex = prev.findIndex(item => item.id === id)
+        setResultAfterConvertion((prev) => {
+            const existingIndex = prev.findIndex(
+                (item) => item.imperialValues.label === id
+            );
 
             if (existingIndex !== -1) {
-                return prev.map(item =>
-                    item.id === id
-                        ? { ...item, imperialValues: tempImperialValue, metricValues: tempMetricValue }
+                return prev.map((item) =>
+                    item.imperialValues.label === id
+                        ? {
+                            ...item,
+                            imperialValues: { label: id, value: tempImperialValue },
+                            metricValues: { label: id, value: tempMetricValue },
+                        }
                         : item
-                )
+                );
             } else {
-                return [...prev, {
-                    id,
-                    imperialValues: tempImperialValue,
-                    metricValues: tempMetricValue
-                }]
+                return [
+                    ...prev,
+                    {
+                        imperialValues: { label: id, value: tempImperialValue },
+                        metricValues: { label: id, value: tempMetricValue },
+                    },
+                ];
             }
-        })
-        setActiveInputId(null)
-    }
+        });
+
+        setActiveInputId(null);
+    };
 
 
     const getDisplayValue = (id: string, type: GLOBAL_VALUES_TYPES) => {
@@ -148,9 +168,9 @@ export default function Convertor() {
 
         }
 
-        const savedItem = resultAfterConvertion.find(item => item.id === id)
+        const savedItem = resultAfterConvertion.find(item => item.imperialValues.label === id)
         if (savedItem) {
-            return type === GLOBAL_VALUES_TYPES.IMPERIAL ? savedItem.imperialValues : savedItem.metricValues
+            return type === GLOBAL_VALUES_TYPES.IMPERIAL ? savedItem.imperialValues.value : savedItem.metricValues.value
         }
 
         return ''
@@ -338,7 +358,7 @@ export default function Convertor() {
     //app_state_watcher
     useEffect(() => {
         const subscription = AppState.addEventListener("change", nextAppState => {
-            console.log("App state changed to:", nextAppState);
+            // console.log("App state changed to:", nextAppState);
 
             if (nextAppState === "background") {
                 resetValuesStore()
