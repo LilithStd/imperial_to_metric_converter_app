@@ -161,7 +161,7 @@ export default function Convertor() {
         setActiveInputId(null);
     };
 
-
+    // console.log(historyValues)
     const getDisplayValue = (id: string, type: GLOBAL_VALUES_TYPES) => {
         if (activeInputId === id) {
             return type === GLOBAL_VALUES_TYPES.IMPERIAL ? tempImperialValue : tempMetricValue
@@ -181,6 +181,9 @@ export default function Convertor() {
         setUpdateFavorites(false)
     }, [activeGroup, updateFavorites])
 
+    useEffect(() => {
+        console.log("History in component:", historyValues);
+    }, [historyValues]);
 
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <TouchableOpacity
@@ -361,12 +364,13 @@ export default function Convertor() {
             // console.log("App state changed to:", nextAppState);
 
             if (nextAppState === "background") {
-                resetValuesStore()
+                addValuesToHistory(resultAfterConvertion)
+                // resetValuesStore()
                 setResultAfterConvertion([])
             }
 
             if (nextAppState === "inactive") {
-                resetValuesStore()
+                // resetValuesStore()
             }
 
             if (nextAppState === "active") {
@@ -398,6 +402,7 @@ export default function Convertor() {
                 {activeGroup === LIST_LABEL.HISTORY ? (
                     <FlatList
                         style={converterScreenStyles.valuesListContainer}
+                        // data={getHistoryValues}
                         data={getHistoryValues(currentLanguage)}
                         renderItem={renderHistory}
                         showsVerticalScrollIndicator={false}

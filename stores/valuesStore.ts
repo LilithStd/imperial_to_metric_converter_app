@@ -29,7 +29,7 @@ interface ValuesStoreInterface {
 	favoritesValues: string[];
 	historyValues: HISTORY_VALUE_TYPE[];
 
-	addHistoryValues: (values: HISTORY_VALUE_TYPE) => void;
+	addHistoryValues: (values: HISTORY_VALUE_TYPE[]) => void;
 	getListValues: (type: string, language: LANGUAGE_APP) => RESULT_VALUES_TYPE[];
 	getHistoryValues: (language: LANGUAGE_APP) => HISTORY_VALUES_TYPE[];
 	checkIsFavorites: (id: string) => boolean;
@@ -49,9 +49,12 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 			pressureValues: PRESSURE_VALUES(LANGUAGE_APP.EN),
 			favoritesValues: [],
 			historyValues: [],
+			// historyValues: [{data: 'history', values: []}],
 			addHistoryValues: (values) => {
+				console.log(values);
+
 				set((state) => ({
-					historyValues: [...state.historyValues, values],
+					historyValues: [...state.historyValues, ...values],
 				}));
 			},
 			getListValues: (type, language) => {
@@ -114,19 +117,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				return resultValues;
 			},
 			getHistoryValues: (language) => {
-				const historyValues: HISTORY_VALUES_TYPE[] = [];
-				if (get().historyValues.length === 0) {
-					historyValues.push({
-						data: 'history',
-						values: [],
-					});
-				} else {
-					historyValues.push({
-						data: 'history',
-						values: [...get().historyValues],
-					});
-				}
-				return historyValues;
+				return [{data: 'history', values: [...get().historyValues]}];
 			},
 			checkIsFavorites: (id) => {
 				return get().favoritesValues.includes(id);
