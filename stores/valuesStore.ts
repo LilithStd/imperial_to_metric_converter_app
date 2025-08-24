@@ -51,8 +51,6 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 			historyValues: [],
 			// historyValues: [{data: 'history', values: []}],
 			addHistoryValues: (values) => {
-				console.log(values);
-
 				set((state) => ({
 					historyValues: [...state.historyValues, ...values],
 				}));

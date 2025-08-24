@@ -73,7 +73,7 @@ export default function Convertor() {
 
     ];
 
-    // resetValuesStore()
+
     const handleImperialChange = (text: string, id: string, conversionValue: number) => {
         if (text === '') {
             setTempImperialValue('');
@@ -95,7 +95,7 @@ export default function Convertor() {
                             : convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toString();
 
                 setTempMetricValue(convertedValue);
-                setEndChangeValue(true)
+
             } else {
                 setTempMetricValue('');
             }
@@ -157,11 +157,11 @@ export default function Convertor() {
                 ];
             }
         });
-
+        setEndChangeValue(true)
         setActiveInputId(null);
     };
 
-    // console.log(historyValues)
+
     const getDisplayValue = (id: string, type: GLOBAL_VALUES_TYPES) => {
         if (activeInputId === id) {
             return type === GLOBAL_VALUES_TYPES.IMPERIAL ? tempImperialValue : tempMetricValue
@@ -176,14 +176,7 @@ export default function Convertor() {
         return ''
     }
 
-    useEffect(() => {
-        setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
-        setUpdateFavorites(false)
-    }, [activeGroup, updateFavorites])
 
-    useEffect(() => {
-        console.log("History in component:", historyValues);
-    }, [historyValues]);
 
     const renderGroupItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
         <TouchableOpacity
@@ -357,16 +350,14 @@ export default function Convertor() {
         </View>
     );
 
-
+    //useEffect_block
     //app_state_watcher
     useEffect(() => {
         const subscription = AppState.addEventListener("change", nextAppState => {
-            // console.log("App state changed to:", nextAppState);
-
             if (nextAppState === "background") {
-                addValuesToHistory(resultAfterConvertion)
+                // addValuesToHistory(resultAfterConvertion)
                 // resetValuesStore()
-                setResultAfterConvertion([])
+                // setResultAfterConvertion([])
             }
 
             if (nextAppState === "inactive") {
@@ -383,8 +374,27 @@ export default function Convertor() {
         return () => subscription.remove();
     }, []);
 
-    //
 
+    //change_active_group
+    useEffect(() => {
+        setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
+        setUpdateFavorites(false)
+    }, [activeGroup, updateFavorites])
+    //input_change_end_watcher
+    useEffect(() => {
+        addValuesToHistory([{
+            imperialValues: {
+                label: 'test_imperial',
+                value: 'null'
+            },
+            metricValues: {
+                label: 'test_metric',
+                value: 'null'
+            }
+        }])
+        setEndChangeValue(false)
+    }, [endChangeValue])
+    //useEffect_block_end
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>
             <AnimatedGradientBackground
