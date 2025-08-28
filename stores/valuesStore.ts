@@ -49,7 +49,6 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 			pressureValues: PRESSURE_VALUES(LANGUAGE_APP.EN),
 			favoritesValues: [],
 			historyValues: [],
-			// historyValues: [{data: 'history', values: []}],
 			addHistoryValues: (values) => {
 				set((state) => ({
 					historyValues: [...state.historyValues, ...values],

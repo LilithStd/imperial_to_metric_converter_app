@@ -8,6 +8,7 @@ import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
+import * as dayjs from 'dayjs';
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
 import { AppState, AppStateStatus, Button, FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
@@ -36,6 +37,9 @@ export type ResultAfterConvertationType2 = {
 export default function Convertor() {
     //app_state
     const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState);
+    //
+    //consts_converter_screens
+    dayjs().format()
     //
     const valuesListStore = useValuesStore(state => state.getListValues)
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
