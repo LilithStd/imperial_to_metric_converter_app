@@ -8,7 +8,7 @@ import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
-import * as dayjs from 'dayjs';
+import dayjs from "dayjs";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
 import { AppState, AppStateStatus, Button, FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
@@ -39,7 +39,7 @@ export default function Convertor() {
     const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState);
     //
     //consts_converter_screens
-    dayjs().format()
+
     //
     const valuesListStore = useValuesStore(state => state.getListValues)
     const currentLanguage = useGlobalStore(state => state.currentLanguage)
@@ -77,6 +77,7 @@ export default function Convertor() {
 
     ];
 
+    //functions
 
     const handleImperialChange = (text: string, id: string, conversionValue: number) => {
         if (text === '') {
@@ -387,6 +388,7 @@ export default function Convertor() {
     //input_change_end_watcher
     useEffect(() => {
         addValuesToHistory([{
+            data: dayjs().format("YYYY-MM-DD"),
             imperialValues: {
                 label: 'test_imperial',
                 value: 'null'

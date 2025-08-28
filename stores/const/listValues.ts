@@ -17,6 +17,7 @@ export const METRIC_LENGTH_VALUES = {
 	},
 };
 export type HISTORY_VALUE_TYPE = {
+	data: string;
 	imperialValues: {
 		label: string;
 		value: string;
