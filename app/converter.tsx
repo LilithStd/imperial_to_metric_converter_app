@@ -162,7 +162,14 @@ export default function Convertor() {
                 ];
             }
         });
-        setEndChangeValue(true)
+        addValuesToHistory([
+            {
+                data: dayjs().format("YYYY-MM-DD"),
+                imperialValues: { label: id, value: tempImperialValue },
+                metricValues: { label: id, value: tempMetricValue },
+            },
+        ]);
+        // setEndChangeValue(true)
         setActiveInputId(null);
     };
 
@@ -385,21 +392,6 @@ export default function Convertor() {
         setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
         setUpdateFavorites(false)
     }, [activeGroup, updateFavorites])
-    //input_change_end_watcher
-    useEffect(() => {
-        addValuesToHistory([{
-            data: dayjs().format("YYYY-MM-DD"),
-            imperialValues: {
-                label: 'test_imperial',
-                value: 'null'
-            },
-            metricValues: {
-                label: 'test_metric',
-                value: 'null'
-            }
-        }])
-        setEndChangeValue(false)
-    }, [endChangeValue])
     //useEffect_block_end
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>
