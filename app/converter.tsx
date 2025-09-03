@@ -317,37 +317,42 @@ export default function Convertor() {
                     <FlatList
                         data={item.values}
                         renderItem={({ item }) => (
-                            <View style={converterScreenStyles.valuesSectionsContainer}>
-                                <LinearGradient
-                                    style={[
-                                        converterScreenStyles.buttonBackground,
-                                        converterScreenStyles.gradientContainer,
-                                        { borderColor: colorScheme.border }
+                            <View style={converterScreenStyles.historyContainer}>
+                                <View style={converterScreenStyles.historyDataContainer}>
+                                    <Text>{item.data}</Text>
+                                </View>
+                                <View style={converterScreenStyles.valuesSectionsContainer}>
+                                    <LinearGradient
+                                        style={[
+                                            converterScreenStyles.buttonBackground,
+                                            converterScreenStyles.gradientContainer,
+                                            { borderColor: colorScheme.border }
 
-                                    ]}
-                                    colors={currentGradientColors(colorScheme.button)}
-                                >
-                                    <View>
-                                        <Text>{item.imperialValues.label}</Text>
-                                        <Text>{item.imperialValues.value}</Text>
-                                    </View>
-                                </LinearGradient>
-                                <LinearGradient
-                                    style={[
-                                        converterScreenStyles.buttonBackground,
-                                        converterScreenStyles.gradientContainer,
-                                        { borderColor: colorScheme.border }
+                                        ]}
+                                        colors={currentGradientColors(colorScheme.button)}
+                                    >
+                                        <View>
+                                            <Text>{item.imperialValues.label}</Text>
+                                            <Text>{item.imperialValues.value}</Text>
+                                        </View>
+                                    </LinearGradient>
+                                    <LinearGradient
+                                        style={[
+                                            converterScreenStyles.buttonBackground,
+                                            converterScreenStyles.gradientContainer,
+                                            { borderColor: colorScheme.border }
 
-                                    ]}
+                                        ]}
 
-                                    colors={currentGradientColors(colorScheme.button)}
+                                        colors={currentGradientColors(colorScheme.button)}
 
-                                >
-                                    <View>
-                                        <Text>{item.metricValues.label}</Text>
-                                        <Text>{item.metricValues.value}</Text>
-                                    </View>
-                                </LinearGradient>
+                                    >
+                                        <View>
+                                            <Text>{item.metricValues.label}</Text>
+                                            <Text>{item.metricValues.value}</Text>
+                                        </View>
+                                    </LinearGradient>
+                                </View>
                             </View>
                         )}
                         ListEmptyComponent={

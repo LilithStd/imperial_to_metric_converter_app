@@ -114,7 +114,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				return resultValues;
 			},
 			getHistoryValues: (language) => {
-				return [{data: 'history', values: [...get().historyValues]}];
+				return [{data: 'history2', values: [...get().historyValues]}];
 			},
 			checkIsFavorites: (id) => {
 				return get().favoritesValues.includes(id);
