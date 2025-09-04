@@ -165,11 +165,13 @@ export default function Convertor() {
         addValuesToHistory([
             {
                 data: dayjs().format("YYYY-MM-DD"),
-                imperialValues: { label: id, value: tempImperialValue },
-                metricValues: { label: id, value: tempMetricValue },
+                values: {
+                    imperialValues: { label: id, value: tempImperialValue },
+                    metricValues: { label: id, value: tempMetricValue },
+                }
+
             },
         ]);
-        // setEndChangeValue(true)
         setActiveInputId(null);
     };
 
@@ -332,8 +334,8 @@ export default function Convertor() {
                                         colors={currentGradientColors(colorScheme.button)}
                                     >
                                         <View>
-                                            <Text>{item.imperialValues.label}</Text>
-                                            <Text>{item.imperialValues.value}</Text>
+                                            <Text>{item.values.imperialValues.label}</Text>
+                                            <Text>{item.values.imperialValues.value}</Text>
                                         </View>
                                     </LinearGradient>
                                     <LinearGradient
@@ -348,8 +350,8 @@ export default function Convertor() {
 
                                     >
                                         <View>
-                                            <Text>{item.metricValues.label}</Text>
-                                            <Text>{item.metricValues.value}</Text>
+                                            <Text>{item.values.metricValues.label}</Text>
+                                            <Text>{item.values.metricValues.value}</Text>
                                         </View>
                                     </LinearGradient>
                                 </View>
@@ -397,6 +399,7 @@ export default function Convertor() {
         setCurrentGroupValues(valuesListStore(activeGroup, currentLanguage))
         setUpdateFavorites(false)
     }, [activeGroup, updateFavorites])
+
     //useEffect_block_end
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>

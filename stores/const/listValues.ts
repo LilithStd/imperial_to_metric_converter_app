@@ -18,13 +18,15 @@ export const METRIC_LENGTH_VALUES = {
 };
 export type HISTORY_VALUE_TYPE = {
 	data: string;
-	imperialValues: {
-		label: string;
-		value: string;
-	};
-	metricValues: {
-		label: string;
-		value: string;
+	values: {
+		imperialValues: {
+			label: string;
+			value: string;
+		};
+		metricValues: {
+			label: string;
+			value: string;
+		};
 	};
 };
 

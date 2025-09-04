@@ -17,7 +17,13 @@ import {
 	VOLUME_VALUES,
 	WEIGHT_VALUES,
 } from './const/listValues';
-
+export type GROUPED_HISTORY_TYPE = {
+	date: string;
+	values: {
+		imperialValues: {label: string; value: string};
+		metricValues: {label: string; value: string};
+	}[];
+};
 interface ValuesStoreInterface {
 	lengthValues: RESULT_VALUES_TYPE;
 	areaValues: RESULT_VALUES_TYPE;
@@ -114,7 +120,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				return resultValues;
 			},
 			getHistoryValues: (language) => {
-				return [{data: 'history2', values: [...get().historyValues]}];
+				return [{data: 'history', values: [...get().historyValues]}];
 			},
 			checkIsFavorites: (id) => {
 				return get().favoritesValues.includes(id);
