@@ -3,10 +3,10 @@ import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
-import { fahrenheitToCelsiusFormula, HISTORY_VALUES_TYPE, METRIC_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
+import { fahrenheitToCelsiusFormula, METRIC_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
-import { useValuesStore } from "@/stores/valuesStore";
+import { GROUPED_HISTORY_TYPE, useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
 import dayjs from "dayjs";
 import { LinearGradient } from "expo-linear-gradient";
@@ -307,7 +307,7 @@ export default function Convertor() {
         </View>
     )
 
-    const renderHistory = ({ item }: { item: HISTORY_VALUES_TYPE }) => (
+    const renderHistory = ({ item }: { item: GROUPED_HISTORY_TYPE }) => (
         <View style={converterScreenStyles.valuesBlockContainer}>
             <View style={[
                 converterScreenStyles.valuesBlockBackground,
@@ -315,13 +315,14 @@ export default function Convertor() {
             ]}>
                 <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>History</Text>
                 <Button title="reset store" onPress={resetValuesStore} />
+                <Text>{item.date}</Text>
                 <View style={converterScreenStyles.valuesSectionsContainer}>
                     <FlatList
                         data={item.values}
                         renderItem={({ item }) => (
                             <View style={converterScreenStyles.historyContainer}>
                                 <View style={converterScreenStyles.historyDataContainer}>
-                                    <Text>{item.data}</Text>
+                                    {/* <Text>{item.imperialValues.label}</Text> */}
                                 </View>
                                 <View style={converterScreenStyles.valuesSectionsContainer}>
                                     <LinearGradient
@@ -334,8 +335,8 @@ export default function Convertor() {
                                         colors={currentGradientColors(colorScheme.button)}
                                     >
                                         <View>
-                                            <Text>{item.values.imperialValues.label}</Text>
-                                            <Text>{item.values.imperialValues.value}</Text>
+                                            <Text>{item.imperialValues.label}</Text>
+                                            <Text>{item.imperialValues.value}</Text>
                                         </View>
                                     </LinearGradient>
                                     <LinearGradient
@@ -350,8 +351,8 @@ export default function Convertor() {
 
                                     >
                                         <View>
-                                            <Text>{item.values.metricValues.label}</Text>
-                                            <Text>{item.values.metricValues.value}</Text>
+                                            <Text>{item.metricValues.label}</Text>
+                                            <Text>{item.metricValues.value}</Text>
                                         </View>
                                     </LinearGradient>
                                 </View>

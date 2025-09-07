@@ -7,7 +7,6 @@ import {LANGUAGE_APP} from './const/globalStoreConst';
 import {
 	AREA_VALUES,
 	HISTORY_VALUE_TYPE,
-	HISTORY_VALUES_TYPE,
 	LENGTH_VALUES,
 	PRESSURE_VALUES,
 	RESULT_VALUES_TYPE,
@@ -37,7 +36,7 @@ interface ValuesStoreInterface {
 
 	addHistoryValues: (values: HISTORY_VALUE_TYPE[]) => void;
 	getListValues: (type: string, language: LANGUAGE_APP) => RESULT_VALUES_TYPE[];
-	getHistoryValues: (language: LANGUAGE_APP) => HISTORY_VALUES_TYPE[];
+	getHistoryValues: (language: LANGUAGE_APP) => GROUPED_HISTORY_TYPE[];
 	checkIsFavorites: (id: string) => boolean;
 	setFavoritesValues: (id: string) => void;
 	reset: () => void;
@@ -120,7 +119,19 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				return resultValues;
 			},
 			getHistoryValues: (language) => {
-				return [{data: 'history', values: [...get().historyValues]}];
+				const history = get().historyValues;
+
+				const uniqueDates = Array.from(
+					new Set(history.map((item) => item.data)),
+				);
+
+				const groupedHistory = uniqueDates.map((date) => ({
+					date,
+					values: history
+						.filter((h) => h.data === date) // все записи с этой датой
+						.flatMap((h) => h.values), // распаковываем массив values
+				}));
+				return groupedHistory;
 			},
 			checkIsFavorites: (id) => {
 				return get().favoritesValues.includes(id);
