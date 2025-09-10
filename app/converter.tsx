@@ -313,16 +313,18 @@ export default function Convertor() {
                 converterScreenStyles.valuesBlockBackground,
 
             ]}>
-                <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>History</Text>
-                <Button title="reset store" onPress={resetValuesStore} />
-                <Text>{item.date}</Text>
+                <View style={[converterScreenStyles.dataContainer, { backgroundColor: colorScheme.button[0] }]}>
+
+                    <Text style={[converterScreenStyles.dataContent, { color: colorScheme.text }]}>{item.date}</Text>
+
+
+                </View>
                 <View style={converterScreenStyles.valuesSectionsContainer}>
                     <FlatList
                         data={item.values}
                         renderItem={({ item }) => (
                             <View style={converterScreenStyles.historyContainer}>
                                 <View style={converterScreenStyles.historyDataContainer}>
-                                    {/* <Text>{item.imperialValues.label}</Text> */}
                                 </View>
                                 <View style={converterScreenStyles.valuesSectionsContainer}>
                                     <LinearGradient
@@ -401,6 +403,7 @@ export default function Convertor() {
         setUpdateFavorites(false)
     }, [activeGroup, updateFavorites])
 
+
     //useEffect_block_end
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>
@@ -417,15 +420,19 @@ export default function Convertor() {
                     />
                 </View>
                 {activeGroup === LIST_LABEL.HISTORY ? (
-                    <FlatList
-                        style={converterScreenStyles.valuesListContainer}
-                        // data={getHistoryValues}
-                        data={getHistoryValues(currentLanguage)}
-                        renderItem={renderHistory}
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
+                    <View style={converterScreenStyles.historyContainer}>
+                        <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>History</Text>
+                        <Button title="reset store" onPress={resetValuesStore} />
+                        <FlatList
+                            style={converterScreenStyles.valuesListContainer}
+                            data={getHistoryValues(currentLanguage)}
+                            renderItem={renderHistory}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
 
-                    />
+                        />
+                    </View>
+
                 ) : (
                     <FlatList
                         data={currentGroupValues}

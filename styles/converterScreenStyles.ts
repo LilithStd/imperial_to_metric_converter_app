@@ -27,6 +27,10 @@ export const converterScreenStyles = StyleSheet.create({
 		margin: 10,
 	},
 	historyContainer: {},
+	dataContainer: {},
+	dataContent: {
+		textAlign: 'center',
+	},
 	valuesBlockBackground: {
 		borderRadius: 20,
 	},
