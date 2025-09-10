@@ -1,6 +1,7 @@
 import {LIST_LABEL, LIST_LABEL_TRANSLATE} from '@/helpers/helpersConst';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import dayjs from 'dayjs';
 import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
 import {LANGUAGE_APP} from './const/globalStoreConst';
@@ -128,10 +129,17 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				const groupedHistory = uniqueDates.map((date) => ({
 					date,
 					values: history
-						.filter((h) => h.data === date) // все записи с этой датой
-						.flatMap((h) => h.values), // распаковываем массив values
+						.filter((h) => h.data === date)
+						.flatMap((h) => h.values),
 				}));
-				return groupedHistory;
+				const sortedHistory = groupedHistory.sort(
+					(a, b) =>
+						dayjs(b.date, 'YYYY-MM-DD').unix() -
+						dayjs(a.date, 'YYYY-MM-DD').unix(),
+				);
+				// const dateFormated = groupedHistory;
+				// return groupedHistory;
+				return sortedHistory;
 			},
 			checkIsFavorites: (id) => {
 				return get().favoritesValues.includes(id);

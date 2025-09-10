@@ -26,7 +26,9 @@ export const converterScreenStyles = StyleSheet.create({
 		// gap: 2,
 		margin: 10,
 	},
-	historyContainer: {},
+	historyContainer: {
+		flex: 1,
+	},
 	dataContainer: {},
 	dataContent: {
 		textAlign: 'center',
