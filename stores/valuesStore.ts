@@ -17,13 +17,8 @@ import {
 	VOLUME_VALUES,
 	WEIGHT_VALUES,
 } from './const/listValues';
-export type GROUPED_HISTORY_TYPE = {
-	date: string;
-	values: {
-		imperialValues: {label: string; value: string};
-		metricValues: {label: string; value: string};
-	}[];
-};
+import {GROUPED_HISTORY_TYPE, SORTING_TYPES} from './const/valuesStoreConsts';
+
 interface ValuesStoreInterface {
 	lengthValues: RESULT_VALUES_TYPE;
 	areaValues: RESULT_VALUES_TYPE;
@@ -37,7 +32,10 @@ interface ValuesStoreInterface {
 
 	addHistoryValues: (values: HISTORY_VALUE_TYPE[]) => void;
 	getListValues: (type: string, language: LANGUAGE_APP) => RESULT_VALUES_TYPE[];
-	getHistoryValues: (language: LANGUAGE_APP) => GROUPED_HISTORY_TYPE[];
+	getHistoryValues: (
+		language: LANGUAGE_APP,
+		sortingType: SORTING_TYPES,
+	) => GROUPED_HISTORY_TYPE[];
 	checkIsFavorites: (id: string) => boolean;
 	setFavoritesValues: (id: string) => void;
 	reset: () => void;
@@ -119,7 +117,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 				}
 				return resultValues;
 			},
-			getHistoryValues: (language) => {
+			getHistoryValues: (language, sortingType) => {
 				const history = get().historyValues;
 
 				const uniqueDates = Array.from(
@@ -132,14 +130,17 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 						.filter((h) => h.data === date)
 						.flatMap((h) => h.values),
 				}));
-				const sortedHistory = groupedHistory.sort(
+
+				const sortedHistory = [...groupedHistory].sort(
+					// 👈 создаём копию
 					(a, b) =>
 						dayjs(b.date, 'YYYY-MM-DD').unix() -
 						dayjs(a.date, 'YYYY-MM-DD').unix(),
 				);
-				// const dateFormated = groupedHistory;
-				// return groupedHistory;
-				return sortedHistory;
+
+				return sortingType === SORTING_TYPES.ASCENDING_DATE
+					? [...groupedHistory] // 👈 тоже копию
+					: sortedHistory;
 			},
 			checkIsFavorites: (id) => {
 				return get().favoritesValues.includes(id);

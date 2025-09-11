@@ -1,12 +1,14 @@
 import { AnimatedGradientBackground } from "@/components/animatedGradientBackground";
+import SortingByDate from "@/components/sortingByDate";
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
 import { fahrenheitToCelsiusFormula, METRIC_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
+import { GROUPED_HISTORY_TYPE, SORTING_TYPES } from "@/stores/const/valuesStoreConsts";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
-import { GROUPED_HISTORY_TYPE, useValuesStore } from "@/stores/valuesStore";
+import { useValuesStore } from "@/stores/valuesStore";
 import { converterScreenStyles } from "@/styles/converterScreenStyles";
 import dayjs from "dayjs";
 import { LinearGradient } from "expo-linear-gradient";
@@ -53,19 +55,16 @@ export default function Convertor() {
     const colorScheme = useThemeStore(state => state.colorScheme)
 
     const valuesListToView = valuesListStore(VALUES_TYPES.ALL, currentLanguage)
+    //state_screens
     const [activeInputId, setActiveInputId] = useState<string | null>(null)
     const [activeGroup, setActiveGroup] = useState(VALUES_TYPES.ALL)
     const [currentGroupValues, setCurrentGroupValues] = useState(valuesListStore(VALUES_TYPES.ALL, currentLanguage))
     const [resultAfterConvertion, setResultAfterConvertion] = useState<ResultAfterConvertationType2[]>([])
-
-
-
     const [tempImperialValue, setTempImperialValue] = useState('')
     const [tempMetricValue, setTempMetricValue] = useState('')
     const [endChangeValue, setEndChangeValue] = useState(false)
-
-
     const [updateFavorites, setUpdateFavorites] = useState(false)
+    const [sortingType, SetSortingType] = useState(SORTING_TYPES.DESCENDING_DATE)
 
     const valuesGroups = [
         { type: VALUES_TYPES.ALL, label: translatedLabelForCurrentLanguage(LIST_LABEL.ALL, currentLanguage), values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
@@ -403,7 +402,6 @@ export default function Convertor() {
         setUpdateFavorites(false)
     }, [activeGroup, updateFavorites])
 
-
     //useEffect_block_end
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>
@@ -423,12 +421,18 @@ export default function Convertor() {
                     <View style={converterScreenStyles.historyContainer}>
                         <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>History</Text>
                         <Button title="reset store" onPress={resetValuesStore} />
+                        <SortingByDate
+                            callBack={SetSortingType}
+                            typeSorting={sortingType}
+                            textContent={'sort by'}
+                        />
                         <FlatList
                             style={converterScreenStyles.valuesListContainer}
-                            data={getHistoryValues(currentLanguage)}
+                            data={getHistoryValues(currentLanguage, sortingType)}
                             renderItem={renderHistory}
                             showsVerticalScrollIndicator={false}
                             showsHorizontalScrollIndicator={false}
+                            extraData={sortingType}
 
                         />
                     </View>
