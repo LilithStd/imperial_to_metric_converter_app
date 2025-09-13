@@ -6,7 +6,9 @@ export const sortingByDateStyles = StyleSheet.create({
 		justifyContent: 'space-around',
 	},
 	contentContainer: {
-		// width: 150,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	text: {},
 });

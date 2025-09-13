@@ -1,6 +1,8 @@
 import { SORTING_TYPES } from "@/stores/const/valuesStoreConsts";
 import { sortingByDateStyles } from "@/styles/components/sortingByDateStyles";
 import { Text, TouchableOpacity, View } from "react-native";
+import Arrow_down from '../assets/images/icons/arrow_down.svg';
+import Arrow_up from '../assets/images/icons/arrow_up.svg';
 
 interface SortingByDateInterface {
     callBack: (sortingType: SORTING_TYPES) => void,
@@ -23,6 +25,9 @@ export default function SortingByDate({ callBack, typeSorting, textContent }: So
                 <Text>
                     {typeSorting}
                 </Text>
+                {typeSorting === SORTING_TYPES.DESCENDING_DATE
+                    ? <Arrow_down width={22} height={22} />
+                    : <Arrow_up width={22} height={22} />}
             </View>
 
         </View>
