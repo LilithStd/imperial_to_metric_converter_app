@@ -212,6 +212,12 @@ export default function Convertor() {
             ]}>
                 <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>{item.label}</Text>
 
+                {activeGroup === LIST_LABEL.FAVORITES && item.values.length !== 0 && <View>
+                    <Button
+                        title="reset favorites"
+                        onPress={resetFavoritesValues}
+                    />
+                </View>}
                 <FlatList
                     data={item.values}
                     nestedScrollEnabled={true}
