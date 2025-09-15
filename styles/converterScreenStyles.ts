@@ -29,7 +29,14 @@ export const converterScreenStyles = StyleSheet.create({
 	historyContainer: {
 		flex: 1,
 	},
-	dataContainer: {},
+	dataContainer: {
+		width: 240,
+		height: 40,
+		alignContent: 'center',
+		justifyContent: 'center',
+		margin: 'auto',
+		borderRadius: 10,
+	},
 	dataContent: {
 		textAlign: 'center',
 	},
@@ -105,5 +112,14 @@ export const converterScreenStyles = StyleSheet.create({
 	},
 	textDark: {
 		color: 'white',
+	},
+	resetButton: {
+		width: 150,
+		height: 40,
+		justifyContent: 'center',
+		alignContent: 'center',
+		marginBottom: 10,
+		marginLeft: 'auto',
+		marginRight: 'auto',
 	},
 });

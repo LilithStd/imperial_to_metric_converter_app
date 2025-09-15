@@ -1,3 +1,4 @@
+import { colorScheme } from "@/stores/const/themeStoreConsts";
 import { SORTING_TYPES } from "@/stores/const/valuesStoreConsts";
 import { sortingByDateStyles } from "@/styles/components/sortingByDateStyles";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -7,11 +8,12 @@ import Arrow_up from '../assets/images/icons/arrow_up.svg';
 interface SortingByDateInterface {
     callBack: (sortingType: SORTING_TYPES) => void,
     typeSorting: SORTING_TYPES,
-    textContent: string
+    textContent: string,
+    colorScheme: colorScheme
 }
-export default function SortingByDate({ callBack, typeSorting, textContent }: SortingByDateInterface) {
+export default function SortingByDate({ callBack, typeSorting, textContent, colorScheme }: SortingByDateInterface) {
     return (
-        <View style={sortingByDateStyles.mainContainer}>
+        <View style={[sortingByDateStyles.mainContainer, { backgroundColor: colorScheme.button[0] }]}>
             <TouchableOpacity
                 onPress={() => callBack(typeSorting === SORTING_TYPES.DESCENDING_DATE ? SORTING_TYPES.ASCENDING_DATE : SORTING_TYPES.DESCENDING_DATE)}
             >

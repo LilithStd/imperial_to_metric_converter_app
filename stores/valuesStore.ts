@@ -38,7 +38,9 @@ interface ValuesStoreInterface {
 	) => GROUPED_HISTORY_TYPE[];
 	checkIsFavorites: (id: string) => boolean;
 	setFavoritesValues: (id: string) => void;
-	reset: () => void;
+	resetHistoryValues: () => void;
+	resetFavoritesValues: () => void;
+	resetAllStore: () => void;
 }
 
 export const useValuesStore = create<ValuesStoreInterface>()(
@@ -160,7 +162,7 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 					}));
 				}
 			},
-			reset: () => {
+			resetAllStore: () => {
 				set({
 					lengthValues: LENGTH_VALUES(LANGUAGE_APP.EN),
 					areaValues: AREA_VALUES(LANGUAGE_APP.EN),
@@ -171,6 +173,16 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 					pressureValues: PRESSURE_VALUES(LANGUAGE_APP.EN),
 					favoritesValues: [],
 					historyValues: [],
+				});
+			},
+			resetHistoryValues: () => {
+				set({
+					historyValues: [],
+				});
+			},
+			resetFavoritesValues: () => {
+				set({
+					favoritesValues: [],
 				});
 			},
 		}),

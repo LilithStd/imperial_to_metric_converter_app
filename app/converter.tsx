@@ -51,7 +51,8 @@ export default function Convertor() {
     const historyValues = useValuesStore(state => state.historyValues)
     const getHistoryValues = useValuesStore(state => state.getHistoryValues)
     const addValuesToHistory = useValuesStore(state => state.addHistoryValues)
-    const resetValuesStore = useValuesStore(state => state.reset)
+    const resetHistoryValues = useValuesStore(state => state.resetHistoryValues)
+    const resetFavoritesValues = useValuesStore(state => state.resetFavoritesValues)
     const colorScheme = useThemeStore(state => state.colorScheme)
 
     const valuesListToView = valuesListStore(VALUES_TYPES.ALL, currentLanguage)
@@ -312,7 +313,7 @@ export default function Convertor() {
                 converterScreenStyles.valuesBlockBackground,
 
             ]}>
-                <View style={[converterScreenStyles.dataContainer, { backgroundColor: colorScheme.button[0] }]}>
+                <View style={[converterScreenStyles.dataContainer, { backgroundColor: colorScheme.button[1] }]}>
 
                     <Text style={[converterScreenStyles.dataContent, { color: colorScheme.text }]}>{item.date}</Text>
 
@@ -420,11 +421,17 @@ export default function Convertor() {
                 {activeGroup === LIST_LABEL.HISTORY ? (
                     <View style={converterScreenStyles.historyContainer}>
                         <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>History</Text>
-                        <Button title="reset store" onPress={resetValuesStore} />
+                        <View style={converterScreenStyles.resetButton}>
+                            <Button
+                                title="reset history"
+                                onPress={resetHistoryValues}
+                            />
+                        </View>
                         <SortingByDate
                             callBack={SetSortingType}
                             typeSorting={sortingType}
                             textContent={'sort by'}
+                            colorScheme={colorScheme}
                         />
                         <FlatList
                             style={converterScreenStyles.valuesListContainer}
