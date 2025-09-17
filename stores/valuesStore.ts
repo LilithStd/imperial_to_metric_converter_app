@@ -13,11 +13,12 @@ import {
 	RESULT_VALUES_TYPE,
 	SPEED_VALUES,
 	TEMPERATURE_VALUES,
-	VALUES_TYPES,
+	VALUES_TYPE,
 	VOLUME_VALUES,
 	WEIGHT_VALUES,
 } from './const/listValues';
 import {GROUPED_HISTORY_TYPE, SORTING_TYPES} from './const/valuesStoreConsts';
+import {VALUES_TYPES} from '@/constants/translateContent';
 
 interface ValuesStoreInterface {
 	lengthValues: RESULT_VALUES_TYPE;

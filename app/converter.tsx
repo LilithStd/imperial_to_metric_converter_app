@@ -1,10 +1,12 @@
 import { AnimatedGradientBackground } from "@/components/animatedGradientBackground";
+import ResetComponent from "@/components/resetComponent";
 import SortingByDate from "@/components/sortingByDate";
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
+import { FAVORITES_RESET_VALUES, METRIC_TEMPERATURE_VALUES, VALUES_TYPES } from "@/constants/translateContent";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
-import { fahrenheitToCelsiusFormula, METRIC_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
+import { fahrenheitToCelsiusFormula, RESULT_VALUES_TYPE } from "@/stores/const/listValues";
 import { GROUPED_HISTORY_TYPE, SORTING_TYPES } from "@/stores/const/valuesStoreConsts";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
@@ -212,12 +214,13 @@ export default function Convertor() {
             ]}>
                 <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>{item.label}</Text>
 
-                {activeGroup === LIST_LABEL.FAVORITES && item.values.length !== 0 && <View>
-                    <Button
-                        title="reset favorites"
-                        onPress={resetFavoritesValues}
+                {activeGroup === LIST_LABEL.FAVORITES && item.values.length !== 0 &&
+
+                    <ResetComponent
+                        title={FAVORITES_RESET_VALUES[currentLanguage].RESET_FAVORITES}
+                        callback={resetFavoritesValues}
                     />
-                </View>}
+                }
                 <FlatList
                     data={item.values}
                     nestedScrollEnabled={true}
@@ -383,19 +386,13 @@ export default function Convertor() {
     useEffect(() => {
         const subscription = AppState.addEventListener("change", nextAppState => {
             if (nextAppState === "background") {
-                // addValuesToHistory(resultAfterConvertion)
-                // resetValuesStore()
-                // setResultAfterConvertion([])
             }
-
             if (nextAppState === "inactive") {
-                // resetValuesStore()
-            }
 
+            }
             if (nextAppState === "active") {
 
             }
-
             setAppState(nextAppState);
         });
 
