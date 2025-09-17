@@ -114,8 +114,6 @@ export const converterScreenStyles = StyleSheet.create({
 		color: 'white',
 	},
 	resetButton: {
-		width: 150,
-		height: 40,
 		justifyContent: 'center',
 		alignContent: 'center',
 		marginBottom: 10,

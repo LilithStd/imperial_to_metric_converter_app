@@ -2,7 +2,7 @@ import { AnimatedGradientBackground } from "@/components/animatedGradientBackgro
 import ResetComponent from "@/components/resetComponent";
 import SortingByDate from "@/components/sortingByDate";
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
-import { FAVORITES_RESET_VALUES, METRIC_TEMPERATURE_VALUES, VALUES_TYPES } from "@/constants/translateContent";
+import { FAVORITES_RESET_VALUES, HISTORY_RESET_VALUES, METRIC_TEMPERATURE_VALUES, VALUES_TYPES } from "@/constants/translateContent";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
@@ -15,7 +15,7 @@ import { converterScreenStyles } from "@/styles/converterScreenStyles";
 import dayjs from "dayjs";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
-import { AppState, AppStateStatus, Button, FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { AppState, AppStateStatus, FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FavoritesIcon from '../assets/images/icons/heart(empty).svg';
 import SwitchValueArrow from '../assets/images/icons/repeat.svg';
@@ -425,11 +425,17 @@ export default function Convertor() {
                     <View style={converterScreenStyles.historyContainer}>
                         <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>History</Text>
                         <View style={converterScreenStyles.resetButton}>
-                            <Button
+                            <ResetComponent
+                                title={HISTORY_RESET_VALUES[currentLanguage].RESET_HISTORY}
+                                callback={resetHistoryValues}
+                            />
+                            {/* <Button
                                 title="reset history"
                                 onPress={resetHistoryValues}
-                            />
+                            /> */}
+
                         </View>
+
                         <SortingByDate
                             callBack={SetSortingType}
                             typeSorting={sortingType}
