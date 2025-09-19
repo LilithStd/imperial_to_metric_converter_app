@@ -1,5 +1,6 @@
 import {LIST_LABEL, LIST_LABEL_TRANSLATE} from '@/helpers/helpersConst';
 
+import {VALUES_TYPES} from '@/constants/translateContent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import dayjs from 'dayjs';
 import {create} from 'zustand';
@@ -13,12 +14,10 @@ import {
 	RESULT_VALUES_TYPE,
 	SPEED_VALUES,
 	TEMPERATURE_VALUES,
-	VALUES_TYPE,
 	VOLUME_VALUES,
 	WEIGHT_VALUES,
 } from './const/listValues';
 import {GROUPED_HISTORY_TYPE, SORTING_TYPES} from './const/valuesStoreConsts';
-import {VALUES_TYPES} from '@/constants/translateContent';
 
 interface ValuesStoreInterface {
 	lengthValues: RESULT_VALUES_TYPE;

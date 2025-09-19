@@ -68,7 +68,8 @@ export default function Convertor() {
     const [endChangeValue, setEndChangeValue] = useState(false)
     const [updateFavorites, setUpdateFavorites] = useState(false)
     const [sortingType, SetSortingType] = useState(SORTING_TYPES.DESCENDING_DATE)
-
+    const [compleateLoading, setCompleateLoading] = useState(false)
+    //functions_screens
     const valuesGroups = [
         { type: VALUES_TYPES.ALL, label: translatedLabelForCurrentLanguage(LIST_LABEL.ALL, currentLanguage), values: [{ id: 'all', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
         { type: VALUES_TYPES.FAVORITES, label: translatedLabelForCurrentLanguage(LIST_LABEL.FAVORITES, currentLanguage), values: [{ id: 'favorites', imperialTypeValue: '', metricTypeValue: '', value: 0 }] },
@@ -214,13 +215,15 @@ export default function Convertor() {
             ]}>
                 <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>{item.label}</Text>
 
-                {activeGroup === LIST_LABEL.FAVORITES && item.values.length !== 0 &&
-
-                    <ResetComponent
-                        title={FAVORITES_RESET_VALUES[currentLanguage].RESET_FAVORITES}
-                        callback={resetFavoritesValues}
-                    />
-                }
+                {activeGroup === LIST_LABEL.FAVORITES &&
+                    item.values.length > 0 &&
+                    compleateLoading && (
+                        <ResetComponent
+                            title={FAVORITES_RESET_VALUES[currentLanguage].RESET_FAVORITES}
+                            callback={resetFavoritesValues}
+                            additionalCallback={setUpdateFavorites}
+                        />
+                    )}
                 <FlatList
                     data={item.values}
                     nestedScrollEnabled={true}
@@ -406,6 +409,11 @@ export default function Convertor() {
         setUpdateFavorites(false)
     }, [activeGroup, updateFavorites])
 
+    useEffect(() => {
+        if (activeGroup === LIST_LABEL.FAVORITES) {
+            setCompleateLoading(true); // ставим true только при первом заходе на вкладку
+        }
+    }, [activeGroup]);
     //useEffect_block_end
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>
@@ -428,12 +436,8 @@ export default function Convertor() {
                             <ResetComponent
                                 title={HISTORY_RESET_VALUES[currentLanguage].RESET_HISTORY}
                                 callback={resetHistoryValues}
-                            />
-                            {/* <Button
-                                title="reset history"
-                                onPress={resetHistoryValues}
-                            /> */}
 
+                            />
                         </View>
 
                         <SortingByDate
@@ -460,6 +464,7 @@ export default function Convertor() {
                         style={converterScreenStyles.valuesListContainer}
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
+
                     />
                 )}
             </AnimatedGradientBackground>
