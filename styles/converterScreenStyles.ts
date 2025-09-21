@@ -28,6 +28,7 @@ export const converterScreenStyles = StyleSheet.create({
 	},
 	historyContainer: {
 		flex: 1,
+		top: 22,
 	},
 	dataContainer: {
 		width: 240,

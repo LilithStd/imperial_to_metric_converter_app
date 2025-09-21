@@ -336,8 +336,8 @@ export default function Convertor() {
                         data={item.values}
                         renderItem={({ item }) => (
                             <View style={converterScreenStyles.historyContainer}>
-                                <View style={converterScreenStyles.historyDataContainer}>
-                                </View>
+                                {/* <View style={converterScreenStyles.historyDataContainer}>
+                                </View> */}
                                 <View style={converterScreenStyles.valuesSectionsContainer}>
                                     <LinearGradient
                                         style={[
@@ -411,7 +411,7 @@ export default function Convertor() {
 
     useEffect(() => {
         if (activeGroup === LIST_LABEL.FAVORITES) {
-            setCompleateLoading(true); // ставим true только при первом заходе на вкладку
+            setCompleateLoading(true);
         }
     }, [activeGroup]);
     //useEffect_block_end
