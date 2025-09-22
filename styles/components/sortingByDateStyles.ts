@@ -4,8 +4,8 @@ export const sortingByDateStyles = StyleSheet.create({
 	mainContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',
-		gap: 30,
-		width: 280,
+		gap: 6,
+		width: 310,
 		alignContent: 'center',
 		alignItems: 'center',
 		margin: 'auto',
@@ -13,10 +13,20 @@ export const sortingByDateStyles = StyleSheet.create({
 		borderRadius: 10,
 	},
 	contentContainer: {
+		// width: '50%',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignContent: 'center',
 	},
-	text: {},
+	content: {},
+	text: {
+		width: '50%',
+	},
+	iconsBlock: {
+		width: '70%',
+	},
+	sortingButtonBlock: {
+		width: 'auto',
+	},
 });
