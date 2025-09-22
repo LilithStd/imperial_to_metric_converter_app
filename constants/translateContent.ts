@@ -336,3 +336,16 @@ export const EMPTY_FAVORITES_DESCRIPTION = {
 	LV: 'Nekas nav pievienots izlasei',
 	RU: 'Ничего не добавлено в избранное',
 };
+
+export const SORTING_TYPES_TRANSLATED = {
+	ASCENDING_DATE: {
+		EN: 'Asdending date',
+		RU: 'По возрастанию даты',
+		LV: 'Datu pieaugums',
+	},
+	DESCENDING_DATE: {
+		EN: 'Descending date',
+		RU: 'По убыванию даты',
+		LV: 'Datu dilums',
+	},
+};

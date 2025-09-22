@@ -5,7 +5,7 @@ export const sortingByDateStyles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		gap: 30,
-		width: 240,
+		width: 280,
 		alignContent: 'center',
 		alignItems: 'center',
 		margin: 'auto',

@@ -1,4 +1,4 @@
-import { SORT_BY_VALUES } from "@/constants/translateContent";
+import { SORT_BY_VALUES, SORTING_TYPES_TRANSLATED } from "@/constants/translateContent";
 import { colorScheme } from "@/stores/const/themeStoreConsts";
 import { SORTING_TYPES } from "@/stores/const/valuesStoreConsts";
 import { useGlobalStore } from "@/stores/globalStore";
@@ -14,6 +14,8 @@ interface SortingByDateInterface {
 }
 export default function SortingByDate({ callBack, typeSorting, colorScheme }: SortingByDateInterface) {
     const currentLanguage = useGlobalStore(state => state.currentLanguage);
+    console.log(typeSorting);
+
     return (
         <View style={[sortingByDateStyles.mainContainer, { backgroundColor: colorScheme.button[0] }]}>
             <TouchableOpacity
@@ -27,7 +29,7 @@ export default function SortingByDate({ callBack, typeSorting, colorScheme }: So
             </TouchableOpacity>
             <View style={sortingByDateStyles.contentContainer}>
                 <Text>
-                    {typeSorting}
+                    {SORTING_TYPES_TRANSLATED[typeSorting][currentLanguage]}
                 </Text>
                 {typeSorting === SORTING_TYPES.DESCENDING_DATE
                     ? <Arrow_down width={22} height={22} />

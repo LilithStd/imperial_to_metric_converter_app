@@ -7,6 +7,6 @@ export type GROUPED_HISTORY_TYPE = {
 };
 
 export enum SORTING_TYPES {
-	ASCENDING_DATE = 'ascending date',
-	DESCENDING_DATE = 'descending date',
+	ASCENDING_DATE = 'ASCENDING_DATE',
+	DESCENDING_DATE = 'DESCENDING_DATE',
 }

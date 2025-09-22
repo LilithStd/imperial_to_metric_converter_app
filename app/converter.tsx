@@ -68,6 +68,7 @@ export default function Convertor() {
     const [endChangeValue, setEndChangeValue] = useState(false)
     const [updateFavorites, setUpdateFavorites] = useState(false)
     const [sortingType, SetSortingType] = useState(SORTING_TYPES.DESCENDING_DATE)
+
     const [compleateLoading, setCompleateLoading] = useState(false)
     //functions_screens
     const valuesGroups = [
@@ -79,6 +80,7 @@ export default function Convertor() {
         ...valuesListToView,
 
     ];
+
 
     //functions
 
