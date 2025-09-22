@@ -1,5 +1,7 @@
+import { SORT_BY_VALUES } from "@/constants/translateContent";
 import { colorScheme } from "@/stores/const/themeStoreConsts";
 import { SORTING_TYPES } from "@/stores/const/valuesStoreConsts";
+import { useGlobalStore } from "@/stores/globalStore";
 import { sortingByDateStyles } from "@/styles/components/sortingByDateStyles";
 import { Text, TouchableOpacity, View } from "react-native";
 import Arrow_down from '../assets/images/icons/arrow_down.svg';
@@ -8,10 +10,10 @@ import Arrow_up from '../assets/images/icons/arrow_up.svg';
 interface SortingByDateInterface {
     callBack: (sortingType: SORTING_TYPES) => void,
     typeSorting: SORTING_TYPES,
-    textContent: string,
     colorScheme: colorScheme
 }
-export default function SortingByDate({ callBack, typeSorting, textContent, colorScheme }: SortingByDateInterface) {
+export default function SortingByDate({ callBack, typeSorting, colorScheme }: SortingByDateInterface) {
+    const currentLanguage = useGlobalStore(state => state.currentLanguage);
     return (
         <View style={[sortingByDateStyles.mainContainer, { backgroundColor: colorScheme.button[0] }]}>
             <TouchableOpacity
@@ -19,7 +21,7 @@ export default function SortingByDate({ callBack, typeSorting, textContent, colo
             >
                 <View style={sortingByDateStyles.contentContainer}>
                     <Text>
-                        {textContent}
+                        {SORT_BY_VALUES[currentLanguage].SORT_BY}
                     </Text>
                 </View>
             </TouchableOpacity>

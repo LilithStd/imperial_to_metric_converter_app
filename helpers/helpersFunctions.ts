@@ -5,9 +5,9 @@ import {VALUES_ITEM} from '@/stores/const/listValues';
 import {ColorValue} from 'react-native';
 import {
 	EMPTY_FAVORITES_DESCRIPTION,
-	LIST_LABEL,
 	LIST_LABEL_TRANSLATE,
-} from './helpersConst';
+} from '../constants/translateContent';
+import {LIST_LABEL} from './helpersConst';
 
 export const convertTemperature = (value: string, type: TEMPERATURE_TYPE) => {
 	const numericValue = Number(value);

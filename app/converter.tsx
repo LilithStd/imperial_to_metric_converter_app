@@ -443,7 +443,6 @@ export default function Convertor() {
                         <SortingByDate
                             callBack={SetSortingType}
                             typeSorting={sortingType}
-                            textContent={'sort by'}
                             colorScheme={colorScheme}
                         />
                         <FlatList

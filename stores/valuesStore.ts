@@ -1,6 +1,6 @@
-import {LIST_LABEL, LIST_LABEL_TRANSLATE} from '@/helpers/helpersConst';
+import {LIST_LABEL} from '@/helpers/helpersConst';
 
-import {VALUES_TYPES} from '@/constants/translateContent';
+import {LIST_LABEL_TRANSLATE, VALUES_TYPES} from '@/constants/translateContent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import dayjs from 'dayjs';
 import {create} from 'zustand';
