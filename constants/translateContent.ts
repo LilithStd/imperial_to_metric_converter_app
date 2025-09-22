@@ -300,3 +300,15 @@ export const FAVORITES_RESET_VALUES = {
 		RESET_FAVORITES: 'Atiestatīt favorītus',
 	},
 };
+
+export const SORT_BY_VALUES = {
+	EN: {
+		SORT_BY: 'Sort by',
+	},
+	RU: {
+		SORT_BY: 'Сортировать по',
+	},
+	LV: {
+		SORT_BY: 'Kārtot pēc',
+	},
+};
