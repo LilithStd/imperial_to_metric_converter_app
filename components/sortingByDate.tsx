@@ -14,24 +14,22 @@ interface SortingByDateInterface {
 }
 export default function SortingByDate({ callBack, typeSorting, colorScheme }: SortingByDateInterface) {
     const currentLanguage = useGlobalStore(state => state.currentLanguage);
-    console.log(typeSorting);
-
     return (
         <View style={[sortingByDateStyles.mainContainer, { backgroundColor: colorScheme.button[0] }]}>
             <TouchableOpacity
                 onPress={() => callBack(typeSorting === SORTING_TYPES.DESCENDING_DATE ? SORTING_TYPES.ASCENDING_DATE : SORTING_TYPES.DESCENDING_DATE)}
                 style={[sortingByDateStyles.contentContainer, sortingByDateStyles.content]}
             >
-                <Text style={sortingByDateStyles.text}>
+                <Text style={[sortingByDateStyles.text, { color: colorScheme.text, fontWeight: '600' }]}>
                     {SORT_BY_VALUES[currentLanguage].SORT_BY}
                 </Text>
             </TouchableOpacity>
             <View style={[sortingByDateStyles.contentContainer, sortingByDateStyles.iconsBlock]}>
-                <Text style={sortingByDateStyles.text}>
+                <Text style={[sortingByDateStyles.text, { color: colorScheme.text, fontWeight: '600' }]}>
                     {SORTING_TYPES_TRANSLATED[typeSorting][currentLanguage]}
                 </Text>
                 {typeSorting === SORTING_TYPES.DESCENDING_DATE
-                    ? <Arrow_down width={22} height={22} />
+                    ? <Arrow_down width={22} height={22} stroke={colorScheme.text} />
                     : <Arrow_up width={22} height={22} />}
             </View>
 

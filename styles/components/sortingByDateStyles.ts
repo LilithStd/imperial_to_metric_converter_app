@@ -22,6 +22,7 @@ export const sortingByDateStyles = StyleSheet.create({
 	content: {},
 	text: {
 		width: '50%',
+		textAlign: 'center',
 	},
 	iconsBlock: {
 		width: '70%',

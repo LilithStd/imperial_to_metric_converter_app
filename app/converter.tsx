@@ -338,8 +338,6 @@ export default function Convertor() {
                         data={item.values}
                         renderItem={({ item }) => (
                             <View style={converterScreenStyles.historyContainer}>
-                                {/* <View style={converterScreenStyles.historyDataContainer}>
-                                </View> */}
                                 <View style={converterScreenStyles.valuesSectionsContainer}>
                                     <LinearGradient
                                         style={[
@@ -351,8 +349,8 @@ export default function Convertor() {
                                         colors={currentGradientColors(colorScheme.button)}
                                     >
                                         <View>
-                                            <Text>{item.imperialValues.label}</Text>
-                                            <Text>{item.imperialValues.value}</Text>
+                                            <Text style={[{ color: colorScheme.text }]}>{item.imperialValues.label}</Text>
+                                            <Text style={[{ color: colorScheme.text }]}>{item.imperialValues.value}</Text>
                                         </View>
                                     </LinearGradient>
                                     <LinearGradient
@@ -367,8 +365,8 @@ export default function Convertor() {
 
                                     >
                                         <View>
-                                            <Text>{item.metricValues.label}</Text>
-                                            <Text>{item.metricValues.value}</Text>
+                                            <Text style={[{ color: colorScheme.text }]}>{item.metricValues.label}</Text>
+                                            <Text style={[{ color: colorScheme.text }]}>{item.metricValues.value}</Text>
                                         </View>
                                     </LinearGradient>
                                 </View>
