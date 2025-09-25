@@ -6,7 +6,7 @@ import { FAVORITES_RESET_VALUES, HISTORY_RESET_VALUES, METRIC_TEMPERATURE_VALUES
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, emptyFavoritesDescription, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
-import { fahrenheitToCelsiusFormula, RESULT_VALUES_TYPE } from "@/stores/const/listValues";
+import { fahrenheitToCelsiusFormula, RESULT_VALUES_TYPE, VALUES_ITEM } from "@/stores/const/listValues";
 import { GROUPED_HISTORY_TYPE, SORTING_TYPES } from "@/stores/const/valuesStoreConsts";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
@@ -141,19 +141,19 @@ export default function Convertor() {
         setActiveInputId(id)
     }
 
-    const handleBlur = (id: string) => {
+    const handleBlur = (element: VALUES_ITEM) => {
         setResultAfterConvertion((prev) => {
             const existingIndex = prev.findIndex(
-                (item) => item.imperialValues.label === id
+                (item) => item.imperialValues.label === element.id
             );
 
             if (existingIndex !== -1) {
                 return prev.map((item) =>
-                    item.imperialValues.label === id
+                    item.imperialValues.label === element.id
                         ? {
                             ...item,
-                            imperialValues: { label: id, value: tempImperialValue },
-                            metricValues: { label: id, value: tempMetricValue },
+                            imperialValues: { label: element.id, value: tempImperialValue },
+                            metricValues: { label: element.id, value: tempMetricValue },
                         }
                         : item
                 );
@@ -161,8 +161,8 @@ export default function Convertor() {
                 return [
                     ...prev,
                     {
-                        imperialValues: { label: id, value: tempImperialValue },
-                        metricValues: { label: id, value: tempMetricValue },
+                        imperialValues: { label: element.id, value: tempImperialValue },
+                        metricValues: { label: element.id, value: tempMetricValue },
                     },
                 ];
             }
@@ -171,8 +171,8 @@ export default function Convertor() {
             {
                 data: dayjs().format("YYYY-MM-DD"),
                 values: {
-                    imperialValues: { label: id, value: tempImperialValue },
-                    metricValues: { label: id, value: tempMetricValue },
+                    imperialValues: { label: element.imperialTypeValue, value: tempImperialValue },
+                    metricValues: { label: element.metricTypeValue, value: tempMetricValue },
                 }
 
             },
@@ -251,7 +251,7 @@ export default function Convertor() {
                                     value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.IMPERIAL)}
                                     onFocus={() => handleFocus(item.id)}
                                     onChangeText={(text) => handleImperialChange(text, item.id, item.value)}
-                                    onBlur={() => handleBlur(item.id)}
+                                    onBlur={() => handleBlur(item)}
                                 />
                                 <Text style={[
                                     converterScreenStyles.valuesItem,
@@ -298,7 +298,7 @@ export default function Convertor() {
                                     value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.METRIC)}
                                     onFocus={() => handleFocus(item.id)}
                                     onChangeText={(text) => handleMetricChange(text, item.id, item.value)}
-                                    onBlur={() => handleBlur(item.id)}
+                                    onBlur={() => handleBlur(item)}
                                 />
                                 <Text style={[
                                     converterScreenStyles.valuesItem,
