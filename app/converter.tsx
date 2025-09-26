@@ -348,9 +348,9 @@ export default function Convertor() {
                                         ]}
                                         colors={currentGradientColors(colorScheme.button)}
                                     >
-                                        <View>
-                                            <Text style={[{ color: colorScheme.text }]}>{item.imperialValues.label}</Text>
-                                            <Text style={[{ color: colorScheme.text }]}>{item.imperialValues.value}</Text>
+                                        <View style={converterScreenStyles.textContainer}>
+                                            <Text style={[converterScreenStyles.textLable, { color: colorScheme.text }]}>{item.imperialValues.label}</Text>
+                                            <Text style={[converterScreenStyles.textValue, { color: colorScheme.text }]}>{item.imperialValues.value}</Text>
                                         </View>
                                     </LinearGradient>
                                     <LinearGradient
@@ -365,8 +365,8 @@ export default function Convertor() {
 
                                     >
                                         <View>
-                                            <Text style={[{ color: colorScheme.text }]}>{item.metricValues.label}</Text>
-                                            <Text style={[{ color: colorScheme.text }]}>{item.metricValues.value}</Text>
+                                            <Text style={[converterScreenStyles.textLable, { color: colorScheme.text }]}>{item.metricValues.label}</Text>
+                                            <Text style={[converterScreenStyles.textValue, { color: colorScheme.text }]}>{item.metricValues.value}</Text>
                                         </View>
                                     </LinearGradient>
                                 </View>

@@ -108,11 +108,19 @@ export const converterScreenStyles = StyleSheet.create({
 		fontSize: 20,
 	},
 	valuesAllButtonContainer: {},
-	textLight: {
-		color: 'black',
+	textContainer: {
+		textAlign: 'center',
+		marginTop: 10,
 	},
-	textDark: {
-		color: 'white',
+	textLable: {
+		fontWeight: '900',
+		fontSize: 16,
+		textAlign: 'center',
+	},
+	textValue: {
+		fontSize: 16,
+		textAlign: 'center',
+		fontStyle: 'italic',
 	},
 	resetButton: {
 		justifyContent: 'center',
