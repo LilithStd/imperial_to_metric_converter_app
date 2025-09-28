@@ -415,6 +415,8 @@ export default function Convertor() {
         }
     }, [activeGroup]);
     //useEffect_block_end
+    console.log(getHistoryValues(currentLanguage, sortingType));
+
     return (
         <SafeAreaView style={converterScreenStyles.mainContainer}>
             <AnimatedGradientBackground
@@ -432,19 +434,23 @@ export default function Convertor() {
                 {activeGroup === LIST_LABEL.HISTORY ? (
                     <View style={converterScreenStyles.historyContainer}>
                         <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>History</Text>
-                        <View style={converterScreenStyles.resetButton}>
-                            <ResetComponent
-                                title={HISTORY_RESET_VALUES[currentLanguage].RESET_HISTORY}
-                                callback={resetHistoryValues}
+                        {getHistoryValues(currentLanguage, sortingType).length > 0 &&
+                            <View>
+                                <View style={converterScreenStyles.resetButton}>
+                                    <ResetComponent
+                                        title={HISTORY_RESET_VALUES[currentLanguage].RESET_HISTORY}
+                                        callback={resetHistoryValues}
 
-                            />
-                        </View>
+                                    />
+                                </View>
 
-                        <SortingByDate
-                            callBack={SetSortingType}
-                            typeSorting={sortingType}
-                            colorScheme={colorScheme}
-                        />
+                                <SortingByDate
+                                    callBack={SetSortingType}
+                                    typeSorting={sortingType}
+                                    colorScheme={colorScheme}
+                                />
+                            </View>}
+
                         <FlatList
                             style={converterScreenStyles.valuesListContainer}
                             data={getHistoryValues(currentLanguage, sortingType)}
@@ -452,7 +458,11 @@ export default function Convertor() {
                             showsVerticalScrollIndicator={false}
                             showsHorizontalScrollIndicator={false}
                             extraData={sortingType}
-
+                            ListEmptyComponent={
+                                <Text style={[converterScreenStyles.valuesGroupEmptyFavorites, { color: colorScheme.text }]}>
+                                    empty history
+                                </Text>
+                            }
                         />
                     </View>
 
