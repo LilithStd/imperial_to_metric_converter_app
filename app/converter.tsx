@@ -2,7 +2,7 @@ import { AnimatedGradientBackground } from "@/components/animatedGradientBackgro
 import ResetComponent from "@/components/resetComponent";
 import SortingByDate from "@/components/sortingByDate";
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
-import { EMPTUY_HISTORY_DESCRIPTION, EMPTY_FAVORITES_DESCRIPTION, FAVORITES_RESET_VALUES, HISTORY_RESET_VALUES, LIST_LABEL_TRANSLATE, METRIC_TEMPERATURE_VALUES, VALUES_TYPES } from "@/constants/translateContent";
+import { EMPTUY_HISTORY_DESCRIPTION, EMPTY_FAVORITES_DESCRIPTION, FAVORITES_RESET_VALUES, HISTORY_RESET_VALUES, LIST_LABEL_TRANSLATE, VALUES_TYPES } from "@/constants/translateContent";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
@@ -290,13 +290,19 @@ export default function Convertor() {
                                 <TextInput
                                     style={[
                                         converterScreenStyles.valuesItem,
+                                        item.id === TEMPERATURE_TYPE.FAHRENHEIT ? converterScreenStyles.temperaturePlaceholderText : '',
                                         { color: colorScheme.text }
                                     ]}
                                     placeholderTextColor={colorScheme.text}
-                                    placeholder={item.id === METRIC_TEMPERATURE_VALUES[currentLanguage].CELSIUS ? fahrenheitToCelsiusFormula : item.value.toString()}
+                                    placeholder={item.id === TEMPERATURE_TYPE.FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value.toString()}
                                     keyboardType='decimal-pad'
                                     value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.METRIC)}
-                                    onFocus={() => handleFocus(item.id)}
+                                    onFocus={() => {
+                                        console.log(item.id);
+
+                                        handleFocus(item.id)
+                                    }}
+
                                     onChangeText={(text) => handleMetricChange(text, item.id, item.value)}
                                     onBlur={() => handleBlur(item)}
                                 />

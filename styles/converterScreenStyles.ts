@@ -122,6 +122,10 @@ export const converterScreenStyles = StyleSheet.create({
 		textAlign: 'center',
 		fontStyle: 'italic',
 	},
+	temperaturePlaceholderText: {
+		fontSize: 14,
+		fontStyle: 'italic',
+	},
 	resetButton: {
 		justifyContent: 'center',
 		alignContent: 'center',

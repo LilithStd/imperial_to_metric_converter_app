@@ -95,12 +95,6 @@ export const useValuesStore = create<ValuesStoreInterface>()(
 							values: favoriteItems,
 						});
 						break;
-					case VALUES_TYPES.HISTORY:
-					// resultValues.push({
-					// 	type: LIST_LABEL.HISTORY,
-					// 	label: LIST_LABEL_TRANSLATE.HISTORY[language],
-					// 	values: [],
-					// });
 					case VALUES_TYPES.LENGTH:
 						resultValues.push(LENGTH_VALUES(language));
 						break;

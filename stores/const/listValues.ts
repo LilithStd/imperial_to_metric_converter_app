@@ -39,43 +39,6 @@ export type HISTORY_VALUES_TYPE = {
 	values: HISTORY_VALUE_TYPE[];
 };
 
-// export const WEIGHT_VALUES_00 = {
-// 	imperial: {
-// 		EN: {
-// 			OUNCE: 'ounce',
-// 			POUND: 'pound',
-// 			STONE: 'stone',
-// 			TON: 'ton',
-// 		},
-// 		RU: {
-// 			OUNCE: 'унция',
-// 			POUND: 'фунт',
-// 			STONE: 'стоун',
-// 			TON: 'тонна',
-// 		},
-// 		LV: {
-// 			OUNCE: 'unce',
-// 			POUND: 'mārciņa',
-// 			STONE: 'stone',
-// 			TON: 'tonna',
-// 		},
-// 	},
-// 	metric: {
-// 		EN: {
-// 			GRAM: 'gr',
-// 			KILOGRAM: 'kg',
-// 		},
-// 		RU: {
-// 			GRAM: 'гр',
-// 			KILOGRAM: 'кг',
-// 		},
-// 		LV: {
-// 			GRAM: 'gr',
-// 			KILOGRAM: 'kg',
-// 		},
-// 	},
-// };
-
 export const DEFAULT_IMPERIAL_COUNT = 1;
 
 export type VALUES_ITEM = {
