@@ -2,7 +2,7 @@ import { AnimatedGradientBackground } from "@/components/animatedGradientBackgro
 import ResetComponent from "@/components/resetComponent";
 import SortingByDate from "@/components/sortingByDate";
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
-import { EMPTUY_HISTORY_DESCRIPTION, EMPTY_FAVORITES_DESCRIPTION, FAVORITES_RESET_VALUES, HISTORY_RESET_VALUES, METRIC_TEMPERATURE_VALUES, VALUES_TYPES } from "@/constants/translateContent";
+import { EMPTUY_HISTORY_DESCRIPTION, EMPTY_FAVORITES_DESCRIPTION, FAVORITES_RESET_VALUES, HISTORY_RESET_VALUES, LIST_LABEL_TRANSLATE, METRIC_TEMPERATURE_VALUES, VALUES_TYPES } from "@/constants/translateContent";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
@@ -432,7 +432,7 @@ export default function Convertor() {
                 </View>
                 {activeGroup === LIST_LABEL.HISTORY ? (
                     <View style={converterScreenStyles.historyContainer}>
-                        <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>History</Text>
+                        <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>{LIST_LABEL_TRANSLATE.HISTORY[currentLanguage]}</Text>
                         {getHistoryValues(currentLanguage, sortingType).length > 0 &&
                             <View>
                                 <View style={converterScreenStyles.resetButton}>
