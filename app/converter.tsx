@@ -79,7 +79,7 @@ export default function Convertor() {
         ...valuesListToView,
 
     ];
-
+    const historyItemsTest = getHistoryValues(currentLanguage, sortingType).map(item => item.values).flat()
 
     //functions
 
@@ -226,103 +226,148 @@ export default function Convertor() {
                             additionalCallback={setUpdateFavorites}
                         />
                     )}
-                <FlatList
-                    data={activeGroup === LIST_LABEL.HISTORY ? getHistoryValues(currentLanguage, sortingType) : item.values}
-                    nestedScrollEnabled={true}
-                    renderItem={({ item }) => (
-                        <View style={converterScreenStyles.valuesSectionsContainer}>
-                            <LinearGradient
-                                style={[
-                                    converterScreenStyles.buttonBackground,
-                                    converterScreenStyles.gradientContainer,
-                                    { borderColor: colorScheme.border }
+                {activeGroup === LIST_LABEL.HISTORY ?
+                    <FlatList
+                        data={historyItemsTest}
+                        renderItem={({ item }) => (
+                            <View style={converterScreenStyles.historyContainer}>
+                                <View style={converterScreenStyles.valuesSectionsContainer}>
+                                    <LinearGradient
+                                        style={[
+                                            converterScreenStyles.buttonBackground,
+                                            converterScreenStyles.gradientContainer,
+                                            { borderColor: colorScheme.border }
 
-                                ]}
-                                colors={currentGradientColors(colorScheme.button)}
-                            >
-                                <TextInput
-                                    style={[
-                                        converterScreenStyles.valuesItem,
-                                        { color: colorScheme.text }
-                                    ]}
-                                    placeholder={'1'}
-                                    placeholderTextColor={colorScheme.text}
-                                    keyboardType='decimal-pad'
-                                    value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.IMPERIAL)}
-                                    onFocus={() => handleFocus(item.id)}
-                                    onChangeText={(text) => handleImperialChange(text, item.id, item.value)}
-                                    onBlur={() => handleBlur(item)}
-                                />
-                                <Text style={[
-                                    converterScreenStyles.valuesItem,
-                                    { color: colorScheme.text }
-                                ]}>
-                                    {item.imperialTypeValue}
-                                </Text>
-                            </LinearGradient>
-                            <View style={converterScreenStyles.favoritesContainer}>
-                                <SwitchValueArrow stroke={colorScheme.text} />
-                                <TouchableOpacity onPress={() => {
-                                    addFavorites(item.id);
-                                    setUpdateFavorites(true)
-                                }}
-                                >
-                                    <FavoritesIcon
-                                        stroke={colorScheme.text}
-                                        fill={checkIsFavorites(item.id) ? 'red' : 'transparent'}
-                                    />
-                                </TouchableOpacity>
+                                        ]}
+                                        colors={currentGradientColors(colorScheme.button)}
+                                    >
+                                        <View style={converterScreenStyles.textContainer}>
+                                            <Text style={[converterScreenStyles.textLable, { color: colorScheme.text }]}>{item.imperialValues.label}</Text>
+                                            <Text style={[converterScreenStyles.textValue, { color: colorScheme.text }]}>{item.imperialValues.value}</Text>
+                                        </View>
+                                    </LinearGradient>
+                                    <LinearGradient
+                                        style={[
+                                            converterScreenStyles.buttonBackground,
+                                            converterScreenStyles.gradientContainer,
+                                            { borderColor: colorScheme.border }
+
+                                        ]}
+
+                                        colors={currentGradientColors(colorScheme.button)}
+
+                                    >
+                                        <View>
+                                            <Text style={[converterScreenStyles.textLable, { color: colorScheme.text }]}>{item.metricValues.label}</Text>
+                                            <Text style={[converterScreenStyles.textValue, { color: colorScheme.text }]}>{item.metricValues.value}</Text>
+                                        </View>
+                                    </LinearGradient>
+                                </View>
                             </View>
-
-
-                            <LinearGradient
-                                style={[
-                                    converterScreenStyles.buttonBackground,
-                                    converterScreenStyles.gradientContainer,
-                                    { borderColor: colorScheme.border }
-
-                                ]}
-
-                                colors={currentGradientColors(colorScheme.button)}
-
-                            >
-
-                                <TextInput
+                        )}
+                        ListEmptyComponent={
+                            <Text style={[
+                                converterScreenStyles.valuesGroupEmptyFavorites,
+                                { color: colorScheme.text }
+                            ]}>empty history</Text>
+                        }
+                    /> : <FlatList
+                        data={item.values}
+                        nestedScrollEnabled={true}
+                        renderItem={({ item }) => (
+                            <View style={converterScreenStyles.valuesSectionsContainer}>
+                                <LinearGradient
                                     style={[
-                                        converterScreenStyles.valuesItem,
-                                        item.id === TEMPERATURE_TYPE.FAHRENHEIT ? converterScreenStyles.temperaturePlaceholderText : '',
-                                        { color: colorScheme.text }
+                                        converterScreenStyles.buttonBackground,
+                                        converterScreenStyles.gradientContainer,
+                                        { borderColor: colorScheme.border }
+
                                     ]}
-                                    placeholderTextColor={colorScheme.text}
-                                    placeholder={item.id === TEMPERATURE_TYPE.FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value.toString()}
-                                    keyboardType='decimal-pad'
-                                    value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.METRIC)}
-                                    onFocus={() => {
-                                        console.log(item.id);
-
-                                        handleFocus(item.id)
+                                    colors={currentGradientColors(colorScheme.button)}
+                                >
+                                    <TextInput
+                                        style={[
+                                            converterScreenStyles.valuesItem,
+                                            { color: colorScheme.text }
+                                        ]}
+                                        placeholder={'1'}
+                                        placeholderTextColor={colorScheme.text}
+                                        keyboardType='decimal-pad'
+                                        value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.IMPERIAL)}
+                                        onFocus={() => handleFocus(item.id)}
+                                        onChangeText={(text) => handleImperialChange(text, item.id, item.value)}
+                                        onBlur={() => handleBlur(item)}
+                                    />
+                                    <Text style={[
+                                        converterScreenStyles.valuesItem,
+                                        { color: colorScheme.text }
+                                    ]}>
+                                        {item.imperialTypeValue}
+                                    </Text>
+                                </LinearGradient>
+                                <View style={converterScreenStyles.favoritesContainer}>
+                                    <SwitchValueArrow stroke={colorScheme.text} />
+                                    <TouchableOpacity onPress={() => {
+                                        addFavorites(item.id);
+                                        setUpdateFavorites(true)
                                     }}
+                                    >
+                                        <FavoritesIcon
+                                            stroke={colorScheme.text}
+                                            fill={checkIsFavorites(item.id) ? 'red' : 'transparent'}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
 
-                                    onChangeText={(text) => handleMetricChange(text, item.id, item.value)}
-                                    onBlur={() => handleBlur(item)}
-                                />
-                                <Text style={[
-                                    converterScreenStyles.valuesItem,
-                                    { color: colorScheme.text }
-                                ]}>
-                                    {item.metricTypeValue}
-                                </Text>
 
-                            </LinearGradient>
-                        </View>
-                    )}
-                    ListEmptyComponent={
-                        <Text style={[
-                            converterScreenStyles.valuesGroupEmptyFavorites,
-                            { color: colorScheme.text }
-                        ]}>{activeGroup === LIST_LABEL.FAVORITES ? EMPTY_FAVORITES_DESCRIPTION[currentLanguage] : EMPTY_HISTORY_DESCRIPTION[currentLanguage]}</Text>
-                    }
-                />
+                                <LinearGradient
+                                    style={[
+                                        converterScreenStyles.buttonBackground,
+                                        converterScreenStyles.gradientContainer,
+                                        { borderColor: colorScheme.border }
+
+                                    ]}
+
+                                    colors={currentGradientColors(colorScheme.button)}
+
+                                >
+
+                                    <TextInput
+                                        style={[
+                                            converterScreenStyles.valuesItem,
+                                            item.id === TEMPERATURE_TYPE.FAHRENHEIT ? converterScreenStyles.temperaturePlaceholderText : '',
+                                            { color: colorScheme.text }
+                                        ]}
+                                        placeholderTextColor={colorScheme.text}
+                                        placeholder={item.id === TEMPERATURE_TYPE.FAHRENHEIT ? fahrenheitToCelsiusFormula : item.value.toString()}
+                                        keyboardType='decimal-pad'
+                                        value={getDisplayValue(item.id, GLOBAL_VALUES_TYPES.METRIC)}
+                                        onFocus={() => {
+                                            console.log(item.id);
+
+                                            handleFocus(item.id)
+                                        }}
+
+                                        onChangeText={(text) => handleMetricChange(text, item.id, item.value)}
+                                        onBlur={() => handleBlur(item)}
+                                    />
+                                    <Text style={[
+                                        converterScreenStyles.valuesItem,
+                                        { color: colorScheme.text }
+                                    ]}>
+                                        {item.metricTypeValue}
+                                    </Text>
+
+                                </LinearGradient>
+                            </View>
+                        )}
+                        ListEmptyComponent={
+                            <Text style={[
+                                converterScreenStyles.valuesGroupEmptyFavorites,
+                                { color: colorScheme.text }
+                            ]}>{activeGroup === LIST_LABEL.FAVORITES ? EMPTY_FAVORITES_DESCRIPTION[currentLanguage] : EMPTY_HISTORY_DESCRIPTION[currentLanguage]}</Text>
+                        }
+                    />}
             </View>
         </View>
     )
