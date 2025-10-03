@@ -337,7 +337,7 @@ export const EMPTY_FAVORITES_DESCRIPTION = {
 	RU: 'Ничего не добавлено в избранное',
 };
 
-export const EMPTUY_HISTORY_DESCRIPTION = {
+export const EMPTY_HISTORY_DESCRIPTION = {
 	EN: 'No history yet',
 	LV: 'Vēsture vēl nav pieejama',
 	RU: 'История пока пуста',

@@ -13,7 +13,7 @@ export const sortingByDateStyles = StyleSheet.create({
 		borderRadius: 10,
 	},
 	contentContainer: {
-		// width: '50%',
+		width: '50%',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -21,11 +21,10 @@ export const sortingByDateStyles = StyleSheet.create({
 	},
 	content: {},
 	text: {
-		width: '50%',
 		textAlign: 'center',
 	},
 	iconsBlock: {
-		width: '70%',
+		// width: 'auto',
 	},
 	sortingButtonBlock: {
 		width: 'auto',

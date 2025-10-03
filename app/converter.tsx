@@ -1,8 +1,7 @@
 import { AnimatedGradientBackground } from "@/components/animatedGradientBackground";
 import ResetComponent from "@/components/resetComponent";
-import SortingByDate from "@/components/sortingByDate";
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
-import { EMPTUY_HISTORY_DESCRIPTION, EMPTY_FAVORITES_DESCRIPTION, FAVORITES_RESET_VALUES, HISTORY_RESET_VALUES, LIST_LABEL_TRANSLATE, VALUES_TYPES } from "@/constants/translateContent";
+import { EMPTY_FAVORITES_DESCRIPTION, EMPTY_HISTORY_DESCRIPTION, FAVORITES_RESET_VALUES, VALUES_TYPES } from "@/constants/translateContent";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
@@ -210,6 +209,7 @@ export default function Convertor() {
     )
 
     const renderItem = ({ item }: { item: RESULT_VALUES_TYPE }) => (
+
         <View style={converterScreenStyles.valuesBlockContainer}>
             <View style={[
                 converterScreenStyles.valuesBlockBackground,
@@ -227,7 +227,7 @@ export default function Convertor() {
                         />
                     )}
                 <FlatList
-                    data={item.values}
+                    data={activeGroup === LIST_LABEL.HISTORY ? getHistoryValues(currentLanguage, sortingType) : item.values}
                     nestedScrollEnabled={true}
                     renderItem={({ item }) => (
                         <View style={converterScreenStyles.valuesSectionsContainer}>
@@ -320,7 +320,7 @@ export default function Convertor() {
                         <Text style={[
                             converterScreenStyles.valuesGroupEmptyFavorites,
                             { color: colorScheme.text }
-                        ]}>{EMPTY_FAVORITES_DESCRIPTION[currentLanguage]}</Text>
+                        ]}>{activeGroup === LIST_LABEL.FAVORITES ? EMPTY_FAVORITES_DESCRIPTION[currentLanguage] : EMPTY_HISTORY_DESCRIPTION[currentLanguage]}</Text>
                     }
                 />
             </View>
@@ -436,7 +436,7 @@ export default function Convertor() {
                         showsHorizontalScrollIndicator={false}
                     />
                 </View>
-                {activeGroup === LIST_LABEL.HISTORY ? (
+                {/* {activeGroup === LIST_LABEL.HISTORY ? (
                     <View style={converterScreenStyles.historyContainer}>
                         <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>{LIST_LABEL_TRANSLATE.HISTORY[currentLanguage]}</Text>
                         {getHistoryValues(currentLanguage, sortingType).length > 0 &&
@@ -480,7 +480,15 @@ export default function Convertor() {
                         showsHorizontalScrollIndicator={false}
 
                     />
-                )}
+                )} */}
+                <FlatList
+                    data={currentGroupValues}
+                    renderItem={renderItem}
+                    style={converterScreenStyles.valuesListContainer}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+
+                />
             </AnimatedGradientBackground>
         </SafeAreaView>
     )
