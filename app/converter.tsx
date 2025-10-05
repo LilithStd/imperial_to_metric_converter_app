@@ -1,7 +1,7 @@
 import { AnimatedGradientBackground } from "@/components/animatedGradientBackground";
 import ResetComponent from "@/components/resetComponent";
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
-import { EMPTY_FAVORITES_DESCRIPTION, EMPTY_HISTORY_DESCRIPTION, FAVORITES_RESET_VALUES, VALUES_TYPES } from "@/constants/translateContent";
+import { EMPTY_FAVORITES_DESCRIPTION, EMPTY_HISTORY_DESCRIPTION, FAVORITES_RESET_VALUES, HISTORY_RESET_VALUES, VALUES_TYPES } from "@/constants/translateContent";
 import { LIST_LABEL } from "@/helpers/helpersConst";
 import { checkAvailibeValueToInput, convertImperialToMetric, convertTemperature, currentGradientColors, translatedLabelForCurrentLanguage } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
@@ -217,15 +217,20 @@ export default function Convertor() {
             ]}>
                 <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>{item.label}</Text>
 
-                {activeGroup === LIST_LABEL.FAVORITES &&
-                    item.values.length > 0 &&
-                    compleateLoading && (
-                        <ResetComponent
-                            title={FAVORITES_RESET_VALUES[currentLanguage].RESET_FAVORITES}
-                            callback={resetFavoritesValues}
-                            additionalCallback={setUpdateFavorites}
-                        />
-                    )}
+                {activeGroup === LIST_LABEL.HISTORY && (
+                    <ResetComponent
+                        title={HISTORY_RESET_VALUES[currentLanguage].RESET_HISTORY}
+                        callback={resetHistoryValues}
+                    />
+                )}
+
+                {activeGroup === LIST_LABEL.FAVORITES && (
+                    <ResetComponent
+                        title={FAVORITES_RESET_VALUES[currentLanguage].RESET_FAVORITES}
+                        callback={resetFavoritesValues}
+                        additionalCallback={setUpdateFavorites}
+                    />
+                )}
                 {activeGroup === LIST_LABEL.HISTORY ?
                     <FlatList
                         data={historyItemsTest}
