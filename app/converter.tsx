@@ -1,5 +1,6 @@
 import { AnimatedGradientBackground } from "@/components/animatedGradientBackground";
 import ResetComponent from "@/components/resetComponent";
+import SortingByDate from "@/components/sortingByDate";
 import { GLOBAL_VALUES_TYPES, TEMPERATURE_TYPE } from "@/constants/global";
 import { EMPTY_FAVORITES_DESCRIPTION, EMPTY_HISTORY_DESCRIPTION, FAVORITES_RESET_VALUES, HISTORY_RESET_VALUES, VALUES_TYPES } from "@/constants/translateContent";
 import { LIST_LABEL } from "@/helpers/helpersConst";
@@ -79,7 +80,7 @@ export default function Convertor() {
         ...valuesListToView,
 
     ];
-    const historyItemsTest = getHistoryValues(currentLanguage, sortingType).map(item => item.values).flat()
+    const historyItems = getHistoryValues(currentLanguage, sortingType).map(item => item.values).flat()
 
     //functions
 
@@ -217,14 +218,22 @@ export default function Convertor() {
             ]}>
                 <Text style={[converterScreenStyles.valuesTitle, { color: colorScheme.text }]}>{item.label}</Text>
 
-                {activeGroup === LIST_LABEL.HISTORY && (
-                    <ResetComponent
-                        title={HISTORY_RESET_VALUES[currentLanguage].RESET_HISTORY}
-                        callback={resetHistoryValues}
-                    />
+                {activeGroup === LIST_LABEL.HISTORY && historyItems.length > 0 && (
+                    <View style={{ gap: 10 }}>
+                        <ResetComponent
+                            title={HISTORY_RESET_VALUES[currentLanguage].RESET_HISTORY}
+                            callback={resetHistoryValues}
+                        />
+                        <SortingByDate
+                            callBack={SetSortingType}
+                            typeSorting={sortingType}
+                            colorScheme={colorScheme}
+                        />
+                    </View>
+
                 )}
 
-                {activeGroup === LIST_LABEL.FAVORITES && (
+                {activeGroup === LIST_LABEL.FAVORITES && item.values.length > 0 && (
                     <ResetComponent
                         title={FAVORITES_RESET_VALUES[currentLanguage].RESET_FAVORITES}
                         callback={resetFavoritesValues}
@@ -232,51 +241,64 @@ export default function Convertor() {
                     />
                 )}
                 {activeGroup === LIST_LABEL.HISTORY ?
-                    <FlatList
-                        data={historyItemsTest}
-                        renderItem={({ item }) => (
-                            <View style={converterScreenStyles.historyContainer}>
-                                <View style={converterScreenStyles.valuesSectionsContainer}>
-                                    <LinearGradient
-                                        style={[
-                                            converterScreenStyles.buttonBackground,
-                                            converterScreenStyles.gradientContainer,
-                                            { borderColor: colorScheme.border }
+                    <View style={converterScreenStyles.historyContainer}>
+                        {historyItems.length > 0 && <View style={[converterScreenStyles.dataContainer, { backgroundColor: colorScheme.button[1] }]}>
 
-                                        ]}
-                                        colors={currentGradientColors(colorScheme.button)}
-                                    >
-                                        <View style={converterScreenStyles.textContainer}>
-                                            <Text style={[converterScreenStyles.textLable, { color: colorScheme.text }]}>{item.imperialValues.label}</Text>
-                                            <Text style={[converterScreenStyles.textValue, { color: colorScheme.text }]}>{item.imperialValues.value}</Text>
-                                        </View>
-                                    </LinearGradient>
-                                    <LinearGradient
-                                        style={[
-                                            converterScreenStyles.buttonBackground,
-                                            converterScreenStyles.gradientContainer,
-                                            { borderColor: colorScheme.border }
+                            <Text style={[converterScreenStyles.dataContent, { color: colorScheme.text }]}>{getHistoryValues(currentLanguage, sortingType).map((element) => element.date)}</Text>
 
-                                        ]}
+                        </View>
 
-                                        colors={currentGradientColors(colorScheme.button)}
-
-                                    >
-                                        <View>
-                                            <Text style={[converterScreenStyles.textLable, { color: colorScheme.text }]}>{item.metricValues.label}</Text>
-                                            <Text style={[converterScreenStyles.textValue, { color: colorScheme.text }]}>{item.metricValues.value}</Text>
-                                        </View>
-                                    </LinearGradient>
-                                </View>
-                            </View>
-                        )}
-                        ListEmptyComponent={
-                            <Text style={[
-                                converterScreenStyles.valuesGroupEmptyFavorites,
-                                { color: colorScheme.text }
-                            ]}>empty history</Text>
                         }
-                    /> : <FlatList
+
+                        <FlatList
+                            data={historyItems}
+                            renderItem={({ item }) => (
+                                <View style={converterScreenStyles.historyContainer}>
+                                    <View style={converterScreenStyles.valuesSectionsContainer}>
+                                        <LinearGradient
+                                            style={[
+                                                converterScreenStyles.buttonBackground,
+                                                converterScreenStyles.gradientContainer,
+                                                { borderColor: colorScheme.border }
+
+                                            ]}
+                                            colors={currentGradientColors(colorScheme.button)}
+                                        >
+                                            <View style={converterScreenStyles.textContainer}>
+                                                <Text style={[converterScreenStyles.textLable, { color: colorScheme.text }]}>{item.imperialValues.label}</Text>
+                                                <Text style={[converterScreenStyles.textValue, { color: colorScheme.text }]}>{item.imperialValues.value}</Text>
+                                            </View>
+                                        </LinearGradient>
+                                        <LinearGradient
+                                            style={[
+                                                converterScreenStyles.buttonBackground,
+                                                converterScreenStyles.gradientContainer,
+                                                { borderColor: colorScheme.border }
+
+                                            ]}
+
+                                            colors={currentGradientColors(colorScheme.button)}
+
+                                        >
+                                            <View>
+                                                <Text style={[converterScreenStyles.textLable, { color: colorScheme.text }]}>{item.metricValues.label}</Text>
+                                                <Text style={[converterScreenStyles.textValue, { color: colorScheme.text }]}>{item.metricValues.value}</Text>
+                                            </View>
+                                        </LinearGradient>
+                                    </View>
+                                </View>
+                            )}
+                            ListEmptyComponent={
+                                <Text style={[
+                                    converterScreenStyles.valuesGroupEmptyFavorites,
+                                    { color: colorScheme.text }
+                                ]}>empty history</Text>
+                            }
+                        />
+
+
+                    </View>
+                    : <FlatList
                         data={item.values}
                         nestedScrollEnabled={true}
                         renderItem={({ item }) => (
