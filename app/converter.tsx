@@ -102,7 +102,7 @@ export default function Convertor() {
                         ? convertTemperature(text, TEMPERATURE_TYPE.FAHRENHEIT)
                         : text.includes('.') ?
                             convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toFixed(2)
-                            : convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toString();
+                            : convertImperialToMetric(GLOBAL_VALUES_TYPES.IMPERIAL, num, conversionValue).toFixed(2);
 
                 setTempMetricValue(convertedValue);
 
