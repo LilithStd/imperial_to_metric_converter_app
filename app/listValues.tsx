@@ -1,8 +1,9 @@
 
 import { AnimatedGradientBackground } from "@/components/animatedGradientBackground";
+import { IMPERIAL_TEMPERATURE_VALUES, VALUES_TYPES } from "@/constants/translateContent";
 import { currentGradientColors } from "@/helpers/helpersFunctions";
 import { ANIMATED_TYPES } from "@/stores/const/animatedBackgroundConsts";
-import { DEFAULT_IMPERIAL_COUNT, fahrenheitToCelsiusFormula, IMPERIAL_TEMPERATURE_VALUES, RESULT_VALUES_TYPE, VALUES_TYPES } from "@/stores/const/listValues";
+import { DEFAULT_IMPERIAL_COUNT, fahrenheitToCelsiusFormula, RESULT_VALUES_TYPE } from "@/stores/const/listValues";
 import { useGlobalStore } from "@/stores/globalStore";
 import { useThemeStore } from "@/stores/themeStore";
 import { useValuesStore } from "@/stores/valuesStore";
